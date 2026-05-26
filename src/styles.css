@@ -183,7 +183,7 @@ a:focus-visible {
   top: 50%;
   left: 50%;
   z-index: 1;
-  opacity: 0.44;
+  opacity: 0;
   pointer-events: none;
   transform: translate(-50%, -50%) translateY(-1.8vh) scale(0.98);
 }
@@ -197,15 +197,13 @@ a:focus-visible {
   min-width: 0;
   margin: 0 auto;
   padding: 4.65rem 2.35rem 2.35rem;
-  overflow: visible;
+  overflow: hidden;
   background:
     linear-gradient(rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0)),
     rgba(24, 24, 22, 0.98);
   border: 1px solid rgba(242, 240, 235, 0.13);
   border-radius: 1.15rem;
   box-shadow:
-    0 2.4rem 5.5rem rgba(0, 0, 0, 0.16),
-    0 0.6rem 1.6rem rgba(0, 0, 0, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(0.35rem) saturate(118%);
   overflow-wrap: break-word;
