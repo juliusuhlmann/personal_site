@@ -1,0 +1,7 @@
+node_modules
+dist
+working/*
+!working/.gitkeep
+.env
+.env.*
+!.env.example
