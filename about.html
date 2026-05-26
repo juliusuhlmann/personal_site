@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="The personal website of Julius Uhlmann."
+      content="About Julius Uhlmann."
     />
     <style>
       body {
@@ -17,41 +17,34 @@
         color: inherit;
       }
     </style>
-    <title>Julius Uhlmann</title>
+    <title>About Me | Julius Uhlmann</title>
   </head>
   <body>
     <div id="particles-js" aria-hidden="true"></div>
-    <main class="home" aria-labelledby="site-title">
-      <section class="intro">
-        <h1 id="site-title"><span>Julius Uhlmann</span></h1>
+    <main class="page about-stage" aria-labelledby="about-title">
+      <section class="intro about-home-backdrop" aria-hidden="true">
+        <h2><span>Julius Uhlmann</span></h2>
         <nav class="nav-links" aria-label="Primary">
-          <a href="#about" data-about-open>About Me</a>
+          <a href="/about.html" tabindex="-1">About Me</a>
           <span aria-hidden="true">|</span>
-          <a href="#" data-placeholder-link>Writing</a>
+          <a href="#" tabindex="-1">Writing</a>
           <span aria-hidden="true">|</span>
-          <a href="#" data-placeholder-link>Contact</a>
+          <a href="#" tabindex="-1">Contact</a>
         </nav>
       </section>
-    </main>
-    <section
-      class="about-overlay page"
-      aria-labelledby="about-title"
-      data-about-overlay
-      hidden
-    >
       <article class="about-panel">
         <div class="window-titlebar">
           <div class="window-controls">
             <button
               class="window-control window-control-close"
               type="button"
-              aria-label="Close About Me"
+              aria-label="Close and return home"
               data-window-close
             ></button>
             <button
               class="window-control window-control-minimize"
               type="button"
-              aria-label="Minimize About Me"
+              aria-label="Minimize and return home"
               data-window-minimize
             ></button>
             <button
@@ -62,9 +55,9 @@
           </div>
           <span class="window-title">About Me</span>
         </div>
-        <h2 id="about-title" class="page-title">About Me</h2>
-        <nav class="page-nav" aria-label="About">
-          <a href="/" data-window-close>Home</a>
+        <h1 id="about-title" class="page-title">About Me</h1>
+        <nav class="page-nav" aria-label="Primary">
+          <a href="/">Home</a>
           <span aria-hidden="true">|</span>
           <a href="#" data-placeholder-link>Writing</a>
           <span aria-hidden="true">|</span>
@@ -86,13 +79,13 @@
           </p>
         </div>
         <section class="cv-section" aria-labelledby="cv-title">
-          <h3 id="cv-title" class="section-title">CV</h3>
+          <h2 id="cv-title" class="section-title">CV</h2>
           <ol class="timeline">
             <li class="timeline-item">
               <span class="timeline-date">24-Present</span>
               <span class="timeline-dot" aria-hidden="true"></span>
               <div class="timeline-content">
-                <h4>Position Title</h4>
+                <h3>Position Title</h3>
                 <p class="timeline-company">Company Name</p>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -108,7 +101,7 @@
               <span class="timeline-date">21-24</span>
               <span class="timeline-dot" aria-hidden="true"></span>
               <div class="timeline-content">
-                <h4>Position Title</h4>
+                <h3>Position Title</h3>
                 <p class="timeline-company">Company Name</p>
                 <p>
                   Praesent non ligula at arcu facilisis pretium. Donec commodo
@@ -123,7 +116,7 @@
               <span class="timeline-date">18-21</span>
               <span class="timeline-dot" aria-hidden="true"></span>
               <div class="timeline-content">
-                <h4>Position Title</h4>
+                <h3>Position Title</h3>
                 <p class="timeline-company">Company Name</p>
                 <p>
                   Sed dignissim lectus id mi luctus, vitae gravida erat
@@ -137,7 +130,7 @@
           </ol>
         </section>
       </article>
-    </section>
+    </main>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
