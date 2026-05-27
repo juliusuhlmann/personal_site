@@ -64,7 +64,7 @@ a:focus-visible {
   isolation: isolate;
   display: grid;
   justify-items: center;
-  gap: 1.45rem;
+  gap: 0.9rem;
   padding: 1.1rem 1.35rem;
   text-align: center;
   transform: translateY(-1.8vh);
@@ -77,11 +77,11 @@ a:focus-visible {
   z-index: -1;
   background: radial-gradient(
     ellipse at center,
-    rgba(17, 17, 15, 0.5),
+    rgba(17, 17, 15, 0.68),
     rgba(17, 17, 15, 0)
   );
   content: "";
-  filter: blur(0.75rem);
+  filter: blur(0.9rem);
   pointer-events: none;
 }
 
@@ -101,6 +101,54 @@ a:focus-visible {
 
 .site-brand-accent {
   color: #d9b4ef;
+}
+
+.social-links {
+  position: fixed;
+  top: 0.95rem;
+  right: 1.05rem;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 1.04rem;
+  color: #918c84;
+}
+
+.social-links a {
+  display: grid;
+  place-items: center;
+  width: 1.38rem;
+  height: 1.38rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.social-links a.social-link-mail {
+  width: 2.09rem;
+  height: 2.09rem;
+}
+
+.social-links a:hover,
+.social-links a:focus-visible {
+  color: #f2f0eb;
+}
+
+.social-links img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: none;
+  opacity: 1;
+  object-fit: contain;
+  transition:
+    filter 160ms ease,
+    opacity 160ms ease;
+}
+
+.social-links a:hover img,
+.social-links a:focus-visible img {
+  filter: none;
+  opacity: 0.82;
 }
 
 #particles-js {
@@ -178,13 +226,14 @@ a:focus-visible {
 }
 
 .nav-links a[data-about-open] {
+  display: inline-block;
   text-decoration: none;
 }
 
 .nav-links a[data-about-open]::after {
   position: absolute;
-  left: -0.2em;
-  right: -0.3em;
+  left: 50%;
+  width: 100%;
   bottom: -0.61em;
   height: 0.64em;
   background-image: url("data:image/svg+xml,%3Csvg width='118' height='18' viewBox='0 0 118 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 11.5C18 8.2 33.8 7.2 49.8 9.2C65.7 11.1 82.2 11.2 116 6.4' stroke='%23d9b4ef' stroke-width='4.4' stroke-linecap='round'/%3E%3C/svg%3E");
@@ -192,6 +241,8 @@ a:focus-visible {
   background-size: 100% 100%;
   content: "";
   pointer-events: none;
+  transform: translateX(-50%) scaleX(1.15);
+  transform-origin: center;
 }
 
 .nav-links span {
@@ -334,6 +385,10 @@ a:focus-visible {
   background: #28c840;
 }
 
+.window-control-zoom:hover {
+  opacity: 0;
+}
+
 .window-control:focus-visible {
   outline: 1px solid rgba(242, 240, 235, 0.78);
   outline-offset: 0.18rem;
@@ -412,6 +467,68 @@ a:focus-visible {
   pointer-events: none;
 }
 
+.zoom-hover-note {
+  position: absolute;
+  top: 0.18rem;
+  left: 5.25rem;
+  z-index: 3;
+  max-width: min(31rem, calc(100% - 5.4rem));
+  margin: 0;
+  padding: 0.42rem 0.58rem;
+  background: rgba(17, 17, 15, 0.92);
+  border: 1px solid rgba(242, 240, 235, 0.12);
+  border-radius: 0.35rem;
+  color: #b5b0a8;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  box-shadow: 0 0.6rem 1.6rem rgba(0, 0, 0, 0.28);
+}
+
+.zoom-hover-note p {
+  margin: 0;
+  padding-right: 1.35rem;
+}
+
+.zoom-hover-note-close {
+  appearance: none;
+  position: absolute;
+  top: 0.38rem;
+  right: 0.38rem;
+  width: 0.86rem;
+  height: 0.86rem;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.zoom-hover-note-close::before,
+.zoom-hover-note-close::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.68rem;
+  height: 0.08rem;
+  background: #b5b0a8;
+  border-radius: 999px;
+  content: "";
+}
+
+.zoom-hover-note-close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.zoom-hover-note-close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.zoom-hover-note-close:hover::before,
+.zoom-hover-note-close:hover::after,
+.zoom-hover-note-close:focus-visible::before,
+.zoom-hover-note-close:focus-visible::after {
+  background: #f2f0eb;
+}
+
 .page-title {
   margin: 0 0 0.85rem;
   color: #f2f0eb;
@@ -432,42 +549,6 @@ a:focus-visible {
 
 .about-copy p {
   margin: 0;
-}
-
-.contact-panel {
-  --window-minimize-x: clamp(14rem, 36vw, 30rem);
-  --window-minimize-y: clamp(12rem, 34vh, 24rem);
-
-  width: min(calc(100vw - 4rem), 35rem);
-  padding-bottom: 3.35rem;
-}
-
-.contact-icons {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(1.25rem, 5vw, 3rem);
-  min-height: 9.5rem;
-}
-
-.contact-icons a,
-.contact-icons img {
-  display: block;
-  width: clamp(4rem, 18vw, 6.5rem);
-  height: clamp(4rem, 18vw, 6.5rem);
-}
-
-.contact-icons a {
-  border-radius: 1rem;
-}
-
-.contact-icons a:focus-visible {
-  outline-offset: 0.45rem;
-}
-
-.contact-icons img {
-  object-fit: contain;
 }
 
 .about-title {
@@ -725,6 +806,22 @@ a:focus-visible {
     font-size: 0.85rem;
   }
 
+  .social-links {
+    top: 0.86rem;
+    right: 0.9rem;
+    gap: 0.86rem;
+  }
+
+  .social-links a {
+    width: 1.22rem;
+    height: 1.22rem;
+  }
+
+  .social-links a.social-link-mail {
+    width: 1.85rem;
+    height: 1.85rem;
+  }
+
   .page {
     padding: 3rem 0;
   }
@@ -736,14 +833,6 @@ a:focus-visible {
 
     width: calc(100vw - 3rem);
     padding: 4.25rem 1.5rem 1.65rem;
-  }
-
-  .contact-panel {
-    --window-minimize-x: clamp(10rem, 34vw, 20rem);
-    --window-minimize-y: clamp(10rem, 30vh, 18rem);
-
-    width: min(calc(100vw - 3rem), 32rem);
-    padding-bottom: 2.5rem;
   }
 
   .page-title {
@@ -770,13 +859,29 @@ a:focus-visible {
   }
 
   .intro {
-    gap: 1.1rem;
+    gap: 0.75rem;
   }
 
   .site-brand {
     top: 0.9rem;
     left: 0.95rem;
     font-size: 0.78rem;
+  }
+
+  .social-links {
+    top: 0.74rem;
+    right: 0.72rem;
+    gap: 0.68rem;
+  }
+
+  .social-links a {
+    width: 1.08rem;
+    height: 1.08rem;
+  }
+
+  .social-links a.social-link-mail {
+    width: 1.63rem;
+    height: 1.63rem;
   }
 
   .nav-links {
@@ -814,25 +919,6 @@ a:focus-visible {
     width: min(22.5rem, calc(100vw - 2rem));
     margin: 0 0 0 0.75rem;
     padding: 4rem 1rem 1.2rem;
-  }
-
-  .contact-panel {
-    --window-minimize-x: 14rem;
-    --window-minimize-y: 16rem;
-
-    width: min(22.5rem, calc(100vw - 2rem));
-    padding-bottom: 1.8rem;
-  }
-
-  .contact-icons {
-    gap: 1.2rem;
-    min-height: 8.5rem;
-  }
-
-  .contact-icons a,
-  .contact-icons img {
-    width: 4.5rem;
-    height: 4.5rem;
   }
 
   .page-title {
@@ -905,6 +991,11 @@ a:focus-visible {
     grid-template-columns: minmax(0, 1fr);
     gap: 0.18rem;
   }
+}
+
+.about-panel.writing-panel {
+  --window-minimize-x: clamp(20rem, 48vw, 42rem);
+  --window-minimize-y: 55vh;
 }
 
 @media (prefers-reduced-motion: reduce) {

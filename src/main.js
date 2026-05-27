@@ -22,9 +22,9 @@ const windows = [
     overlay: document.querySelector("[data-about-overlay]"),
   },
   {
-    hash: "#contact",
-    openerSelector: "[data-contact-open]",
-    overlay: document.querySelector("[data-contact-overlay]"),
+    hash: "#writing",
+    openerSelector: "[data-writing-open]",
+    overlay: document.querySelector("[data-writing-overlay]"),
   },
 ].map((windowState) => ({
   ...windowState,
@@ -138,6 +138,36 @@ document.querySelectorAll("[data-window-minimize]").forEach((control) => {
     panel.classList.add("about-panel-minimizing");
 
     panel.addEventListener("animationend", finishMinimize, { once: true });
+  });
+});
+
+let zoomHoverCount = 0;
+
+document.querySelectorAll(".window-control-zoom").forEach((control) => {
+  control.addEventListener("mouseenter", () => {
+    zoomHoverCount += 1;
+
+    if (zoomHoverCount !== 3) {
+      return;
+    }
+
+    const panel = control.closest(".about-panel");
+
+    if (!panel || panel.querySelector(".zoom-hover-note")) {
+      return;
+    }
+
+    const note = document.createElement("div");
+    note.className = "zoom-hover-note";
+    note.innerHTML = `
+      <p>The sizing is totally adequate already ;)</p>
+      <button class="zoom-hover-note-close" type="button" aria-label="Dismiss note"></button>
+    `;
+    panel.append(note);
+
+    note
+      .querySelector(".zoom-hover-note-close")
+      ?.addEventListener("click", () => note.remove());
   });
 });
 
