@@ -1,4 +1,3 @@
-import "./styles.css";
 import "./particles.js";
 import particlesConfig from "./particles-config.js";
 
@@ -16,54 +15,107 @@ const goHome = () => {
   window.location.href = "/";
 };
 
-const aboutOverlay = document.querySelector("[data-about-overlay]");
-const aboutPanel = aboutOverlay?.querySelector(".about-panel");
+const windows = [
+  {
+    hash: "#about",
+    openerSelector: "[data-about-open]",
+    overlay: document.querySelector("[data-about-overlay]"),
+  },
+  {
+    hash: "#contact",
+    openerSelector: "[data-contact-open]",
+    overlay: document.querySelector("[data-contact-overlay]"),
+  },
+].map((windowState) => ({
+  ...windowState,
+  panel: windowState.overlay?.querySelector(".about-panel"),
+}));
 
-const removeAboutHash = () => {
-  if (window.location.hash === "#about") {
+const visibleWindows = () =>
+  windows.filter(({ overlay }) => overlay && !overlay.hidden);
+
+const syncBodyState = () => {
+  document.body.classList.toggle("about-open", visibleWindows().length > 0);
+};
+
+const clearPanelState = (panel) => {
+  panel?.classList.remove("about-panel-minimizing");
+  panel?.removeAttribute("data-minimizing");
+};
+
+const clearWindowHash = (hash) => {
+  if (window.location.hash === hash) {
     window.history.pushState(null, "", window.location.pathname);
   }
 };
 
-const showAbout = () => {
-  if (!aboutOverlay) {
+const hideWindow = (windowState, { updateHash = true } = {}) => {
+  if (!windowState?.overlay) {
     return;
   }
 
-  aboutOverlay.hidden = false;
-  document.body.classList.add("about-open");
-  aboutPanel?.classList.remove("about-panel-minimizing");
-  aboutPanel?.removeAttribute("data-minimizing");
+  windowState.overlay.hidden = true;
+  clearPanelState(windowState.panel);
+  syncBodyState();
 
-  if (window.location.hash !== "#about") {
-    window.history.pushState(null, "", "#about");
+  if (updateHash) {
+    clearWindowHash(windowState.hash);
   }
 };
 
-const hideAbout = () => {
-  if (!aboutOverlay) {
+const hideAllWindows = ({ updateHash = true } = {}) => {
+  windows.forEach((windowState) => {
+    if (!windowState.overlay) {
+      return;
+    }
+
+    windowState.overlay.hidden = true;
+    clearPanelState(windowState.panel);
+  });
+
+  syncBodyState();
+
+  if (updateHash && windows.some(({ hash }) => hash === window.location.hash)) {
+    window.history.pushState(null, "", window.location.pathname);
+  }
+};
+
+const showWindow = (targetWindow, { updateHash = true } = {}) => {
+  if (!targetWindow?.overlay) {
     return;
   }
 
-  aboutOverlay.hidden = true;
-  document.body.classList.remove("about-open");
-  aboutPanel?.classList.remove("about-panel-minimizing");
-  aboutPanel?.removeAttribute("data-minimizing");
-  removeAboutHash();
+  windows.forEach((windowState) => {
+    if (windowState !== targetWindow) {
+      hideWindow(windowState, { updateHash: false });
+    }
+  });
+
+  targetWindow.overlay.hidden = false;
+  clearPanelState(targetWindow.panel);
+  syncBodyState();
+
+  if (updateHash && window.location.hash !== targetWindow.hash) {
+    window.history.pushState(null, "", targetWindow.hash);
+  }
 };
 
-document.querySelectorAll("[data-about-open]").forEach((link) => {
-  link.addEventListener("click", (event) => {
-    event.preventDefault();
-    showAbout();
+windows.forEach((windowState) => {
+  document.querySelectorAll(windowState.openerSelector).forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      showWindow(windowState);
+    });
   });
 });
 
 document.querySelectorAll("[data-window-close]").forEach((control) => {
   control.addEventListener("click", (event) => {
-    if (aboutOverlay?.contains(control)) {
+    const windowState = windows.find(({ overlay }) => overlay?.contains(control));
+
+    if (windowState) {
       event.preventDefault();
-      hideAbout();
+      hideWindow(windowState);
       return;
     }
 
@@ -71,36 +123,43 @@ document.querySelectorAll("[data-window-close]").forEach((control) => {
   });
 });
 
-document.querySelector("[data-window-minimize]")?.addEventListener("click", () => {
-  const panel = aboutPanel ?? document.querySelector(".about-panel");
-  const finishMinimize = aboutOverlay ? hideAbout : goHome;
+document.querySelectorAll("[data-window-minimize]").forEach((control) => {
+  control.addEventListener("click", () => {
+    const windowState = windows.find(({ overlay }) => overlay?.contains(control));
+    const panel = windowState?.panel ?? document.querySelector(".about-panel");
+    const finishMinimize = windowState ? () => hideWindow(windowState) : goHome;
 
-  if (!panel || panel.dataset.minimizing === "true" || reduceMotion) {
-    finishMinimize();
-    return;
-  }
+    if (!panel || panel.dataset.minimizing === "true" || reduceMotion) {
+      finishMinimize();
+      return;
+    }
 
-  panel.dataset.minimizing = "true";
-  panel.classList.add("about-panel-minimizing");
+    panel.dataset.minimizing = "true";
+    panel.classList.add("about-panel-minimizing");
 
-  panel.addEventListener("animationend", finishMinimize, { once: true });
+    panel.addEventListener("animationend", finishMinimize, { once: true });
+  });
 });
 
 window.addEventListener("popstate", () => {
-  if (!aboutOverlay) {
+  const windowState = windows.find(
+    ({ hash, overlay }) => overlay && hash === window.location.hash,
+  );
+
+  if (windowState) {
+    showWindow(windowState, { updateHash: false });
     return;
   }
 
-  if (window.location.hash === "#about") {
-    showAbout();
-    return;
-  }
-
-  hideAbout();
+  hideAllWindows({ updateHash: false });
 });
 
-if (aboutOverlay && window.location.hash === "#about") {
-  showAbout();
+const initialWindow = windows.find(
+  ({ hash, overlay }) => overlay && hash === window.location.hash,
+);
+
+if (initialWindow) {
+  showWindow(initialWindow, { updateHash: false });
 }
 
 if (!reduceMotion && typeof window.particlesJS === "function") {

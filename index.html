@@ -17,25 +17,31 @@
         color: inherit;
       }
     </style>
+    <link rel="stylesheet" href="/src/styles.css" />
     <title>Julius Uhlmann</title>
   </head>
   <body>
     <div id="particles-js" aria-hidden="true"></div>
+    <span class="site-brand" aria-hidden="true"
+      >~/<span class="site-brand-accent">julius</span>uhlmann</span
+    >
     <main class="home" aria-labelledby="site-title">
       <section class="intro">
-        <h1 id="site-title"><span>Julius Uhlmann</span></h1>
+        <h1 id="site-title">
+          <span>Hey, I'm <span class="name-accent">Julius</span></span>
+        </h1>
         <nav class="nav-links" aria-label="Primary">
-          <a href="#about" data-about-open>About Me</a>
+          <a href="#about" data-about-open>ABOUTME.md</a>
           <span aria-hidden="true">|</span>
           <a href="#" data-placeholder-link>Writing</a>
           <span aria-hidden="true">|</span>
-          <a href="#" data-placeholder-link>Contact</a>
+          <a href="#contact" data-contact-open>Contact</a>
         </nav>
       </section>
     </main>
     <section
       class="about-overlay page"
-      aria-labelledby="about-title"
+      aria-label="About Me"
       data-about-overlay
       hidden
     >
@@ -60,82 +66,285 @@
               aria-label="Zoom window"
             ></button>
           </div>
-          <span class="window-title">About Me</span>
+          <span class="window-title">ABOUTME.md</span>
         </div>
-        <h2 id="about-title" class="page-title">About Me</h2>
-        <nav class="page-nav" aria-label="About">
-          <a href="/" data-window-close>Home</a>
-          <span aria-hidden="true">|</span>
-          <a href="#" data-placeholder-link>Writing</a>
-          <span aria-hidden="true">|</span>
-          <a href="#" data-placeholder-link>Contact</a>
-        </nav>
-        <div class="about-copy">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-            vitae mauris sit amet nibh faucibus tincidunt sed vitae justo.
-          </p>
-          <p>
-            Praesent non ligula at arcu facilisis pretium. Donec commodo,
-            tortor vitae cursus tempor, nibh ipsum feugiat risus, a placerat
-            velit lorem non sem.
-          </p>
-          <p>
-            Sed dignissim lectus id mi luctus, vitae gravida erat fermentum.
-            Curabitur at lacus sed erat finibus dictum in at nibh.
+        <div class="about-copy markdown-file">
+          <h2 class="about-title md-line">
+            <span class="md-marker">#</span>
+            <span>Julius Uhlmann</span>
+          </h2>
+          <p class="md-line">
+            <span>
+              I'm Julius, a Data Scientist drawn to LLM research, data, and any
+              kind of deep dive.
+            </span>
           </p>
         </div>
         <section class="cv-section" aria-labelledby="cv-title">
-          <h3 id="cv-title" class="section-title">CV</h3>
+          <h3 id="cv-title" class="about-subtitle md-line">
+            <span class="md-marker">##</span>
+            <span>Experience</span>
+          </h3>
           <ol class="timeline">
             <li class="timeline-item">
-              <span class="timeline-date">24-Present</span>
+              <span class="timeline-date">
+                <span>February 2026 -</span>
+                <span>July 2026</span>
+              </span>
               <span class="timeline-dot" aria-hidden="true"></span>
               <div class="timeline-content">
-                <h4>Position Title</h4>
-                <p class="timeline-company">Company Name</p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Integer non sem vitae lacus luctus pretium.
-                </p>
-                <p class="timeline-note">
-                  Bottom Line -> Lorem ipsum dolor sit amet, consectetur
-                  adipiscing elit.
-                </p>
+                <h4>
+                  AI Engineering Intern,
+                  <span class="timeline-title-company">BMW Group</span>
+                </h4>
+                <ul class="timeline-details">
+                  <li>Architecting and developing LLM-based agentic systems</li>
+                </ul>
               </div>
             </li>
             <li class="timeline-item">
-              <span class="timeline-date">21-24</span>
+              <span class="timeline-date">
+                <span>August 2025 -</span>
+                <span>January 2026</span>
+              </span>
               <span class="timeline-dot" aria-hidden="true"></span>
               <div class="timeline-content">
-                <h4>Position Title</h4>
-                <p class="timeline-company">Company Name</p>
-                <p>
-                  Praesent non ligula at arcu facilisis pretium. Donec commodo
-                  nibh ipsum feugiat risus.
-                </p>
-                <p class="timeline-note">
-                  Bottom Line -> Praesent non ligula at arcu facilisis pretium.
-                </p>
+                <h4>
+                  Working Student Data Engineering,
+                  <span class="timeline-title-company">Allianz</span>
+                </h4>
+                <ul class="timeline-details">
+                  <li>
+                    Implemented data pipeline, from data loading to dbt
+                    transformations
+                  </li>
+                  <li>
+                    Assisted with the development of Python-based data products
+                  </li>
+                </ul>
               </div>
             </li>
             <li class="timeline-item">
-              <span class="timeline-date">18-21</span>
+              <span class="timeline-date">
+                <span>March 2025 -</span>
+                <span>July 2025</span>
+              </span>
               <span class="timeline-dot" aria-hidden="true"></span>
               <div class="timeline-content">
-                <h4>Position Title</h4>
-                <p class="timeline-company">Company Name</p>
-                <p>
-                  Sed dignissim lectus id mi luctus, vitae gravida erat
-                  fermentum. Curabitur at lacus sed erat finibus dictum.
-                </p>
-                <p class="timeline-note">
-                  Bottom Line -> Sed dignissim lectus id mi luctus fermentum.
-                </p>
+                <h4>
+                  Data Engineering Intern,
+                  <span class="timeline-title-company">Allianz</span>
+                </h4>
+                <ul class="timeline-details">
+                  <li>
+                    Developed a central Python module for Snowflake data
+                    pipeline, supporting eventual deployment to production
+                  </li>
+                  <li>
+                    Designed and implemented data quality monitoring framework
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="timeline-item">
+              <span class="timeline-date">
+                <span>March 2024 -</span>
+                <span>June 2024</span>
+              </span>
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <div class="timeline-content">
+                <h4>
+                  Lifetime Forecasting Project,
+                  <span class="timeline-title-company">Süddeutsche Zeitung</span>
+                </h4>
+                <ul class="timeline-details">
+                  <li>
+                    Developed customer lifetime forecasting models
+                    (scikit-learn, tensorflow)
+                  </li>
+                  <li>
+                    Applied statistical methods, tree-based approaches and basic
+                    neural networks
+                  </li>
+                  <li>
+                    Collaborated in a team of four; achieved an individual
+                    grade of 1.0
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="timeline-item">
+              <span class="timeline-date">
+                <span>August 2023 -</span>
+                <span>May 2024</span>
+              </span>
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <div class="timeline-content">
+                <h4>
+                  Research Assistant,
+                  <span class="timeline-title-company">
+                    Technical University of Applied Sciences Augsburg
+                  </span>
+                </h4>
+                <ul class="timeline-details">
+                  <li>
+                    Processed data for a virtual reality study, including
+                    cleaning, EDA, and implementing physiological synchrony
+                    metrics in R
+                  </li>
+                </ul>
               </div>
             </li>
           </ol>
         </section>
+        <section class="cv-section" aria-labelledby="education-title">
+          <h3 id="education-title" class="about-subtitle md-line">
+            <span class="md-marker">##</span>
+            <span>Education</span>
+          </h3>
+          <ol class="timeline">
+            <li class="timeline-item">
+              <span class="timeline-date">
+                <span>October 2022 -</span>
+                <span>February 2026</span>
+              </span>
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <div class="timeline-content">
+                <h4>
+                  Data Science B.Sc.,
+                  <span class="timeline-title-company">
+                    Technical University of Applied Sciences Augsburg
+                  </span>
+                </h4>
+                <ul class="timeline-details">
+                  <li>Overall Grade: 1.2</li>
+                  <li>
+                    Thesis: "Assessing RLVR's Efficacy in Solving Previously
+                    Intractable Problems with LLMs" available under
+                    <a href="https://doi.org/10.60524/opus-3084"
+                      >https://doi.org/10.60524/opus-3084</a
+                    >
+                  </li>
+                  <li>Tutor for Analysis I and II</li>
+                </ul>
+              </div>
+            </li>
+            <li class="timeline-item">
+              <span class="timeline-date">
+                <span>August 2024 -</span>
+                <span>December 2024</span>
+              </span>
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <div class="timeline-content">
+                <h4>
+                  Exchange Semester,
+                  <span class="timeline-title-company">
+                    University of Oklahoma
+                  </span>
+                </h4>
+                <ul class="timeline-details">
+                  <li>Focused on C++ &amp; CS Fundamentals</li>
+                  <li>
+                    Unanimously elected by classmates to represent Public
+                    Speaking class in Josh Lee Speech Competition (JLSC)
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ol>
+        </section>
+        <section class="skills-section" aria-labelledby="skills-title">
+          <h3 id="skills-title" class="about-subtitle md-line">
+            <span class="md-marker">##</span>
+            <span>Skills &amp; Interests</span>
+          </h3>
+          <dl class="skills-list">
+            <div>
+              <dt>Languages</dt>
+              <dd>German (native), English (C1)</dd>
+            </div>
+            <div>
+              <dt>Technology</dt>
+              <dd>
+                Python (pytorch, sklearn, dbt, pandas, ...), R, C++, SQL, AWS
+                (Glue), Snowflake
+              </dd>
+            </div>
+            <div>
+              <dt>Interests</dt>
+              <dd>LLM Research, Handbalancing, Tricking</dd>
+            </div>
+            <div>
+              <dt>Things I Like</dt>
+              <dd>
+                Developing intuitive understandings of how things work,
+                Reinforcement learning from verifiable rewards, Optimizing
+                daily life, Gradient-boosted trees, To-do apps where tasks can
+                be nested hierarchically
+              </dd>
+            </div>
+          </dl>
+        </section>
+      </article>
+    </section>
+    <section
+      class="about-overlay contact-overlay page"
+      aria-label="Contact"
+      data-contact-overlay
+      hidden
+    >
+      <article class="about-panel contact-panel">
+        <div class="window-titlebar">
+          <div class="window-controls">
+            <button
+              class="window-control window-control-close"
+              type="button"
+              aria-label="Close Contact"
+              data-window-close
+            ></button>
+            <button
+              class="window-control window-control-minimize"
+              type="button"
+              aria-label="Minimize Contact"
+              data-window-minimize
+            ></button>
+            <button
+              class="window-control window-control-zoom"
+              type="button"
+              aria-label="Zoom window"
+            ></button>
+          </div>
+          <span class="window-title">Contact</span>
+        </div>
+        <div class="contact-icons">
+          <a
+            href="https://www.linkedin.com/in/julius-uhlmann-76429a323/"
+            aria-label="LinkedIn"
+          >
+            <img
+              src="/contact/linkedin-app-icon.svg"
+              width="800"
+              height="800"
+              alt=""
+            />
+          </a>
+          <a href="https://www.instagram.com/sw_julius/" aria-label="Instagram">
+            <img
+              src="/contact/instagram_svg.svg"
+              width="800"
+              height="800"
+              alt=""
+            />
+          </a>
+          <a href="mailto:julius.uhlmann.m@gmail.com" aria-label="Email">
+            <img
+              src="/contact/gmail-svgrepo-com.svg"
+              width="800"
+              height="800"
+              alt=""
+            />
+          </a>
+        </div>
       </article>
     </section>
     <script type="module" src="/src/main.js"></script>

@@ -1,14 +1,14 @@
 const particlesConfig = {
   particles: {
     number: {
-      value: 54,
+      value: 128,
       density: {
         enable: true,
         value_area: 900,
       },
     },
     color: {
-      value: "#d4aad4",
+      value: "#d9b4ef",
     },
     shape: {
       type: "polygon",
@@ -21,7 +21,7 @@ const particlesConfig = {
       },
     },
     opacity: {
-      value: 0.62,
+      value: 0.82,
       random: true,
       anim: {
         enable: false,
@@ -38,8 +38,8 @@ const particlesConfig = {
     line_linked: {
       enable: true,
       distance: 150,
-      color: "#c89cc8",
-      opacity: 0.48,
+      color: "#e7bee7",
+      opacity: 0.58,
       width: 1,
     },
     move: {
