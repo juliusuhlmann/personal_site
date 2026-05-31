@@ -1,12 +1,6 @@
 import "./particles.js";
 import particlesConfig from "./particles-config.js";
 
-document.querySelectorAll("[data-placeholder-link]").forEach((link) => {
-  link.addEventListener("click", (event) => {
-    event.preventDefault();
-  });
-});
-
 const reduceMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)",
 ).matches;
@@ -26,10 +20,79 @@ const windows = [
     openerSelector: "[data-writing-open]",
     overlay: document.querySelector("[data-writing-overlay]"),
   },
+  {
+    hash: "#writing-entry-1",
+    openerSelector: '[data-article-open="writing-entry-1"]',
+    overlay: document.querySelector('[data-article-overlay="writing-entry-1"]'),
+  },
+  {
+    hash: "#writing-entry-2",
+    openerSelector: '[data-article-open="writing-entry-2"]',
+    overlay: document.querySelector('[data-article-overlay="writing-entry-2"]'),
+  },
+  {
+    hash: "#writing-entry-3",
+    openerSelector: '[data-article-open="writing-entry-3"]',
+    overlay: document.querySelector('[data-article-overlay="writing-entry-3"]'),
+  },
 ].map((windowState) => ({
   ...windowState,
-  panel: windowState.overlay?.querySelector(".about-panel"),
+  panel: windowState.overlay?.querySelector(".about-panel, .article-shell"),
 }));
+
+const articleParticlesConfig = {
+  ...particlesConfig,
+  particles: {
+    ...particlesConfig.particles,
+    number: {
+      ...particlesConfig.particles.number,
+      value: 13,
+      density: {
+        ...particlesConfig.particles.number.density,
+        enable: false,
+      },
+    },
+    move: {
+      ...particlesConfig.particles.move,
+      enable: false,
+    },
+  },
+  interactivity: {
+    ...particlesConfig.interactivity,
+    events: {
+      ...particlesConfig.interactivity.events,
+      onhover: {
+        ...particlesConfig.interactivity.events.onhover,
+        enable: false,
+      },
+      onclick: {
+        ...particlesConfig.interactivity.events.onclick,
+        enable: false,
+      },
+    },
+  },
+};
+
+const initializeArticleParticles = (windowState) => {
+  if (!windowState?.overlay || !windowState.hash?.startsWith("#writing-entry-")) {
+    return;
+  }
+
+  windowState.overlay
+    .querySelectorAll("[data-article-particles]")
+    .forEach((container, index) => {
+      if (container.dataset.particlesInitialized === "true") {
+        return;
+      }
+
+      const id = container.id || `article-particles-${windowState.hash.slice(1)}-${index + 1}`;
+      container.id = id;
+      if (typeof window.particlesJS === "function") {
+        window.particlesJS(id, articleParticlesConfig);
+      }
+      container.dataset.particlesInitialized = "true";
+    });
+};
 
 const visibleWindows = () =>
   windows.filter(({ overlay }) => overlay && !overlay.hidden);
@@ -94,6 +157,7 @@ const showWindow = (targetWindow, { updateHash = true } = {}) => {
   targetWindow.overlay.hidden = false;
   clearPanelState(targetWindow.panel);
   syncBodyState();
+  initializeArticleParticles(targetWindow);
 
   if (updateHash && window.location.hash !== targetWindow.hash) {
     window.history.pushState(null, "", targetWindow.hash);
@@ -106,6 +170,20 @@ windows.forEach((windowState) => {
       event.preventDefault();
       showWindow(windowState);
     });
+  });
+});
+
+document.querySelectorAll("[data-window-target]").forEach((control) => {
+  control.addEventListener("click", (event) => {
+    const targetHash = control.getAttribute("data-window-target");
+    const targetWindow = windows.find(({ hash }) => hash === targetHash);
+
+    if (!targetWindow) {
+      return;
+    }
+
+    event.preventDefault();
+    showWindow(targetWindow);
   });
 });
 
