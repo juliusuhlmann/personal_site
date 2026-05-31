@@ -5,8 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="The personal website of Julius Uhlmann."
+      content="Julius Uhlmann is a data scientist focused on LLM research, data engineering, and practical AI systems."
     />
+    <meta name="author" content="Julius Uhlmann" />
+    <meta name="theme-color" content="#11110f" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Julius Uhlmann" />
+    <meta property="og:title" content="Julius Uhlmann" />
+    <meta
+      property="og:description"
+      content="Data scientist focused on LLM research, data engineering, and practical AI systems."
+    />
+    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Julius Uhlmann personal website preview" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Julius Uhlmann" />
+    <meta
+      name="twitter:description"
+      content="Data scientist focused on LLM research, data engineering, and practical AI systems."
+    />
+    <meta name="twitter:image" content="/og-image.png" />
+    <meta name="twitter:image:alt" content="Julius Uhlmann personal website preview" />
     <style>
       body {
         background: #11110f;
@@ -23,6 +44,7 @@
       href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,500;0,600;0,800;1,200;1,300;1,500;1,600;1,800&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" href="/hex.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/src/styles.css" />
     <title>Julius Uhlmann</title>
   </head>
@@ -32,12 +54,16 @@
       >~/<span class="site-brand-accent">julius</span>uhlmann</span
     >
     <nav class="social-links" aria-label="Social links">
-      <a class="social-link-mail" href="mailto:julius.uhlmann.m@gmail.com" aria-label="Email">
+      <a
+        class="social-link-mail"
+        href="mailto:julius.uhlmann.m@gmail.com"
+        aria-label="Email Julius Uhlmann"
+      >
         <img src="/contact/mail_svg.svg" width="800" height="800" alt="" />
       </a>
       <a
         href="https://www.linkedin.com/in/julius-uhlmann-76429a323/"
-        aria-label="LinkedIn"
+        aria-label="Julius Uhlmann on LinkedIn"
         target="_blank"
         rel="noreferrer"
       >
@@ -45,7 +71,7 @@
       </a>
       <a
         href="https://www.instagram.com/sw_julius/"
-        aria-label="Instagram"
+        aria-label="Julius Uhlmann on Instagram"
         target="_blank"
         rel="noreferrer"
       >
@@ -58,9 +84,9 @@
           <span>Hey, I'm <span class="name-accent">Julius</span></span>
         </h1>
         <nav class="nav-links" aria-label="Primary">
-          <a href="#about" data-about-open>ABOUTME.md</a>
+          <a href="#about" aria-label="Open about Julius Uhlmann" data-about-open>ABOUTME.md</a>
           <span aria-hidden="true">|</span>
-          <a href="#writing" data-writing-open>Writing</a>
+          <a href="#writing" aria-label="Open Julius Uhlmann writing" data-writing-open>Writing</a>
         </nav>
       </section>
     </main>
@@ -88,7 +114,7 @@
             <button
               class="window-control window-control-zoom"
               type="button"
-              aria-label="Zoom window"
+              aria-label="Zoom About Me window"
             ></button>
           </div>
           <span class="window-title">ABOUTME.md</span>
@@ -246,7 +272,9 @@
                   <li>
                     Thesis: "Assessing RLVR's Efficacy in Solving Previously
                     Intractable Problems with LLMs" available under
-                    <a href="https://doi.org/10.60524/opus-3084"
+                    <a
+                      href="https://doi.org/10.60524/opus-3084"
+                      aria-label="Open Julius Uhlmann thesis DOI"
                       >https://doi.org/10.60524/opus-3084</a
                     >
                   </li>
@@ -336,7 +364,7 @@
             <button
               class="window-control window-control-zoom"
               type="button"
-              aria-label="Zoom window"
+              aria-label="Zoom Writing window"
             ></button>
           </div>
           <span class="window-title">Writing</span>
@@ -347,57 +375,20 @@
               <a
                 class="writing-recents-link"
                 href="#writing-entry-1"
+                aria-label="Open article: Example Writing"
                 data-article-open="writing-entry-1"
               >
                 <span class="writing-recents-icon" aria-hidden="true"></span>
                 <span class="writing-recents-copy">
                   <span class="writing-recents-title">
-                    On Building Taste Through Repetition
+                    Example Writing
                   </span>
                   <span class="writing-recents-summary">
-                    Notes on how repetition sharpens judgment faster than raw
-                    inspiration ever does.
+                    A placeholder article showing paragraphs, lists, quotes,
+                    bold text, and italic text.
                   </span>
                 </span>
-                <span class="writing-recents-meta">last month</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="writing-recents-link"
-                href="#writing-entry-2"
-                data-article-open="writing-entry-2"
-              >
-                <span class="writing-recents-icon" aria-hidden="true"></span>
-                <span class="writing-recents-copy">
-                  <span class="writing-recents-title">
-                    A Small System for Better Notes
-                  </span>
-                  <span class="writing-recents-summary">
-                    A lightweight structure for capturing thoughts without
-                    turning note-taking into admin work.
-                  </span>
-                </span>
-                <span class="writing-recents-meta">7 months ago</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="writing-recents-link"
-                href="#writing-entry-3"
-                data-article-open="writing-entry-3"
-              >
-                <span class="writing-recents-icon" aria-hidden="true"></span>
-                <span class="writing-recents-copy">
-                  <span class="writing-recents-title">
-                    Why I Keep Returning to Clean Interfaces
-                  </span>
-                  <span class="writing-recents-summary">
-                    A short argument for why restraint in interface design often
-                    makes the thinking feel sharper.
-                  </span>
-                </span>
-                <span class="writing-recents-meta">8 months ago</span>
+                <span class="writing-recents-meta">example</span>
               </a>
             </li>
           </ul>
@@ -422,188 +413,65 @@
           aria-hidden="true"
         ></div>
         <div class="article-topbar">
-          <a class="article-backlink" href="#writing" data-window-target="#writing">
+          <a
+            class="article-backlink"
+            href="#writing"
+            aria-label="Back to writing list"
+            data-window-target="#writing"
+          >
             Writing
           </a>
         </div>
         <header class="article-header">
-          <p class="article-kicker">Notes</p>
+          <p class="article-kicker">Example</p>
           <h1 id="article-title-1" class="article-title">
-            On Building Taste Through Repetition
+            Example Writing
           </h1>
           <div class="article-meta">
-            <time datetime="2026-04-12">April 12, 2026</time>
-            <span>6 min read</span>
+            <time datetime="2026-05-31">May 31, 2026</time>
+            <span>3 min read</span>
           </div>
           <p class="article-lead">
-            Repetition is not the boring part of getting better. It is the
-            mechanism that lets your standards become precise enough to trust.
+            This placeholder article shows how long-form writing, inline
+            emphasis, bullet points, and quoted material will look on the site.
           </p>
         </header>
         <div class="article-prose">
           <p>
-            Most people treat taste as something mystical. Either you have it or
-            you do not. In practice, taste usually looks much less glamorous. It
-            comes from seeing enough attempts in the same category that small
-            differences stop feeling small.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+            volutpat <strong>uses bold emphasis</strong> for important ideas,
+            while <em>italic text</em> can add a quieter kind of emphasis inside
+            a sentence.
           </p>
           <p>
-            The first ten versions of a thing mostly teach you what obvious
-            mistakes look like. The next twenty teach you what almost-working
-            feels like.
+            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            nisi ut aliquip ex ea commodo consequat.
           </p>
+          <h2>Section Heading</h2>
           <p>
-            Somewhere after that, you begin to recognize which
-            details are carrying the whole experience and which ones are only
-            noise.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum.
           </p>
-          <h2>What repetition changes</h2>
-          <p>
-            Repetition compresses feedback. Instead of reacting to a finished
-            outcome, you start noticing quality while you are still making the
-            thing. That is when your decisions get faster and sharper.
-          </p>
+          <ul>
+            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+            <li>
+              Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.
+            </li>
+            <li>
+              Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
+            </li>
+          </ul>
           <blockquote>
-            The point is not to repeat mechanically. The point is to repeat
-            attentively enough that your eye becomes difficult to fool.
+            This is an example quote. It should feel distinct from the body copy
+            without overpowering the article.
           </blockquote>
           <p>
-            This is why a strong creative practice often looks narrow from the
-            outside. People revisit the same page layout, the same sentence
-            rhythm, the same training loop, the same interface pattern. They are
-            not stuck. They are training discrimination.
-          </p>
-        </div>
-      </article>
-    </section>
-    <section
-      class="article-overlay"
-      aria-labelledby="article-title-2"
-      data-article-overlay="writing-entry-2"
-      hidden
-    >
-      <article class="article-shell">
-        <div
-          class="article-particles article-particles-left"
-          data-article-particles
-          aria-hidden="true"
-        ></div>
-        <div
-          class="article-particles article-particles-right"
-          data-article-particles
-          aria-hidden="true"
-        ></div>
-        <div class="article-topbar">
-          <a class="article-backlink" href="#writing" data-window-target="#writing">
-            Writing
-          </a>
-        </div>
-        <header class="article-header">
-          <p class="article-kicker">Systems</p>
-          <h1 id="article-title-2" class="article-title">
-            A Small System for Better Notes
-          </h1>
-          <div class="article-meta">
-            <time datetime="2025-10-03">October 3, 2025</time>
-            <span>4 min read</span>
-          </div>
-          <p class="article-lead">
-            Good notes should reduce friction twice: once when you capture the
-            thought, and once again when you need it back.
-          </p>
-        </header>
-        <div class="article-prose">
-          <p>
-            A lot of note-taking systems become miniature bureaucracies. They
-            ask for tags, folders, statuses, backlinks, templates, and some
-            ongoing act of classification before an idea is even allowed to
-            exist.
-          </p>
-          <p>
-            A smaller system usually works better. Capture quickly. Rewrite only
-            what still feels alive the next day. Promote only the pieces that
-            keep proving useful. Most notes do not deserve permanence.
-          </p>
-          <h2>Three layers are enough</h2>
-          <p>
-            I like a simple split between fleeting notes, working notes, and
-            durable notes. Fleeting notes are raw. Working notes are where ideas
-            collide.
-          </p>
-          <p>
-            Durable notes are compressed conclusions you would actually
-            want to meet again in six months.
-          </p>
-          <p>
-            The key is that each layer should demand more clarity than the one
-            before it. That way the archive naturally gets smaller as its value
-            goes up.
-          </p>
-        </div>
-      </article>
-    </section>
-    <section
-      class="article-overlay"
-      aria-labelledby="article-title-3"
-      data-article-overlay="writing-entry-3"
-      hidden
-    >
-      <article class="article-shell">
-        <div
-          class="article-particles article-particles-left"
-          data-article-particles
-          aria-hidden="true"
-        ></div>
-        <div
-          class="article-particles article-particles-right"
-          data-article-particles
-          aria-hidden="true"
-        ></div>
-        <div class="article-topbar">
-          <a class="article-backlink" href="#writing" data-window-target="#writing">
-            Writing
-          </a>
-        </div>
-        <header class="article-header">
-          <p class="article-kicker">Interfaces</p>
-          <h1 id="article-title-3" class="article-title">
-            Why I Keep Returning to Clean Interfaces
-          </h1>
-          <div class="article-meta">
-            <time datetime="2025-09-18">September 18, 2025</time>
-            <span>5 min read</span>
-          </div>
-          <p class="article-lead">
-            Clean interfaces are not interesting because they are minimal. They
-            are interesting because they remove excuses for unclear thinking.
-          </p>
-        </header>
-        <div class="article-prose">
-          <p>
-            Whenever an interface feels calm, people assume the work was mostly
-            visual. Often the real effort happened in prioritization. The design
-            looks simple because someone kept refusing to let low-value elements
-            compete with the primary task.
-          </p>
-          <p>
-            Clean does not mean empty. It means every visible decision is
-            carrying weight. The layout tells you what matters first. The type
-            scale tells you what is supporting material.
-          </p>
-          <p>
-            The spacing tells you
-            which objects belong together.
-          </p>
-          <h2>Restraint creates speed</h2>
-          <p>
-            People move faster in interfaces that do not constantly ask them to
-            re-evaluate where attention should go. The best products feel almost
-            unfair in this way. They make good decisions look obvious.
-          </p>
-          <p>
-            That is why I keep coming back to restraint. Not because it is a
-            style, but because it is one of the clearest signs that the designer
-            understood the job.
+            Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.
+            Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem
+            at dolor.
           </p>
         </div>
       </article>

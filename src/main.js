@@ -25,16 +25,6 @@ const windows = [
     openerSelector: '[data-article-open="writing-entry-1"]',
     overlay: document.querySelector('[data-article-overlay="writing-entry-1"]'),
   },
-  {
-    hash: "#writing-entry-2",
-    openerSelector: '[data-article-open="writing-entry-2"]',
-    overlay: document.querySelector('[data-article-overlay="writing-entry-2"]'),
-  },
-  {
-    hash: "#writing-entry-3",
-    openerSelector: '[data-article-open="writing-entry-3"]',
-    overlay: document.querySelector('[data-article-overlay="writing-entry-3"]'),
-  },
 ].map((windowState) => ({
   ...windowState,
   panel: windowState.overlay?.querySelector(".about-panel, .article-shell"),
