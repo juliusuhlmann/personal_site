@@ -1544,10 +1544,12 @@ a:focus-visible {
 
   [data-about-overlay] .about-title {
     font-size: 1.72rem;
+    font-weight: 800;
   }
 
   [data-about-overlay] .about-subtitle {
     font-size: 1rem;
+    font-weight: 800;
   }
 
   [data-about-overlay] .timeline-date {
@@ -1562,11 +1564,17 @@ a:focus-visible {
   [data-about-overlay] .timeline-content h3,
   [data-about-overlay] .timeline-content h4 {
     font-size: 0.92rem;
+    font-weight: 700;
   }
 
   [data-about-overlay] .skills-list {
     font-size: 0.88rem;
     line-height: 1.55;
+  }
+
+  [data-about-overlay] .file-meta-strip dt,
+  [data-about-overlay] .skills-list dt {
+    font-weight: 800;
   }
 }
 
