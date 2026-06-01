@@ -906,8 +906,17 @@ a:focus-visible {
 }
 
 @media (max-width: 480px) {
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
   .home {
+    height: 100dvh;
+    min-height: 100dvh;
     padding: 1.25rem;
+    overflow: hidden;
   }
 
   .intro {
