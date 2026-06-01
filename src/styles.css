@@ -966,7 +966,7 @@ a:focus-visible {
   .about-overlay {
     --overlay-edge-gap: 0.5rem;
 
-    align-items: flex-start;
+    align-items: center;
   }
 
   .about-panel {
@@ -974,8 +974,8 @@ a:focus-visible {
     --window-minimize-x: -18rem;
     --window-minimize-y: 12vh;
 
-    width: min(22.5rem, calc(100vw - 2rem));
-    margin: 0 0 0 0.75rem;
+    width: calc(100% - (var(--overlay-edge-gap, 0.5rem) * 2));
+    margin: 0 auto;
     min-height: calc(100dvh - var(--overlay-edge-gap, 0.5rem));
     padding: 4rem 1rem 1.2rem;
   }
@@ -1157,7 +1157,9 @@ a:focus-visible {
   }
 
   .writing-recents-meta {
+    grid-column: 2;
     font-size: 0.84rem;
+    text-align: left;
   }
 }
 
@@ -1364,7 +1366,7 @@ a:focus-visible {
 
 .writing-library {
   display: grid;
-  width: min(100%, 44rem);
+  width: min(100%, 45rem);
   margin: 0 auto;
 }
 
@@ -1377,7 +1379,7 @@ a:focus-visible {
 
 .writing-recents-link {
   display: grid;
-  grid-template-columns: 1rem minmax(0, 1fr) auto;
+  grid-template-columns: 1rem minmax(0, 1fr) minmax(16rem, auto);
   gap: 1.1rem;
   align-items: start;
   min-height: 4.7rem;
@@ -1395,6 +1397,7 @@ a:focus-visible {
 
 .writing-recents-icon {
   position: relative;
+  align-self: center;
   display: block;
   width: 0.82rem;
   height: 1rem;
@@ -1443,9 +1446,11 @@ a:focus-visible {
 }
 
 .writing-recents-meta {
+  align-self: center;
   color: #918c84;
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   line-height: 1.25;
+  text-align: right;
   white-space: nowrap;
 }
 
