@@ -1178,7 +1178,8 @@ a:focus-visible {
 
   .writing-recents-link {
     grid-template-columns: 0.9rem minmax(0, 1fr);
-    gap: 0.28rem;
+    column-gap: 0.28rem;
+    row-gap: 0.44rem;
     min-height: 0;
     padding: 0.9rem 1rem;
   }
@@ -1426,7 +1427,7 @@ a:focus-visible {
   display: grid;
   grid-template-columns: 1rem minmax(0, 1fr) minmax(16rem, auto);
   column-gap: 1.1rem;
-  row-gap: 0.28rem;
+  row-gap: 0.5rem;
   align-items: start;
   min-height: 4.7rem;
   padding: 0.95rem 1.5rem;
@@ -1531,7 +1532,7 @@ a:focus-visible {
   .writing-recents-link {
     grid-template-columns: 0.84rem minmax(0, 1fr);
     column-gap: 0.62rem;
-    row-gap: 0.16rem;
+    row-gap: 0.38rem;
     align-items: start;
     min-height: 0;
     padding: 0.82rem 1rem 0.86rem;
@@ -1570,7 +1571,7 @@ a:focus-visible {
     font-size: 0.72rem;
     line-height: 1.25;
     margin-top: 0;
-    margin-bottom: 0.12rem;
+    margin-bottom: 0.34rem;
     opacity: 0.78;
     text-align: left;
     white-space: normal;
