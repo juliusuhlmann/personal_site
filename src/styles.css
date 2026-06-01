@@ -1389,31 +1389,50 @@ a:focus-visible {
 .writing-recents-link {
   display: grid;
   grid-template-columns: 1rem minmax(0, 1fr) minmax(16rem, auto);
-  gap: 1.1rem;
+  column-gap: 1.1rem;
+  row-gap: 0.28rem;
   align-items: start;
   min-height: 4.7rem;
   padding: 0.95rem 1.5rem;
   color: #f2f0eb;
   text-decoration: none;
   border-bottom: 1px solid rgba(242, 240, 235, 0.08);
+  box-shadow: inset 0.18rem 0 0 transparent;
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease;
 }
 
 .writing-recents-link:hover,
 .writing-recents-link:focus-visible {
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(255, 255, 255, 0.045);
+  box-shadow: inset 0.18rem 0 0 rgba(217, 180, 239, 0.58);
   color: #ffffff;
+}
+
+.writing-recents-link:hover .writing-recents-title,
+.writing-recents-link:focus-visible .writing-recents-title {
+  color: #d9b4ef;
 }
 
 .writing-recents-icon {
   position: relative;
-  align-self: center;
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: start;
   display: block;
   width: 0.82rem;
   height: 1rem;
-  margin-top: 0.16rem;
-  background: rgba(145, 140, 132, 0.18);
-  border: 1px solid rgba(145, 140, 132, 0.42);
+  margin-top: 0.22rem;
+  background: rgba(145, 140, 132, 0.12);
+  border: 1px solid rgba(145, 140, 132, 0.34);
   border-radius: 0.16rem;
+  opacity: 0.86;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    opacity 160ms ease;
 }
 
 .writing-recents-icon::before {
@@ -1433,34 +1452,100 @@ a:focus-visible {
 .writing-recents-link:focus-visible .writing-recents-icon {
   border-color: rgba(242, 240, 235, 0.68);
   background: rgba(242, 240, 235, 0.12);
+  opacity: 1;
 }
 
 .writing-recents-copy {
-  display: grid;
-  gap: 0.28rem;
-  min-width: 0;
+  display: contents;
 }
 
 .writing-recents-title {
+  grid-column: 2;
+  grid-row: 1;
   min-width: 0;
   font-size: 1.08rem;
   font-weight: 600;
   line-height: 1.35;
+  transition: color 160ms ease;
 }
 
 .writing-recents-summary {
+  grid-column: 2 / 4;
+  grid-row: 2;
+  min-width: 0;
   color: #7f7a73;
   font-size: 0.88rem;
   line-height: 1.4;
 }
 
 .writing-recents-meta {
-  align-self: center;
+  grid-column: 3;
+  grid-row: 1;
+  align-self: start;
   color: #918c84;
-  font-size: 0.88rem;
+  font-size: 0.72rem;
   line-height: 1.25;
+  margin-top: 0.18rem;
+  opacity: 0.78;
   text-align: right;
   white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .writing-recents-link {
+    grid-template-columns: 0.84rem minmax(0, 1fr);
+    column-gap: 0.62rem;
+    row-gap: 0.16rem;
+    align-items: start;
+    min-height: 0;
+    padding: 0.82rem 1rem 0.86rem;
+  }
+
+  .writing-recents-icon {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    align-self: start;
+    width: 0.72rem;
+    height: 0.88rem;
+    margin-top: 0.18rem;
+  }
+
+  .writing-recents-copy {
+    display: contents;
+  }
+
+  .writing-recents-title,
+  .writing-recents-summary,
+  .writing-recents-meta {
+    grid-column: 2;
+    min-width: 0;
+  }
+
+  .writing-recents-title {
+    grid-row: 1;
+    font-size: 0.96rem;
+    line-height: 1.3;
+  }
+
+  .writing-recents-meta {
+    grid-row: 2;
+    align-self: start;
+    color: #918c84;
+    font-size: 0.72rem;
+    line-height: 1.25;
+    margin-top: 0;
+    margin-bottom: 0.12rem;
+    opacity: 0.78;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .writing-recents-summary {
+    grid-row: 3;
+    color: #7f7a73;
+    font-size: 0.78rem;
+    line-height: 1.38;
+  }
 }
 
 @media (max-width: 760px) {
