@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Julius Uhlmann is a data scientist focused on LLM research, data engineering, and practical AI systems."
+      content="I'm Julius, a Data Scientist drawn to LLM research, data, and any kind of deep dive."
     />
     <meta name="author" content="Julius Uhlmann" />
     <meta name="theme-color" content="#11110f" />
@@ -14,7 +14,7 @@
     <meta property="og:title" content="Julius Uhlmann" />
     <meta
       property="og:description"
-      content="Data scientist focused on LLM research, data engineering, and practical AI systems."
+      content="I'm Julius, a Data Scientist drawn to LLM research, data, and any kind of deep dive."
     />
     <meta property="og:image" content="/og-image.png" />
     <meta property="og:image:width" content="1200" />
@@ -24,7 +24,7 @@
     <meta name="twitter:title" content="Julius Uhlmann" />
     <meta
       name="twitter:description"
-      content="Data scientist focused on LLM research, data engineering, and practical AI systems."
+      content="I'm Julius, a Data Scientist drawn to LLM research, data, and any kind of deep dive."
     />
     <meta name="twitter:image" content="/og-image.png" />
     <meta name="twitter:image:alt" content="Julius Uhlmann personal website preview" />
@@ -97,40 +97,37 @@
       hidden
     >
       <article class="about-panel">
-        <div class="window-titlebar">
-          <div class="window-controls">
-            <button
-              class="window-control window-control-close"
-              type="button"
-              aria-label="Close About Me"
-              data-window-close
-            ></button>
-            <button
-              class="window-control window-control-minimize"
-              type="button"
-              aria-label="Minimize About Me"
-              data-window-minimize
-            ></button>
-            <button
-              class="window-control window-control-zoom"
-              type="button"
-              aria-label="Zoom About Me window"
-            ></button>
-          </div>
-          <span class="window-title">ABOUTME.md</span>
+        <div class="panel-header">
+          <span class="panel-path">~/juliusuhlmann/ABOUTME.md</span>
+          <button
+            class="panel-close"
+            type="button"
+            aria-label="Close About Me"
+            data-window-close
+          >
+            cd ..
+          </button>
         </div>
         <div class="about-copy markdown-file">
           <h2 class="about-title md-line">
             <span class="md-marker">#</span>
             <span>Julius Uhlmann</span>
           </h2>
-          <p class="md-line">
-            <span>
-              I'm Julius, a Data Scientist drawn to LLM research, data, and any
-              kind of deep dive.
-            </span>
-          </p>
         </div>
+        <dl class="file-meta-strip" aria-label="Profile metadata">
+          <div>
+            <dt>role</dt>
+            <dd>Data Scientist, AI/ML Engineer</dd>
+          </div>
+          <div>
+            <dt>focus</dt>
+            <dd>LLM research/ Agentic Systems</dd>
+          </div>
+          <div>
+            <dt>current</dt>
+            <dd>AI Engineering Intern, BMW Group</dd>
+          </div>
+        </dl>
         <section class="cv-section" aria-labelledby="cv-title">
           <h3 id="cv-title" class="about-subtitle md-line">
             <span class="md-marker">##</span>
@@ -347,27 +344,16 @@
       hidden
     >
       <article class="about-panel writing-panel">
-        <div class="window-titlebar">
-          <div class="window-controls">
-            <button
-              class="window-control window-control-close"
-              type="button"
-              aria-label="Close Writing"
-              data-window-close
-            ></button>
-            <button
-              class="window-control window-control-minimize"
-              type="button"
-              aria-label="Minimize Writing"
-              data-window-minimize
-            ></button>
-            <button
-              class="window-control window-control-zoom"
-              type="button"
-              aria-label="Zoom Writing window"
-            ></button>
-          </div>
-          <span class="window-title">Writing</span>
+        <div class="panel-header">
+          <span class="panel-path">~/juliusuhlmann/writing</span>
+          <button
+            class="panel-close"
+            type="button"
+            aria-label="Close Writing"
+            data-window-close
+          >
+            cd ..
+          </button>
         </div>
         <section class="writing-library" aria-label="Writing articles">
           <ul class="writing-recents-list">
@@ -378,9 +364,9 @@
                 aria-label="Open article: Example Writing"
                 data-article-open="writing-entry-1"
               >
-                <span class="writing-recents-icon" aria-hidden="true"></span>
                 <span class="writing-recents-copy">
                   <span class="writing-recents-title">
+                    <span class="writing-recents-icon" aria-hidden="true"></span>
                     Example Writing
                   </span>
                   <span class="writing-recents-summary">
@@ -389,7 +375,7 @@
                   </span>
                 </span>
                 <time class="writing-recents-meta" datetime="2026-05-31">
-                  Published yesterday
+                  May 31, 2026
                 </time>
               </a>
             </li>

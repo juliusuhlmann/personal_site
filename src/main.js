@@ -91,11 +91,6 @@ const syncBodyState = () => {
   document.body.classList.toggle("about-open", visibleWindows().length > 0);
 };
 
-const clearPanelState = (panel) => {
-  panel?.classList.remove("about-panel-minimizing");
-  panel?.removeAttribute("data-minimizing");
-};
-
 const clearWindowHash = (hash) => {
   if (window.location.hash === hash) {
     window.history.pushState(null, "", window.location.pathname);
@@ -108,7 +103,6 @@ const hideWindow = (windowState, { updateHash = true } = {}) => {
   }
 
   windowState.overlay.hidden = true;
-  clearPanelState(windowState.panel);
   syncBodyState();
 
   if (updateHash) {
@@ -123,7 +117,6 @@ const hideAllWindows = ({ updateHash = true } = {}) => {
     }
 
     windowState.overlay.hidden = true;
-    clearPanelState(windowState.panel);
   });
 
   syncBodyState();
@@ -145,7 +138,6 @@ const showWindow = (targetWindow, { updateHash = true } = {}) => {
   });
 
   targetWindow.overlay.hidden = false;
-  clearPanelState(targetWindow.panel);
   syncBodyState();
   initializeArticleParticles(targetWindow);
 
@@ -188,54 +180,6 @@ document.querySelectorAll("[data-window-close]").forEach((control) => {
     }
 
     goHome();
-  });
-});
-
-document.querySelectorAll("[data-window-minimize]").forEach((control) => {
-  control.addEventListener("click", () => {
-    const windowState = windows.find(({ overlay }) => overlay?.contains(control));
-    const panel = windowState?.panel ?? document.querySelector(".about-panel");
-    const finishMinimize = windowState ? () => hideWindow(windowState) : goHome;
-
-    if (!panel || panel.dataset.minimizing === "true" || reduceMotion) {
-      finishMinimize();
-      return;
-    }
-
-    panel.dataset.minimizing = "true";
-    panel.classList.add("about-panel-minimizing");
-
-    panel.addEventListener("animationend", finishMinimize, { once: true });
-  });
-});
-
-let zoomHoverCount = 0;
-
-document.querySelectorAll(".window-control-zoom").forEach((control) => {
-  control.addEventListener("mouseenter", () => {
-    zoomHoverCount += 1;
-
-    if (zoomHoverCount !== 3) {
-      return;
-    }
-
-    const panel = control.closest(".about-panel");
-
-    if (!panel || panel.querySelector(".zoom-hover-note")) {
-      return;
-    }
-
-    const note = document.createElement("div");
-    note.className = "zoom-hover-note";
-    note.innerHTML = `
-      <p>The sizing is totally adequate already ;)</p>
-      <button class="zoom-hover-note-close" type="button" aria-label="Dismiss note"></button>
-    `;
-    panel.append(note);
-
-    note
-      .querySelector(".zoom-hover-note-close")
-      ?.addEventListener("click", () => note.remove());
   });
 });
 
