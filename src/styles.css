@@ -778,6 +778,42 @@ a:focus-visible {
   padding-left: 1.15rem;
 }
 
+[data-about-overlay] .window-title {
+  font-size: 0.7rem;
+}
+
+[data-about-overlay] .about-copy {
+  font-size: 0.98rem;
+  line-height: 1.54;
+}
+
+[data-about-overlay] .about-title {
+  font-size: 2.12rem;
+}
+
+[data-about-overlay] .about-subtitle {
+  font-size: 1.16rem;
+}
+
+[data-about-overlay] .timeline-date {
+  font-size: 0.8rem;
+}
+
+[data-about-overlay] .timeline-content {
+  font-size: 0.9rem;
+  line-height: 1.56;
+}
+
+[data-about-overlay] .timeline-content h3,
+[data-about-overlay] .timeline-content h4 {
+  font-size: 1rem;
+}
+
+[data-about-overlay] .skills-list {
+  font-size: 0.9rem;
+  line-height: 1.56;
+}
+
 @keyframes type-name {
   from {
     width: 0;
@@ -1545,6 +1581,40 @@ a:focus-visible {
     color: #7f7a73;
     font-size: 0.78rem;
     line-height: 1.38;
+  }
+}
+
+@media (max-width: 480px) {
+  [data-about-overlay] .about-copy {
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
+  [data-about-overlay] .about-title {
+    font-size: 1.72rem;
+  }
+
+  [data-about-overlay] .about-subtitle {
+    font-size: 1rem;
+  }
+
+  [data-about-overlay] .timeline-date {
+    font-size: 0.74rem;
+  }
+
+  [data-about-overlay] .timeline-content {
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  [data-about-overlay] .timeline-content h3,
+  [data-about-overlay] .timeline-content h4 {
+    font-size: 0.92rem;
+  }
+
+  [data-about-overlay] .skills-list {
+    font-size: 0.88rem;
+    line-height: 1.55;
   }
 }
 
