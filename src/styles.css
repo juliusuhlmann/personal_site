@@ -66,7 +66,7 @@ a:focus-visible {
   position: relative;
   z-index: 1;
   min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 100svh;
   display: grid;
   place-items: center;
   padding: 2rem;
@@ -298,7 +298,7 @@ a:focus-visible {
   position: relative;
   z-index: 1;
   min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 100svh;
   display: grid;
   align-items: center;
   justify-items: center;
@@ -321,7 +321,7 @@ a:focus-visible {
 
 .about-overlay.page {
   min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 100svh;
   justify-items: initial;
   padding-top: 7rem;
 }
@@ -854,7 +854,7 @@ a:focus-visible {
   }
 
   .home {
-    min-height: 100dvh;
+    min-height: 100svh;
     padding: 1.25rem;
   }
 
@@ -1550,6 +1550,10 @@ a:focus-visible {
   [data-about-overlay] .timeline-content {
     font-size: 0.88rem;
     line-height: 1.55;
+  }
+
+  [data-about-overlay] .timeline-details {
+    font-weight: 200;
   }
 
   [data-about-overlay] .timeline-content h3,

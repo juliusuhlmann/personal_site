@@ -5,6 +5,8 @@ const reduceMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)",
 ).matches;
 
+let particleStageWidth = window.innerWidth;
+
 const updateParticleStageHeight = () => {
   const stage = document.querySelector("#particles-js");
 
@@ -13,6 +15,15 @@ const updateParticleStageHeight = () => {
   }
 
   stage.style.height = `${document.documentElement.scrollHeight}px`;
+};
+
+const updateParticleStageHeightOnLayoutResize = () => {
+  if (window.innerWidth === particleStageWidth) {
+    return;
+  }
+
+  particleStageWidth = window.innerWidth;
+  updateParticleStageHeight();
 };
 
 const articleWindows = [
@@ -163,7 +174,7 @@ if (initialArticle) {
 }
 
 updateParticleStageHeight();
-window.addEventListener("resize", updateParticleStageHeight);
+window.addEventListener("resize", updateParticleStageHeightOnLayoutResize);
 window.addEventListener("load", updateParticleStageHeight);
 
 if (!reduceMotion && typeof window.particlesJS === "function") {
