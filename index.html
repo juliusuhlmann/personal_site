@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="I'm Julius, a Data Scientist drawn to LLM research, data, and any kind of deep dive."
+      content="I'm a Data Scientist drawn to LLM research and any kind of deep dive."
     />
     <meta name="author" content="Julius Uhlmann" />
     <meta name="theme-color" content="#11110f" />
@@ -14,7 +14,7 @@
     <meta property="og:title" content="Julius Uhlmann" />
     <meta
       property="og:description"
-      content="I'm Julius, a Data Scientist drawn to LLM research, data, and any kind of deep dive."
+      content="I'm a Data Scientist drawn to LLM research and any kind of deep dive."
     />
     <meta property="og:image" content="/og-image.png" />
     <meta property="og:image:width" content="1200" />
@@ -24,7 +24,7 @@
     <meta name="twitter:title" content="Julius Uhlmann" />
     <meta
       name="twitter:description"
-      content="I'm Julius, a Data Scientist drawn to LLM research, data, and any kind of deep dive."
+      content="I'm a Data Scientist drawn to LLM research and any kind of deep dive."
     />
     <meta name="twitter:image" content="/og-image.png" />
     <meta name="twitter:image:alt" content="Julius Uhlmann personal website preview" />
@@ -50,8 +50,8 @@
   </head>
   <body>
     <div id="particles-js" aria-hidden="true"></div>
-    <span class="site-brand" aria-hidden="true"
-      >~/<span class="site-brand-accent">julius</span>uhlmann</span
+    <a class="site-brand" href="#home" aria-label="Go to homepage"
+      >~/<span class="site-brand-accent">julius</span>uhlmann</a
     >
     <nav class="social-links" aria-label="Social links">
       <a
@@ -78,56 +78,46 @@
         <img src="/contact/insta_svg.svg" width="800" height="800" alt="" />
       </a>
     </nav>
-    <main class="home" aria-labelledby="site-title">
+    <main id="home" class="home" aria-labelledby="site-title">
       <section class="intro">
         <h1 id="site-title">
           <span>Hey, I'm <span class="name-accent">Julius</span></span>
         </h1>
         <nav class="nav-links" aria-label="Primary">
-          <a href="#about" aria-label="Open about Julius Uhlmann" data-about-open>ABOUTME.md</a>
+          <a href="#about" aria-label="Go to About Me">ABOUTME.md</a>
           <span aria-hidden="true">|</span>
-          <a href="#writing" aria-label="Open Julius Uhlmann writing" data-writing-open>Writing</a>
+          <a href="#writing" aria-label="Go to Julius Uhlmann writing">Writing</a>
         </nav>
       </section>
+      <a class="scroll-cue" href="#about" aria-label="Scroll to About Me"></a>
     </main>
     <section
       class="about-overlay page"
+      id="about"
       aria-label="About Me"
       data-about-overlay
-      hidden
     >
       <article class="about-panel">
         <div class="panel-header">
           <span class="panel-path">~/juliusuhlmann/ABOUTME.md</span>
-          <button
+          <a
             class="panel-close"
-            type="button"
-            aria-label="Close About Me"
-            data-window-close
+            href="#home"
+            aria-label="Back to homepage"
           >
             cd ..
-          </button>
+          </a>
         </div>
         <div class="about-copy markdown-file">
           <h2 class="about-title md-line">
             <span class="md-marker">#</span>
             <span>Julius Uhlmann</span>
           </h2>
+          <p class="about-intro">
+            I'm a Data Scientist drawn to LLM research and any&nbsp;kind of deep
+            dive.
+          </p>
         </div>
-        <dl class="file-meta-strip" aria-label="Profile metadata">
-          <div>
-            <dt>role</dt>
-            <dd>Data Scientist, AI/ML Engineer</dd>
-          </div>
-          <div>
-            <dt>focus</dt>
-            <dd>LLM research/ Agentic Systems</dd>
-          </div>
-          <div>
-            <dt>current</dt>
-            <dd>AI Engineering Intern, BMW Group</dd>
-          </div>
-        </dl>
         <section class="cv-section" aria-labelledby="cv-title">
           <h3 id="cv-title" class="about-subtitle md-line">
             <span class="md-marker">##</span>
@@ -339,21 +329,20 @@
     </section>
     <section
       class="about-overlay page"
+      id="writing"
       aria-label="Writing"
       data-writing-overlay
-      hidden
     >
       <article class="about-panel writing-panel">
         <div class="panel-header">
           <span class="panel-path">~/juliusuhlmann/writing</span>
-          <button
+          <a
             class="panel-close"
-            type="button"
-            aria-label="Close Writing"
-            data-window-close
+            href="#home"
+            aria-label="Back to homepage"
           >
             cd ..
-          </button>
+          </a>
         </div>
         <section class="writing-library" aria-label="Writing articles">
           <ul class="writing-recents-list">

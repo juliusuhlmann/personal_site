@@ -5,30 +5,23 @@ const reduceMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)",
 ).matches;
 
-const goHome = () => {
-  window.location.href = "/";
+const updateParticleStageHeight = () => {
+  const stage = document.querySelector("#particles-js");
+
+  if (!stage) {
+    return;
+  }
+
+  stage.style.height = `${document.documentElement.scrollHeight}px`;
 };
 
-const windows = [
-  {
-    hash: "#about",
-    openerSelector: "[data-about-open]",
-    overlay: document.querySelector("[data-about-overlay]"),
-  },
-  {
-    hash: "#writing",
-    openerSelector: "[data-writing-open]",
-    overlay: document.querySelector("[data-writing-overlay]"),
-  },
+const articleWindows = [
   {
     hash: "#writing-entry-1",
     openerSelector: '[data-article-open="writing-entry-1"]',
     overlay: document.querySelector('[data-article-overlay="writing-entry-1"]'),
   },
-].map((windowState) => ({
-  ...windowState,
-  panel: windowState.overlay?.querySelector(".about-panel, .article-shell"),
-}));
+];
 
 const articleParticlesConfig = {
   ...particlesConfig,
@@ -63,19 +56,32 @@ const articleParticlesConfig = {
   },
 };
 
-const initializeArticleParticles = (windowState) => {
-  if (!windowState?.overlay || !windowState.hash?.startsWith("#writing-entry-")) {
+const scrollToHash = (hash) => {
+  const target = document.querySelector(hash);
+
+  if (!target) {
     return;
   }
 
-  windowState.overlay
+  target.scrollIntoView({
+    block: "start",
+    behavior: reduceMotion ? "auto" : "smooth",
+  });
+};
+
+const initializeArticleParticles = (articleWindow) => {
+  if (!articleWindow?.overlay) {
+    return;
+  }
+
+  articleWindow.overlay
     .querySelectorAll("[data-article-particles]")
     .forEach((container, index) => {
       if (container.dataset.particlesInitialized === "true") {
         return;
       }
 
-      const id = container.id || `article-particles-${windowState.hash.slice(1)}-${index + 1}`;
+      const id = container.id || `article-particles-${articleWindow.hash.slice(1)}-${index + 1}`;
       container.id = id;
       if (typeof window.particlesJS === "function") {
         window.particlesJS(id, articleParticlesConfig);
@@ -84,73 +90,40 @@ const initializeArticleParticles = (windowState) => {
     });
 };
 
-const visibleWindows = () =>
-  windows.filter(({ overlay }) => overlay && !overlay.hidden);
-
-const syncBodyState = () => {
-  document.body.classList.toggle("about-open", visibleWindows().length > 0);
-};
-
-const clearWindowHash = (hash) => {
-  if (window.location.hash === hash) {
-    window.history.pushState(null, "", window.location.pathname);
-  }
-};
-
-const hideWindow = (windowState, { updateHash = true } = {}) => {
-  if (!windowState?.overlay) {
-    return;
-  }
-
-  windowState.overlay.hidden = true;
-  syncBodyState();
-
-  if (updateHash) {
-    clearWindowHash(windowState.hash);
-  }
-};
-
-const hideAllWindows = ({ updateHash = true } = {}) => {
-  windows.forEach((windowState) => {
-    if (!windowState.overlay) {
-      return;
+const hideArticle = () => {
+  articleWindows.forEach((articleWindow) => {
+    if (articleWindow.overlay) {
+      articleWindow.overlay.hidden = true;
     }
-
-    windowState.overlay.hidden = true;
   });
-
-  syncBodyState();
-
-  if (updateHash && windows.some(({ hash }) => hash === window.location.hash)) {
-    window.history.pushState(null, "", window.location.pathname);
-  }
+  document.body.classList.remove("article-open");
 };
 
-const showWindow = (targetWindow, { updateHash = true } = {}) => {
+const showArticle = (targetWindow, { updateHash = true } = {}) => {
   if (!targetWindow?.overlay) {
     return;
   }
 
-  windows.forEach((windowState) => {
-    if (windowState !== targetWindow) {
-      hideWindow(windowState, { updateHash: false });
+  articleWindows.forEach((articleWindow) => {
+    if (articleWindow.overlay) {
+      articleWindow.overlay.hidden = articleWindow !== targetWindow;
     }
   });
 
   targetWindow.overlay.hidden = false;
-  syncBodyState();
   initializeArticleParticles(targetWindow);
+  document.body.classList.add("article-open");
 
   if (updateHash && window.location.hash !== targetWindow.hash) {
     window.history.pushState(null, "", targetWindow.hash);
   }
 };
 
-windows.forEach((windowState) => {
-  document.querySelectorAll(windowState.openerSelector).forEach((link) => {
+articleWindows.forEach((articleWindow) => {
+  document.querySelectorAll(articleWindow.openerSelector).forEach((link) => {
     link.addEventListener("click", (event) => {
       event.preventDefault();
-      showWindow(windowState);
+      showArticle(articleWindow);
     });
   });
 });
@@ -158,51 +131,40 @@ windows.forEach((windowState) => {
 document.querySelectorAll("[data-window-target]").forEach((control) => {
   control.addEventListener("click", (event) => {
     const targetHash = control.getAttribute("data-window-target");
-    const targetWindow = windows.find(({ hash }) => hash === targetHash);
-
-    if (!targetWindow) {
-      return;
-    }
 
     event.preventDefault();
-    showWindow(targetWindow);
-  });
-});
-
-document.querySelectorAll("[data-window-close]").forEach((control) => {
-  control.addEventListener("click", (event) => {
-    const windowState = windows.find(({ overlay }) => overlay?.contains(control));
-
-    if (windowState) {
-      event.preventDefault();
-      hideWindow(windowState);
-      return;
+    hideArticle();
+    if (targetHash) {
+      window.history.pushState(null, "", targetHash);
+      scrollToHash(targetHash);
     }
-
-    goHome();
   });
 });
 
 window.addEventListener("popstate", () => {
-  const windowState = windows.find(
+  const articleWindow = articleWindows.find(
     ({ hash, overlay }) => overlay && hash === window.location.hash,
   );
 
-  if (windowState) {
-    showWindow(windowState, { updateHash: false });
+  if (articleWindow) {
+    showArticle(articleWindow, { updateHash: false });
     return;
   }
 
-  hideAllWindows({ updateHash: false });
+  hideArticle();
 });
 
-const initialWindow = windows.find(
+const initialArticle = articleWindows.find(
   ({ hash, overlay }) => overlay && hash === window.location.hash,
 );
 
-if (initialWindow) {
-  showWindow(initialWindow, { updateHash: false });
+if (initialArticle) {
+  showArticle(initialArticle, { updateHash: false });
 }
+
+updateParticleStageHeight();
+window.addEventListener("resize", updateParticleStageHeight);
+window.addEventListener("load", updateParticleStageHeight);
 
 if (!reduceMotion && typeof window.particlesJS === "function") {
   window.particlesJS("particles-js", particlesConfig);
