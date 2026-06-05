@@ -19,13 +19,58 @@ const updateParticleStageHeight = () => {
   stage.style.height = `${document.documentElement.scrollHeight - footerHeight}px`;
 };
 
+const updateEditorLineNumbers = () => {
+  document.querySelectorAll("[data-editor-line-numbers]").forEach((rail) => {
+    const panel = rail.closest(".about-panel");
+
+    if (!panel) {
+      return;
+    }
+
+    const railStyles = getComputedStyle(rail);
+    const lineHeight = Number.parseFloat(railStyles.lineHeight);
+    const topOffset = Number.parseFloat(railStyles.top);
+    const bottomOffset = Number.parseFloat(railStyles.bottom);
+    const railHeight = Math.max(0, panel.clientHeight - topOffset - bottomOffset);
+    const count = Math.max(1, Math.ceil(railHeight / lineHeight));
+    const currentCount = Number.parseInt(rail.dataset.lineCount || "0", 10);
+
+    if (currentCount === count) {
+      return;
+    }
+
+    rail.replaceChildren(
+      ...Array.from({ length: count }, (_, index) => {
+        const line = document.createElement("span");
+        line.textContent = String(index + 1).padStart(2, "0");
+        return line;
+      }),
+    );
+    rail.dataset.lineCount = String(count);
+  });
+};
+
 const updateParticleStageHeightOnLayoutResize = () => {
   if (window.innerWidth === particleStageWidth) {
     return;
   }
 
   particleStageWidth = window.innerWidth;
+  updateEditorLineNumbers();
   updateParticleStageHeight();
+};
+
+const scrollToHash = (hash) => {
+  const target = document.querySelector(hash);
+
+  if (!target) {
+    return;
+  }
+
+  target.scrollIntoView({
+    block: "start",
+    behavior: reduceMotion ? "auto" : "smooth",
+  });
 };
 
 const articleWindows = [
@@ -69,19 +114,6 @@ const articleParticlesConfig = {
   },
 };
 
-const scrollToHash = (hash) => {
-  const target = document.querySelector(hash);
-
-  if (!target) {
-    return;
-  }
-
-  target.scrollIntoView({
-    block: "start",
-    behavior: reduceMotion ? "auto" : "smooth",
-  });
-};
-
 const initializeTimelineDisclosures = () => {
   document
     .querySelectorAll("[data-about-overlay] .timeline-item")
@@ -107,7 +139,10 @@ const initializeTimelineDisclosures = () => {
         item.setAttribute("aria-expanded", String(isOpen));
         details.setAttribute("aria-hidden", String(!isOpen));
 
-        window.setTimeout(updateParticleStageHeight, reduceMotion ? 0 : 240);
+        window.setTimeout(() => {
+          updateEditorLineNumbers();
+          updateParticleStageHeight();
+        }, reduceMotion ? 0 : 240);
       };
 
       const toggleOpen = () => {
@@ -145,7 +180,8 @@ const initializeArticleParticles = (articleWindow) => {
         return;
       }
 
-      const id = container.id || `article-particles-${articleWindow.hash.slice(1)}-${index + 1}`;
+      const id =
+        container.id || `article-particles-${articleWindow.hash.slice(1)}-${index + 1}`;
       container.id = id;
       if (typeof window.particlesJS === "function") {
         window.particlesJS(id, articleParticlesConfig);
@@ -227,9 +263,13 @@ if (initialArticle) {
 }
 
 initializeTimelineDisclosures();
+updateEditorLineNumbers();
 updateParticleStageHeight();
 window.addEventListener("resize", updateParticleStageHeightOnLayoutResize);
-window.addEventListener("load", updateParticleStageHeight);
+window.addEventListener("load", () => {
+  updateEditorLineNumbers();
+  updateParticleStageHeight();
+});
 
 if (!reduceMotion && typeof window.particlesJS === "function") {
   window.particlesJS("particles-js", particlesConfig);
