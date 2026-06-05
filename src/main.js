@@ -9,12 +9,14 @@ let particleStageWidth = window.innerWidth;
 
 const updateParticleStageHeight = () => {
   const stage = document.querySelector("#particles-js");
+  const footer = document.querySelector(".site-footer");
 
   if (!stage) {
     return;
   }
 
-  stage.style.height = `${document.documentElement.scrollHeight}px`;
+  const footerHeight = footer?.offsetHeight ?? 0;
+  stage.style.height = `${document.documentElement.scrollHeight - footerHeight}px`;
 };
 
 const updateParticleStageHeightOnLayoutResize = () => {
@@ -78,6 +80,57 @@ const scrollToHash = (hash) => {
     block: "start",
     behavior: reduceMotion ? "auto" : "smooth",
   });
+};
+
+const initializeTimelineDisclosures = () => {
+  document
+    .querySelectorAll("[data-about-overlay] .timeline-item")
+    .forEach((item, index) => {
+      const details = item.querySelector(".timeline-details");
+
+      if (!details) {
+        return;
+      }
+
+      const detailsId = details.id || `timeline-details-${index + 1}`;
+      details.id = detailsId;
+      details.setAttribute("aria-hidden", "true");
+
+      item.classList.remove("timeline-item-open");
+      item.setAttribute("role", "button");
+      item.setAttribute("tabindex", "0");
+      item.setAttribute("aria-expanded", "false");
+      item.setAttribute("aria-controls", detailsId);
+
+      const setOpen = (isOpen) => {
+        item.classList.toggle("timeline-item-open", isOpen);
+        item.setAttribute("aria-expanded", String(isOpen));
+        details.setAttribute("aria-hidden", String(!isOpen));
+
+        window.setTimeout(updateParticleStageHeight, reduceMotion ? 0 : 240);
+      };
+
+      const toggleOpen = () => {
+        setOpen(!item.classList.contains("timeline-item-open"));
+      };
+
+      item.addEventListener("click", (event) => {
+        if (event.target.closest("a")) {
+          return;
+        }
+
+        toggleOpen();
+      });
+
+      item.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") {
+          return;
+        }
+
+        event.preventDefault();
+        toggleOpen();
+      });
+    });
 };
 
 const initializeArticleParticles = (articleWindow) => {
@@ -173,6 +226,7 @@ if (initialArticle) {
   showArticle(initialArticle, { updateHash: false });
 }
 
+initializeTimelineDisclosures();
 updateParticleStageHeight();
 window.addEventListener("resize", updateParticleStageHeightOnLayoutResize);
 window.addEventListener("load", updateParticleStageHeight);
