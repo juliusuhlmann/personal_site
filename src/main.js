@@ -6,10 +6,12 @@ const reduceMotion = window.matchMedia(
 ).matches;
 
 let particleStageWidth = window.innerWidth;
+let particleFadeEnd = null;
 
 const updateParticleStageHeight = () => {
   const stage = document.querySelector("#particles-js");
   const footer = document.querySelector(".site-footer");
+  const aboutPanel = document.querySelector("[data-about-overlay] .about-panel");
 
   if (!stage) {
     return;
@@ -17,6 +19,17 @@ const updateParticleStageHeight = () => {
 
   const footerHeight = footer?.offsetHeight ?? 0;
   stage.style.height = `${document.documentElement.scrollHeight - footerHeight}px`;
+
+  if (aboutPanel && particleFadeEnd === null) {
+    const aboutPanelRect = aboutPanel.getBoundingClientRect();
+    particleFadeEnd =
+      aboutPanelRect.top + window.scrollY + aboutPanelRect.height * (2 / 3);
+  }
+
+  if (particleFadeEnd !== null) {
+    stage.style.setProperty("--particle-fade-end", `${particleFadeEnd}px`);
+    stage.style.setProperty("--particle-field-height", `${particleFadeEnd}px`);
+  }
 };
 
 const updateEditorLineNumbers = () => {
@@ -56,6 +69,7 @@ const updateParticleStageHeightOnLayoutResize = () => {
   }
 
   particleStageWidth = window.innerWidth;
+  particleFadeEnd = null;
   updateEditorLineNumbers();
   updateParticleStageHeight();
 };
@@ -141,7 +155,6 @@ const initializeTimelineDisclosures = () => {
 
         window.setTimeout(() => {
           updateEditorLineNumbers();
-          updateParticleStageHeight();
         }, reduceMotion ? 0 : 240);
       };
 
