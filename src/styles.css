@@ -1372,6 +1372,12 @@ a:focus-visible {
     font-size: 2.5rem;
   }
 
+  .intro h1 > span,
+  .intro h2 > span {
+    margin-bottom: -0.08em;
+    padding-bottom: 0.08em;
+  }
+
   .hero-scroll-cue {
     bottom: 0.55rem;
     width: 2.45rem;
@@ -1458,28 +1464,23 @@ a:focus-visible {
   }
 
   [data-about-overlay] .panel-header {
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
-    flex-direction: column;
-    gap: 0.24rem;
-    min-height: 3.55rem;
+    min-height: 2.85rem;
     padding: 0.58rem 0.9rem 0.58rem 2.2rem;
   }
 
   [data-about-overlay] .about-panel {
     --editor-gutter-width: 1.45rem;
     --editor-content-left: 2.2rem;
-    --editor-gutter-top: 3.9rem;
+    --editor-gutter-top: 3.2rem;
     --editor-line-height: 1.82rem;
 
-    padding: 4.55rem 1rem 1.2rem var(--editor-content-left);
+    padding: 3.85rem 1rem 1.2rem var(--editor-content-left);
   }
 
   .about-file-meta {
-    justify-content: flex-start;
-    min-width: 0;
-    font-size: 0.62rem;
-    text-align: left;
+    display: none;
   }
 
   .writing-library {
