@@ -895,12 +895,10 @@ a:focus-visible {
   content: none;
 }
 
-.timeline-item:hover::before,
 .timeline-item-open::before {
   background: rgba(217, 180, 239, 0.28);
 }
 
-.timeline-item:hover::after,
 .timeline-item-open::after {
   opacity: 1;
   transform: translateX(0);
@@ -965,7 +963,6 @@ a:focus-visible {
   mask: none;
 }
 
-.timeline-item:hover .timeline-dot::before,
 .timeline-item-open .timeline-dot::before {
   background: rgba(231, 206, 247, 0.96);
   filter: drop-shadow(0 0 0.45rem rgba(217, 180, 239, 0.48));
@@ -1011,10 +1008,6 @@ a:focus-visible {
     transform 160ms ease;
 }
 
-.timeline-item:hover .timeline-content h4::after {
-  opacity: 1;
-}
-
 .timeline-item-open .timeline-content h4::after {
   color: #d9b4ef;
   content: "-";
@@ -1036,26 +1029,58 @@ a:focus-visible {
   transition: color 160ms ease;
 }
 
-.timeline-item:hover .timeline-content,
 .timeline-item-open .timeline-content {
   color: #f0ece5;
 }
 
-.timeline-item:hover .timeline-content h3,
-.timeline-item:hover .timeline-content h4,
 .timeline-item-open .timeline-content h3,
 .timeline-item-open .timeline-content h4 {
   color: #ffffff;
 }
 
-.timeline-item:hover .timeline-title-company,
 .timeline-item-open .timeline-title-company {
   color: #e3ded6;
 }
 
-.timeline-item:hover .timeline-meta,
 .timeline-item-open .timeline-meta {
   color: #b5b0a8;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .timeline-item:hover::before {
+    background: rgba(217, 180, 239, 0.28);
+  }
+
+  .timeline-item:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .timeline-item:hover .timeline-dot::before {
+    background: rgba(231, 206, 247, 0.96);
+    filter: drop-shadow(0 0 0.45rem rgba(217, 180, 239, 0.48));
+  }
+
+  .timeline-item:hover .timeline-content {
+    color: #f0ece5;
+  }
+
+  .timeline-item:hover .timeline-content h3,
+  .timeline-item:hover .timeline-content h4 {
+    color: #ffffff;
+  }
+
+  .timeline-item:hover .timeline-content h4::after {
+    opacity: 1;
+  }
+
+  .timeline-item:hover .timeline-title-company {
+    color: #e3ded6;
+  }
+
+  .timeline-item:hover .timeline-meta {
+    color: #b5b0a8;
+  }
 }
 
 .timeline-company {
