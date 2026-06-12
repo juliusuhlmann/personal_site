@@ -7,6 +7,43 @@ const reduceMotion = window.matchMedia(
 
 let particleStageWidth = window.innerWidth;
 let particleFadeEnd = null;
+let particleDensityFrame = null;
+let currentParticleDensity = particlesConfig.particles.number.value;
+
+const updateParticleDensity = () => {
+  particleDensityFrame = null;
+
+  const particleInstance = window.pJSDom?.find(
+    ({ pJS }) => pJS.canvas.el.parentElement?.id === "particles-js",
+  )?.pJS;
+
+  if (!particleInstance || particleFadeEnd === null) {
+    return;
+  }
+
+  const densityRange = Math.max(1, particleFadeEnd - window.innerHeight);
+  const scrollProgress = Math.min(1, Math.max(0, window.scrollY / densityRange));
+  const densityScale = 1 - scrollProgress * 0.6;
+  const nextDensity = Math.round(
+    particlesConfig.particles.number.value * densityScale,
+  );
+
+  if (nextDensity === currentParticleDensity) {
+    return;
+  }
+
+  currentParticleDensity = nextDensity;
+  particleInstance.particles.number.value = nextDensity;
+  particleInstance.fn.vendors.densityAutoParticles();
+};
+
+const queueParticleDensityUpdate = () => {
+  if (particleDensityFrame !== null) {
+    return;
+  }
+
+  particleDensityFrame = window.requestAnimationFrame(updateParticleDensity);
+};
 
 const updateParticleStageHeight = () => {
   const stage = document.querySelector("#particles-js");
@@ -22,13 +59,13 @@ const updateParticleStageHeight = () => {
 
   if (aboutPanel && particleFadeEnd === null) {
     const aboutPanelRect = aboutPanel.getBoundingClientRect();
-    particleFadeEnd =
-      aboutPanelRect.top + window.scrollY + aboutPanelRect.height * (2 / 3);
+    particleFadeEnd = aboutPanelRect.bottom + window.scrollY;
   }
 
   if (particleFadeEnd !== null) {
     stage.style.setProperty("--particle-fade-end", `${particleFadeEnd}px`);
     stage.style.setProperty("--particle-field-height", `${particleFadeEnd}px`);
+    queueParticleDensityUpdate();
   }
 };
 
@@ -95,6 +132,15 @@ const articleWindows = [
   },
 ];
 
+const getArticleParticleCount = () => {
+  const referenceArea = 1440 * 900;
+  const viewportScale = Math.sqrt(
+    (window.innerWidth * window.innerHeight) / referenceArea,
+  );
+
+  return Math.min(48, Math.max(16, Math.round(20 * viewportScale)));
+};
+
 const articleParticlesConfig = {
   ...particlesConfig,
   particles: {
@@ -126,6 +172,25 @@ const articleParticlesConfig = {
       },
     },
   },
+};
+
+const updateArticleParticleDensity = () => {
+  const nextCount = getArticleParticleCount();
+
+  window.pJSDom?.forEach(({ pJS }) => {
+    if (!pJS.canvas.el.parentElement?.matches("[data-article-particles]")) {
+      return;
+    }
+
+    const currentCount = pJS.particles.array.length;
+    pJS.particles.number.value = nextCount;
+
+    if (currentCount < nextCount) {
+      pJS.fn.modes.pushParticles(nextCount - currentCount);
+    } else if (currentCount > nextCount) {
+      pJS.fn.modes.removeParticles(currentCount - nextCount);
+    }
+  });
 };
 
 const initializeTimelineDisclosures = () => {
@@ -197,7 +262,16 @@ const initializeArticleParticles = (articleWindow) => {
         container.id || `article-particles-${articleWindow.hash.slice(1)}-${index + 1}`;
       container.id = id;
       if (typeof window.particlesJS === "function") {
-        window.particlesJS(id, articleParticlesConfig);
+        window.particlesJS(id, {
+          ...articleParticlesConfig,
+          particles: {
+            ...articleParticlesConfig.particles,
+            number: {
+              ...articleParticlesConfig.particles.number,
+              value: getArticleParticleCount(),
+            },
+          },
+        });
       }
       container.dataset.particlesInitialized = "true";
     });
@@ -209,6 +283,7 @@ const hideArticle = () => {
       articleWindow.overlay.hidden = true;
     }
   });
+  document.documentElement.classList.remove("article-open");
   document.body.classList.remove("article-open");
 };
 
@@ -225,6 +300,7 @@ const showArticle = (targetWindow, { updateHash = true } = {}) => {
 
   targetWindow.overlay.hidden = false;
   initializeArticleParticles(targetWindow);
+  document.documentElement.classList.add("article-open");
   document.body.classList.add("article-open");
 
   if (updateHash && window.location.hash !== targetWindow.hash) {
@@ -279,6 +355,8 @@ initializeTimelineDisclosures();
 updateEditorLineNumbers();
 updateParticleStageHeight();
 window.addEventListener("resize", updateParticleStageHeightOnLayoutResize);
+window.addEventListener("resize", updateArticleParticleDensity);
+window.addEventListener("scroll", queueParticleDensityUpdate, { passive: true });
 window.addEventListener("load", () => {
   updateEditorLineNumbers();
   updateParticleStageHeight();
@@ -286,4 +364,5 @@ window.addEventListener("load", () => {
 
 if (!reduceMotion && typeof window.particlesJS === "function") {
   window.particlesJS("particles-js", particlesConfig);
+  queueParticleDensityUpdate();
 }
