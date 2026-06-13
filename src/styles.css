@@ -115,8 +115,8 @@ a:focus-visible {
   place-items: center;
   width: 2.75rem;
   height: 2.75rem;
-  color: rgba(217, 180, 239, 0.82);
-  opacity: 0.82;
+  color: rgba(226, 199, 243, 0.94);
+  opacity: 0.94;
   pointer-events: auto;
   text-decoration: none;
   transform: translateX(-50%);
@@ -133,9 +133,6 @@ a:focus-visible {
   border-right: 3.5px solid currentColor;
   border-bottom: 3.5px solid currentColor;
   border-radius: 0 0 0.08rem 0;
-  filter:
-    drop-shadow(0 0 0.22rem rgba(172, 92, 230, 0.48))
-    drop-shadow(0 0 0.5rem rgba(125, 52, 190, 0.3));
   transform: rotate(45deg);
 }
 
@@ -1775,7 +1772,7 @@ a:focus-visible {
 
 .article-shell {
   --article-content-width: 45rem;
-  --article-rail-width: clamp(9rem, 15vw, 17rem);
+  --article-rail-width: clamp(8rem, 13vw, 15rem);
   --article-rail-gap: clamp(2rem, 4vw, 5rem);
 
   display: grid;
