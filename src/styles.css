@@ -138,7 +138,7 @@ a:focus-visible {
 
 .hero-scroll-cue:hover,
 .hero-scroll-cue:focus-visible {
-  color: #f2f0eb;
+  color: #ffffff;
   opacity: 1;
   transform: translateX(-50%) translateY(0.18rem);
 }
@@ -148,7 +148,7 @@ a:focus-visible {
   top: 1.15rem;
   left: 1.25rem;
   z-index: 2;
-  color: #f2f0eb;
+  color: #ffffff;
   font-family: var(--font-mono);
   font-size: 0.95rem;
   font-weight: 700;
@@ -188,7 +188,7 @@ a:focus-visible {
 
 .social-links a:hover,
 .social-links a:focus-visible {
-  color: #f2f0eb;
+  color: #ffffff;
 }
 
 .social-links img {
@@ -258,8 +258,8 @@ a:focus-visible {
   position: relative;
   width: 15ch;
   margin: 0;
-  color: #f2f0eb;
-  font-size: 4.35rem;
+  color: #ffffff;
+  font-size: 4.05rem;
   font-weight: 800;
   line-height: 1.08;
   letter-spacing: 0;
@@ -342,7 +342,7 @@ a:focus-visible {
   border: 1px solid rgba(217, 180, 239, 0.34);
   border-radius: 1rem;
   background: rgba(242, 240, 235, 0.07);
-  color: #f2f0eb;
+  color: #ffffff;
   font-weight: 600;
   pointer-events: auto;
   text-decoration: none;
@@ -450,7 +450,7 @@ a:focus-visible {
   align-items: center;
   gap: 0.62rem;
   margin: 0;
-  color: #f2f0eb;
+  color: #ffffff;
   font-size: clamp(1.2rem, 2vw, 1.7rem);
   font-weight: 400;
   line-height: 1.12;
@@ -655,7 +655,7 @@ a:focus-visible {
 
 .page-title {
   margin: 0 0 0.85rem;
-  color: #f2f0eb;
+  color: #ffffff;
   font-size: clamp(1.2rem, 2vw, 1.7rem);
   font-weight: 400;
   line-height: 1.12;
@@ -710,7 +710,7 @@ a:focus-visible {
 
 .about-title {
   margin: 0 0 0.12rem;
-  color: #f2f0eb;
+  color: #ffffff;
   font-size: 2.55rem;
   font-weight: 700;
   line-height: 1.1;
@@ -737,7 +737,7 @@ a:focus-visible {
 
 .about-subtitle {
   margin: 0;
-  color: #f2f0eb;
+  color: #ffffff;
   font-size: 1.1rem;
   font-weight: 700;
   line-height: 1.15;
@@ -793,7 +793,7 @@ a:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 0.48rem;
-  color: #f2f0eb;
+  color: #ffffff;
   font-weight: 600;
 }
 
@@ -801,7 +801,7 @@ a:focus-visible {
   width: 1rem;
   height: 1rem;
   flex: 0 0 1rem;
-  color: #f2f0eb;
+  color: #ffffff;
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;
@@ -985,7 +985,7 @@ a:focus-visible {
 .timeline-content h3,
 .timeline-content h4 {
   position: relative;
-  color: #f2f0eb;
+  color: #ffffff;
   font-size: 1.13rem;
   font-weight: 600;
   line-height: 1.25;
@@ -1012,7 +1012,7 @@ a:focus-visible {
 }
 
 .timeline-title-company {
-  color: #d1cbc2;
+  color: #ffffff;
   font-weight: 400;
   transition: color 160ms ease;
 }
@@ -1036,7 +1036,7 @@ a:focus-visible {
 }
 
 .timeline-item-open .timeline-title-company {
-  color: #e3ded6;
+  color: #ffffff;
 }
 
 .timeline-item-open .timeline-meta {
@@ -1072,7 +1072,7 @@ a:focus-visible {
   }
 
   .timeline-item:hover .timeline-title-company {
-    color: #e3ded6;
+    color: #ffffff;
   }
 
   .timeline-item:hover .timeline-meta {
@@ -1212,7 +1212,7 @@ a:focus-visible {
 @media (max-width: 720px) {
   .intro h1,
   .intro h2 {
-    font-size: 3.05rem;
+    font-size: 2.85rem;
   }
 
   .intro {
@@ -1389,7 +1389,7 @@ a:focus-visible {
 
   .intro h1,
   .intro h2 {
-    font-size: 2.5rem;
+    font-size: 2.35rem;
   }
 
   .intro h1 > span,
@@ -1849,7 +1849,7 @@ a:focus-visible {
 
 .article-title {
   margin: 0;
-  color: #f2f0eb;
+  color: #ffffff;
   font-size: clamp(1.7rem, 3vw, 2.35rem);
   font-weight: 700;
   line-height: 1.08;
@@ -1863,6 +1863,13 @@ a:focus-visible {
   margin-top: 1.15rem;
   color: #918c84;
   font-size: 0.84rem;
+}
+
+.article-meta-kicker {
+  color: #d9b4ef;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .article-lead {
@@ -1897,7 +1904,7 @@ a:focus-visible {
 
 .article-prose h2 {
   margin-top: 2.4rem;
-  color: #f2f0eb;
+  color: #ffffff;
   font-family: var(--font-mono);
   font-size: 1.28rem;
   font-weight: 700;
@@ -1967,7 +1974,7 @@ a:focus-visible {
   padding: 0;
   overflow: hidden;
   -webkit-tap-highlight-color: transparent;
-  color: #f2f0eb;
+  color: #ffffff;
   text-decoration: none;
   background:
     linear-gradient(180deg, rgba(242, 240, 235, 0.018), rgba(242, 240, 235, 0)),
@@ -2026,9 +2033,20 @@ a:focus-visible {
 
 .writing-file-icon img {
   display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: min(78%, 9rem);
+  height: auto;
+  max-height: 7rem;
+  object-fit: contain;
+  transition: transform 180ms ease;
+}
+
+.writing-file-mark {
+  display: block;
+  width: min(86%, 10rem);
+  aspect-ratio: 158.6 / 40;
+  background: currentColor;
+  mask: url("/next_token.svg") center / contain no-repeat;
+  transition: transform 180ms ease;
 }
 
 .writing-file-link:hover,
@@ -2050,7 +2068,11 @@ a:focus-visible {
 }
 
 .writing-file-link:hover .writing-file-icon svg,
-.writing-file-link:focus-visible .writing-file-icon svg {
+.writing-file-link:focus-visible .writing-file-icon svg,
+.writing-file-link:hover .writing-file-icon img,
+.writing-file-link:focus-visible .writing-file-icon img,
+.writing-file-link:hover .writing-file-mark,
+.writing-file-link:focus-visible .writing-file-mark {
   transform: scale(1.04);
 }
 

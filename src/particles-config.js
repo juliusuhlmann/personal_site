@@ -21,8 +21,8 @@ const particlesConfig = {
       },
     },
     opacity: {
-      value: 0.82,
-      random: true,
+      value: 0.52,
+      random: false,
       anim: {
         enable: false,
       },
@@ -38,8 +38,8 @@ const particlesConfig = {
     line_linked: {
       enable: true,
       distance: 150,
-      color: "#e7bee7",
-      opacity: 0.58,
+      color: "#d9b4ef",
+      opacity: 0.32,
       width: 1,
     },
     move: {
