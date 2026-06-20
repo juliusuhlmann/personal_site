@@ -2784,6 +2784,12 @@ a:focus-visible {
     padding-top: 2.45rem;
     font-size: 0.78rem;
   }
+
+  .article-vector-label .article-token {
+    font-size: 28px;
+    line-height: 1.15;
+    padding: 2px 8px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
