@@ -361,9 +361,9 @@
           <li>
             <a
               class="writing-file-link"
-              href="#writing-entry-1"
+              href="#but-how-does-the-llm-predict-the-next-token"
               aria-label="Open article: But how does the LLM predict the next token?"
-              data-article-open="writing-entry-1"
+              data-article-open="but-how-does-the-llm-predict-the-next-token"
             >
               <span class="writing-file-icon" aria-hidden="true">
                 <span class="writing-file-mark"></span>
@@ -386,7 +386,7 @@
     <section
       class="article-overlay"
       aria-labelledby="article-title-1"
-      data-article-overlay="writing-entry-1"
+      data-article-overlay="but-how-does-the-llm-predict-the-next-token"
       hidden
     >
       <article class="article-shell">
@@ -414,51 +414,237 @@
           <h1 id="article-title-1" class="article-title">
             But how does the LLM predict the next token?
           </h1>
-          <div class="article-meta">
-            <time datetime="2026-06-20">Jun 20, 2026</time>
-            <span>3 min read</span>
-          </div>
           <p class="article-lead">
             An inference perspective on LLM architecture and why memory bandwidth
             is the inference bottleneck.
           </p>
+          <div class="article-meta">
+            <span class="article-meta-item">
+              <svg
+                class="article-meta-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="M8 2v4" />
+                <path d="M16 2v4" />
+                <path d="M3.5 9.2h17" />
+                <rect x="4" y="4" width="16" height="17" rx="2" />
+              </svg>
+              <time datetime="2026-06-20">Jun 20, 2026</time>
+            </span>
+            <span class="article-meta-item">
+              <svg
+                class="article-meta-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="8.5" />
+                <path d="M12 7.5v5l3.2 1.9" />
+              </svg>
+              <span>3 min read</span>
+            </span>
+          </div>
         </header>
         <div class="article-prose">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-            volutpat <strong>uses bold emphasis</strong> for important ideas,
-            while <em>italic text</em> can add a quieter kind of emphasis inside
-            a sentence.
+            By now it has propagated to the mainstream mind that LLMs are
+            essentially &quot;just&quot; next token prediction machines. Context
+            in, first token predicted, second token predicted, repeat until the
+            end of white-collar work is achieved.
           </p>
           <p>
-            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat.
+            Most explanations of how LLMs work however, only cover the training
+            part. 3Blue1Brown will tell you all about backpropagation with
+            animations worthy of a Pixar movie, but the training-perspective
+            drowns out the part where the prompt goes in and tokens come out.
+            The forward pass.
+            <em>Inference.</em>
           </p>
-          <h2>Section Heading</h2>
           <p>
-            Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-            cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum.
+            Furthermore, the inference perspective is frankly better suited for
+            explaining LLM architecture than the training one. And yet I have
+            not found any good explanations of that perspective so &hellip; here
+            we are.
           </p>
-          <ul>
-            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-            <li>
-              Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.
-            </li>
-            <li>
-              Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-            </li>
-          </ul>
-          <blockquote>
-            This is an example quote. It should feel distinct from the body copy
-            without overpowering the article.
-          </blockquote>
           <p>
-            Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.
-            Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem
-            at dolor.
+            In this essay/blog/whatever, I will attempt to convey an intuitive
+            sense of what each part of the LLM does when predicting the next
+            token. You'll understand why memory bandwidth is the actual
+            bottleneck at inference and if things go well, you'll close this tab
+            thinking: <em>that wasn't so complicated after all.</em>
+          </p>
+          <h2>The Full Picture. In Brief.</h2>
+          <p>Enough preamble. Let's predict the next token.</p>
+          <p>Say, this is our example interaction:</p>
+          <div
+            class="article-scroll-morph"
+            data-article-scroll-morph
+            aria-label="Example interaction morphing from chat to tokens"
+          >
+            <div class="article-scroll-morph-stage">
+              <div
+                class="article-scroll-morph-toggle"
+                aria-label="Example view"
+              >
+                <button
+                  class="article-scroll-morph-toggle-button"
+                  type="button"
+                  data-article-morph-view="chat"
+                  aria-pressed="true"
+                >
+                  chat
+                </button>
+                <span aria-hidden="true">|</span>
+                <button
+                  class="article-scroll-morph-toggle-button"
+                  type="button"
+                  data-article-morph-view="tokens"
+                  aria-pressed="false"
+                >
+                  tokens
+                </button>
+              </div>
+              <div class="article-scroll-morph-body">
+                <div
+                  class="article-scroll-morph-panel article-scroll-morph-chat"
+                  data-article-morph-chat
+                >
+                  <div
+                    class="article-chat-example"
+                    aria-label="Example chat interaction"
+                  >
+                    <div class="article-chat-line article-chat-line-user">
+                      <span class="article-chat-role">User</span>
+                      <p>How many r's are in strawberry?</p>
+                    </div>
+                    <div class="article-chat-line article-chat-line-model">
+                      <span class="article-chat-role">LLM</span>
+                      <p>
+                        The number of r's is<span
+                          class="article-generation-cursor"
+                          aria-hidden="true"
+                        ></span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="article-scroll-morph-panel article-scroll-morph-tokens"
+                  data-article-morph-tokens
+                  aria-hidden="true"
+                >
+                  <div
+                    class="article-tokenized-section"
+                    aria-label="Tokenized version of the example interaction"
+                  >
+                    <span class="article-token article-token-special">&lt;user_start&gt;</span>
+                    <span class="article-token article-token-lilac">How</span>
+                    <span class="article-token article-token-blue"> many</span>
+                    <span class="article-token article-token-green"> r</span>
+                    <span class="article-token article-token-pink">'s</span>
+                    <span class="article-token article-token-lilac"> are</span>
+                    <span class="article-token article-token-yellow"> in</span>
+                    <span class="article-token article-token-mint"> strawberry</span>
+                    <span class="article-token article-token-orange">?</span>
+                    <span class="article-token article-token-special">&lt;user_end&gt;</span>
+                    <span class="article-token article-token-special">&lt;model_start&gt;</span>
+                    <span class="article-token article-token-mint">The</span>
+                    <span class="article-token article-token-orange"> number</span>
+                    <span class="article-token article-token-cyan"> of</span>
+                    <span class="article-token article-token-lilac"> r</span>
+                    <span class="article-token article-token-pink">'s</span>
+                    <span class="article-token article-token-blue"> is</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p>
+            The goal now is to predict the next token. Probably a number.
+            Hopefully &quot;three,&quot; because if not, the screenshot will show
+            up on your X feed in about 20 minutes.
+          </p>
+          <p>
+            Now, if you have read anything about LLMs before (or if you have
+            scrolled LinkedIn recently and still have your sanity) you might know
+            that each token has an embedding. The short explanation is: An
+            embedding is a vector of numbers, capturing the meaning of a token,
+            where similar tokens live closer together in vector space.
+          </p>
+          <figure
+            class="article-vector-space"
+            aria-label='Vector space showing tokens " 3", " three", and " dog"'
+          >
+            <svg viewBox="0 32 640 292" role="img" aria-labelledby="vector-title">
+              <title id="vector-title">
+                Vector space: " 3", " three", and " dog"
+              </title>
+              <defs>
+                <marker
+                  id="vector-arrow"
+                  viewBox="0 0 10 10"
+                  refX="6.3"
+                  refY="5"
+                  markerWidth="3.5"
+                  markerHeight="3.5"
+                  orient="auto-start-reverse"
+                >
+                  <path
+                    d="M 1.05 1.45 C 1.05 0.55 1.95 0.05 2.75 0.47 L 8.85 3.95 C 9.65 4.4 9.65 5.6 8.85 6.05 L 2.75 9.53 C 1.95 9.95 1.05 9.45 1.05 8.55 Z"
+                  />
+                </marker>
+              </defs>
+              <g class="article-vector-axes" aria-hidden="true">
+                <path d="M76 180 H564" />
+                <path d="M320 314 V46" />
+              </g>
+              <g class="article-vector article-vector-three-digit">
+                <path d="M320 180 L439 168" />
+                <foreignObject class="article-vector-label" x="453" y="139" width="76" height="38">
+                  <span class="article-token article-token-pink"> 3</span>
+                </foreignObject>
+              </g>
+              <g class="article-vector article-vector-three-word">
+                <path d="M320 180 L439 192" />
+                <foreignObject class="article-vector-label" x="453" y="183" width="112" height="38">
+                  <span class="article-token article-token-mint"> three</span>
+                </foreignObject>
+              </g>
+              <g class="article-vector article-vector-dog">
+                <path d="M320 180 L237 267" />
+                <foreignObject class="article-vector-label" x="173" y="253" width="94" height="38">
+                  <span class="article-token article-token-orange"> dog</span>
+                </foreignObject>
+              </g>
+            </svg>
+          </figure>
+          <p>
+            The textbook example uses two dimensions because humans can't
+            visualize more than three, and can barely manage three. In reality
+            these vectors have thousands of dimensions, which is less intuitive
+            but considerably more useful.
+          </p>
+          <p>
+            The embedding of &quot; is&quot; in GPT-3 might be (yes the space is
+            included):
+          </p>
+          <div
+            class="article-equation article-embedding-equation"
+            aria-label='Example embedding vector for the token " is" with 12,288 dimensions'
+          >
+            <span class="article-token article-token-blue"> is</span>
+            <span class="article-equation-equals" aria-hidden="true">=</span>
+            <span
+              class="article-equation"
+              data-display="true"
+              data-tex="\left. \begin{pmatrix} 0.434 \\ -1.33 \\ 3.4 \\ -0.01 \\ \vdots \end{pmatrix} \; \right\} 12{,}288\ \text{numbers}"
+              aria-hidden="true"
+            ></span>
+          </div>
+          <p>
+            Each token in the interaction above has such an embedding of size
+            12,288. The goal now is to get from those floating point numbers to
+            a probability distribution over the next token.
           </p>
         </div>
       </article>

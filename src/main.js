@@ -1,4 +1,6 @@
 import "./particles.js";
+import katex from "katex";
+import "katex/dist/katex.min.css";
 import particlesConfig from "./particles-config.js";
 
 const reduceMotion = window.matchMedia(
@@ -9,6 +11,7 @@ let particleStageWidth = window.innerWidth;
 let particleFadeEnd = null;
 let particleDensityFrame = null;
 let currentParticleDensity = particlesConfig.particles.number.value;
+let articleScrollMorphFrame = null;
 
 const updateParticleDensity = () => {
   particleDensityFrame = null;
@@ -124,11 +127,108 @@ const scrollToHash = (hash) => {
   });
 };
 
+const renderArticleMath = () => {
+  document.querySelectorAll(".article-math, .article-equation").forEach((node) => {
+    const tex = node.dataset.tex;
+
+    if (!tex) {
+      return;
+    }
+
+    katex.render(tex, node, {
+      displayMode:
+        node.dataset.display === "true" ||
+        node.classList.contains("article-equation"),
+      throwOnError: false,
+      strict: "warn",
+    });
+  });
+};
+
+const setArticleScrollMorphProgress = (morph, progress) => {
+  const chatPanel = morph.querySelector("[data-article-morph-chat]");
+  const tokenPanel = morph.querySelector("[data-article-morph-tokens]");
+
+  if (!chatPanel || !tokenPanel) {
+    return;
+  }
+
+  const state = progress > 0.62 ? "tokens" : "chat";
+
+  morph.style.setProperty("--article-token-progress", progress.toFixed(3));
+  morph.dataset.morphState = state;
+  chatPanel.setAttribute("aria-hidden", String(state === "tokens"));
+  tokenPanel.setAttribute("aria-hidden", String(state === "chat"));
+
+  morph
+    .querySelectorAll("[data-article-morph-view]")
+    .forEach((button) => {
+      button.setAttribute(
+        "aria-pressed",
+        String(button.dataset.articleMorphView === state),
+      );
+    });
+};
+
+const updateArticleScrollMorphs = () => {
+  articleScrollMorphFrame = null;
+
+  document.querySelectorAll("[data-article-scroll-morph]").forEach((morph) => {
+    const stage = morph.querySelector(".article-scroll-morph-stage");
+
+    if (!stage) {
+      return;
+    }
+
+    const morphRect = morph.getBoundingClientRect();
+    const morphStart = window.innerHeight * 0.28;
+    const morphEnd = window.innerHeight * 0.18;
+    const morphRange = Math.max(1, morphStart - morphEnd);
+    const progress = reduceMotion
+      ? 0
+      : Math.min(1, Math.max(0, (morphStart - morphRect.top) / morphRange));
+
+    setArticleScrollMorphProgress(morph, progress);
+  });
+};
+
+const queueArticleScrollMorphUpdate = () => {
+  if (articleScrollMorphFrame !== null) {
+    return;
+  }
+
+  articleScrollMorphFrame = window.requestAnimationFrame(updateArticleScrollMorphs);
+};
+
+const initializeArticleScrollMorphs = () => {
+  updateArticleScrollMorphs();
+
+  document.querySelectorAll("[data-article-morph-view]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const morph = button.closest("[data-article-scroll-morph]");
+      const progress = button.dataset.articleMorphView === "tokens" ? 1 : 0;
+
+      if (morph) {
+        setArticleScrollMorphProgress(morph, progress);
+      }
+    });
+  });
+
+  document.querySelectorAll(".article-overlay").forEach((overlay) => {
+    overlay.addEventListener("scroll", queueArticleScrollMorphUpdate, {
+      passive: true,
+    });
+  });
+};
+
 const articleWindows = [
   {
-    hash: "#writing-entry-1",
-    openerSelector: '[data-article-open="writing-entry-1"]',
-    overlay: document.querySelector('[data-article-overlay="writing-entry-1"]'),
+    hash: "#but-how-does-the-llm-predict-the-next-token",
+    openerSelector:
+      '[data-article-open="but-how-does-the-llm-predict-the-next-token"]',
+    overlay: document.querySelector(
+      '[data-article-overlay="but-how-does-the-llm-predict-the-next-token"]',
+    ),
   },
 ];
 
@@ -300,6 +400,7 @@ const showArticle = (targetWindow, { updateHash = true } = {}) => {
 
   targetWindow.overlay.hidden = false;
   initializeArticleParticles(targetWindow);
+  queueArticleScrollMorphUpdate();
   document.documentElement.classList.add("article-open");
   document.body.classList.add("article-open");
 
@@ -351,15 +452,20 @@ if (initialArticle) {
   showArticle(initialArticle, { updateHash: false });
 }
 
+renderArticleMath();
+initializeArticleScrollMorphs();
 initializeTimelineDisclosures();
 updateEditorLineNumbers();
 updateParticleStageHeight();
 window.addEventListener("resize", updateParticleStageHeightOnLayoutResize);
 window.addEventListener("resize", updateArticleParticleDensity);
+window.addEventListener("resize", queueArticleScrollMorphUpdate);
 window.addEventListener("scroll", queueParticleDensityUpdate, { passive: true });
+window.addEventListener("scroll", queueArticleScrollMorphUpdate, { passive: true });
 window.addEventListener("load", () => {
   updateEditorLineNumbers();
   updateParticleStageHeight();
+  updateArticleScrollMorphs();
 });
 
 if (!reduceMotion && typeof window.particlesJS === "function") {
