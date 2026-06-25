@@ -1967,7 +1967,7 @@ a:focus-visible {
   z-index: 1;
   width: min(calc(100vw - 3rem), 45rem);
   max-width: 45rem;
-  margin: 0 auto 4.5rem;
+  margin: 2rem auto 4.5rem;
   padding-top: 1.4rem;
   border-top: 1px solid rgba(240, 235, 228, 0.24);
   color: #c8c0b4;
