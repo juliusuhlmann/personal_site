@@ -837,11 +837,12 @@
             just mentioned is added.
           </p>
           <p>
-            Queries, keys, and values are all 128-dimensional vectors. If a
-            query and key point in a similar direction, we do some computation
-            on the value vector (128 doesn&apos;t go into 12,288) and then add
-            it to the input vector. The more similar the direction, the more is
-            added.
+            Queries, keys, and values are all 128-dimensional vectors, entirely
+            determined by the previous tokens themselves and the model parameters
+            living in our current attention head. If a query and key point in a
+            similar direction, we do some computation on the value vector (128
+            doesn&apos;t go into 12,288) and then add it to the input vector.
+            The more similar the direction, the more is added.
           </p>
           <p>
             (Saying &quot;key of a previous token&quot; is a bit of a

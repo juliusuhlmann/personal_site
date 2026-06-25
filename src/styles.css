@@ -1509,7 +1509,7 @@ a:focus-visible {
   }
 
   .article-shell {
-    width: min(calc(100vw - 2rem), 48rem);
+    width: min(calc(100vw - 1rem), 48rem);
     padding: 0.95rem 0 2.6rem;
   }
 
@@ -1642,7 +1642,7 @@ a:focus-visible {
   }
 
   .article-shell {
-    width: min(calc(100vw - 2rem), 48rem);
+    width: min(calc(100vw - 1rem), 48rem);
     padding: 1.1rem 0 3rem;
   }
 
