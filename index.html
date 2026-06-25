@@ -371,7 +371,7 @@
               <span class="writing-file-copy">
                 <span class="writing-file-name">But how does the LLM predict the next token?</span>
                 <span class="writing-file-kicker">
-                  Jun 20, 2026 &middot; 3 min read
+                  Jun 25, 2026 &middot; 8 min read
                 </span>
                 <span class="writing-file-description">
                   An inference perspective on LLM architecture and why memory
@@ -430,7 +430,7 @@
                 <path d="M3.5 9.2h17" />
                 <rect x="4" y="4" width="16" height="17" rx="2" />
               </svg>
-              <time datetime="2026-06-20">Jun 20, 2026</time>
+              <time datetime="2026-06-25">Jun 25, 2026</time>
             </span>
             <span class="article-meta-item">
               <svg
@@ -441,7 +441,7 @@
                 <circle cx="12" cy="12" r="8.5" />
                 <path d="M12 7.5v5l3.2 1.9" />
               </svg>
-              <span>3 min read</span>
+              <span>8 min read</span>
             </span>
           </div>
         </header>
@@ -646,8 +646,542 @@
             12,288. The goal now is to get from those floating point numbers to
             a probability distribution over the next token.
           </p>
+          <p>
+            The way we will get there is this: take the embedding of the last
+            token (&quot; is&quot;) and pass it through a sequence of layers,
+            each adding information without changing the vector's size. Some of
+            those layers gather context from previous tokens; others process the
+            current vector in isolation. Either way, we come out the other side
+            with a vector still of size 12,288, which we'll project back into
+            vocabulary space. Out comes a probability distribution. The token
+            with the highest probability wins (usually).
+          </p>
+          <p>
+            I get that starting out with the last token's embedding seems weird,
+            but LLMs house so many layers that the output vector bears about as
+            much resemblance to its starting point as today's Elon does to the
+            Elon of 2014.
+          </p>
+          <p>
+            So if we simplify that process one more time, at the risk of
+            becoming reductionist: map the last token to embedding space, do
+            some very expensive linear algebra which sometimes involves the
+            previous tokens, but always keeps the vector at the same size, and
+            map it back to tokenland to get a probability distribution over the
+            next token. If the final resulting vector is somewhere between
+            &quot;three&quot; and &quot;3&quot; we might predict (30%
+            &quot; three&quot;, 25% &quot; 3&quot;, 10% &quot; two&quot; ...).
+          </p>
+          <h2>Two Steps. Repeat Until Sentient.</h2>
+          <p>
+            Here is the dirty secret of the transformer architecture: there are
+            basically two things happening, and then they happen again and again
+            and again. GPT-3 has 96 blocks. Each one does the same two things:
+            Neural Network and Attention.
+          </p>
+          <figure class="article-architecture-figure">
+            <img
+              src="/article-gpt3-architecture.png"
+              alt="GPT-3 architecture diagram showing text and position embeddings passing through repeated transformer blocks before producing output probabilities"
+            />
+            <figcaption>
+              Note: It's called &quot;Text &amp; Position Embed&quot; because in
+              practice a position embedding is added to the token embeddings.
+            </figcaption>
+          </figure>
+          <p>
+            Between the embedding and unembedding steps, GPT-3 runs the same
+            four operations over and over again. Two of those steps are
+            normalization: for every number in your 12,288-dimensional vector,
+            subtract the mean and divide by the standard deviation of all the
+            numbers. The &quot;Feed forward&quot; step is just a regular neural
+            network layer. That leaves the attention step, the only place in the
+            architecture where tokens actually talk to each other, and the part
+            we shall focus on here.
+          </p>
+          <p>
+            Our 12,288-dimensional embedding of &quot; is&quot; (we'll call
+            &quot;input vector&quot;) enters Multi-Head Attention, which runs 96
+            attention heads in parallel. All of these heads receive our input
+            vector. 96 attention heads in each multi-head attention layer, of
+            which we have 96, makes for 96 &times; 96 = 9,216 heads in total.
+          </p>
+          <p>
+            These heads are a large part of the reason why your Claude Code
+            subscription now makes up a substancial part of your monthly
+            expenses. But before we get lost in a debate about whether AI is
+            net-cheaper than developers and how badly we need to get off the AI
+            wagon hurtling toward doom, let's rather skip the doomerism and zoom
+            in on what such an attention head actually does. The process looks
+            like this:
+          </p>
+          <figure
+            class="article-attention-figure"
+            aria-label="Attention head query asking which keys are subjects, with subject values shown for strawberry and number"
+          >
+            <div class="article-attention-row article-attention-query-row">
+              <span class="article-attention-label">Query</span>
+              <p>Which nouns are in the previous tokens?</p>
+            </div>
+            <div class="article-attention-row article-attention-map-row">
+              <div class="article-attention-label-stack" aria-hidden="true">
+                <span></span>
+                <span>Key</span>
+                <span>Value</span>
+              </div>
+              <div class="article-attention-scroll">
+                <div class="article-attention-track">
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-special">&lt;user_start&gt;</span>
+                    <span class="article-attention-kind">Special</span>
+                    <span class="article-attention-value">User text starts...</span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-lilac">How</span>
+                    <span class="article-attention-kind">Question</span>
+                    <span class="article-attention-value">Asks method...</span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-blue"> many</span>
+                    <span class="article-attention-kind">Quantity</span>
+                    <span class="article-attention-value">Quantifier...</span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-green"> r</span>
+                    <span class="article-attention-kind">Letter</span>
+                    <span class="article-attention-value">Letter to count...</span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-pink">'s</span>
+                    <span class="article-attention-kind">Suffix</span>
+                    <span class="article-attention-value">Plural marker...</span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-lilac"> are</span>
+                    <span class="article-attention-kind">Verb</span>
+                    <span class="article-attention-value">Question verb...</span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-yellow"> in</span>
+                    <span class="article-attention-kind">Prep.</span>
+                    <span class="article-attention-value">Inside relation...</span>
+                  </div>
+                  <div class="article-attention-slot article-attention-slot-subject">
+                    <span class="article-token article-token-mint"> strawberry</span>
+                    <span class="article-attention-kind">Noun</span>
+                    <span class="article-attention-value">
+                      I'm a strawberry, that fruit thingy
+                    </span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-orange">?</span>
+                    <span class="article-attention-kind">Punct.</span>
+                    <span class="article-attention-value">Question ends...</span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-special">&lt;user_end&gt;</span>
+                    <span class="article-attention-kind">Special</span>
+                    <span class="article-attention-value">User text ends...</span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-special">&lt;model_start&gt;</span>
+                    <span class="article-attention-kind">Special</span>
+                    <span class="article-attention-value">Model text starts...</span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-mint">The</span>
+                    <span class="article-attention-kind">Article</span>
+                    <span class="article-attention-value">Points to noun...</span>
+                  </div>
+                  <div class="article-attention-slot article-attention-slot-subject">
+                    <span class="article-token article-token-orange"> number</span>
+                    <span class="article-attention-kind">Noun</span>
+                    <span class="article-attention-value">
+                      I'm a number, like a county thing
+                    </span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-cyan"> of</span>
+                    <span class="article-attention-kind">Prep.</span>
+                    <span class="article-attention-value">Links count target...</span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-lilac"> r</span>
+                    <span class="article-attention-kind">Letter</span>
+                    <span class="article-attention-value">Letter being counted...</span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-pink">'s</span>
+                    <span class="article-attention-kind">Suffix</span>
+                    <span class="article-attention-value">Plural marker...</span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-blue"> is</span>
+                    <span class="article-attention-kind">Verb</span>
+                    <span class="article-attention-value">Answer setup...</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </figure>
+          <p>
+            We derive a query from our input vector and the previous tokens can
+            &quot;attend&quot; to that query with their keys.
+          </p>
+          <p>
+            In the example above &quot;Subject&quot; attends to the query
+            &quot;Are any of you guys subjects?&quot;. If a key of a given
+            previous token matches our query, we add its value information to
+            our input vector. For example, the information that a
+            &quot;number&quot;(meaning a specific quantity of something) was
+            just mentioned is added.
+          </p>
+          <p>
+            Queries, keys, and values are all 128-dimensional vectors. If a
+            query and key point in a similar direction, we do some computation
+            on the value vector (128 doesn&apos;t go into 12,288) and then add
+            it to the input vector. The more similar the direction, the more is
+            added.
+          </p>
+          <p>
+            (Saying &quot;key of a previous token&quot; is a bit of a
+            simplification as the deeper the layer, the more each key and value
+            reflects the entire context rather than any single token. I&apos;ll
+            call it &quot;key of a previous token&quot; because &quot;a key
+            vector that originated from token X but has since accumulated
+            further information from every token that came before it&quot; would
+            undermine the very understanding it&apos;s trying to convey, so
+            I&apos;m keeping the lie)
+          </p>
+          <h2>Attention is simple</h2>
+          <p>Now, the full attention mechanism works as follows:</p>
+          <ol>
+            <li>Calculate the <strong>query vector</strong> from our input vector</li>
+            <li>
+              Fetch the <strong>keys and values</strong> from all previous
+              tokens
+            </li>
+            <li>Compare <strong>each key against our query</strong></li>
+            <li>
+              The more a key matches the query, the more of its
+              <strong>value information is added</strong> to our input vector
+            </li>
+          </ol>
+          <p>
+            (Also: our input token generates its own key and value vectors too.
+            We don&apos;t need them right now. The next token will.)
+          </p>
+          <p>
+            All of this collapses into one formula, from Vaswani et al. 2017,
+            the paper that introduced this whole kind of architecture.
+            You&apos;ve seen this equation. It was on that one slide your
+            professor marked &quot;non-examinable&quot;.
+          </p>
+          <div
+            class="article-equation"
+            data-tex="\operatorname{softmax}\left(\frac{qK^{T}}{\sqrt{d_k}}\right)V"
+            aria-label="softmax of q K transpose divided by square root of d sub k, multiplied by V"
+          ></div>
+          <p>
+            <span class="article-math" data-tex="q"></span> is our query
+            vector, <span class="article-math" data-tex="K^T"></span> are the
+            key vectors, <span class="article-math" data-tex="d_k"></span> is
+            128 (the head dimension), and
+            <span class="article-math" data-tex="V"></span> are our value
+            vectors.
+          </p>
+          <p>
+            The softmax part returns a vector, which sums up to 1 and
+            encapsulates how much each of the keys correspond to the query.
+            Concretely:
+          </p>
+          <figure
+            class="article-attention-figure article-attention-figure-softmax"
+            aria-label="Attention head query asking which previous tokens are part of the prompt, with key, softmax, and value rows"
+          >
+            <div class="article-attention-row article-attention-query-row">
+              <span class="article-attention-label">Query</span>
+              <p>Are any of you guys part of the prompt?</p>
+            </div>
+            <div class="article-attention-row article-attention-map-row">
+              <div class="article-attention-label-stack" aria-hidden="true">
+                <span></span>
+                <span>Key</span>
+                <span>Softmax</span>
+                <span>Value</span>
+              </div>
+              <div class="article-attention-scroll">
+                <div class="article-attention-track">
+                  <div class="article-attention-slot article-attention-slot-prompt">
+                    <span class="article-token article-token-special">&lt;user_start&gt;</span>
+                    <span class="article-attention-kind">Prompt</span>
+                    <span class="article-attention-softmax">0.1</span>
+                    <span class="article-attention-value">The user prompt begins here.</span>
+                  </div>
+                  <div class="article-attention-slot article-attention-slot-prompt">
+                    <span class="article-token article-token-lilac">How</span>
+                    <span class="article-attention-kind">Prompt</span>
+                    <span class="article-attention-softmax">0.1</span>
+                    <span class="article-attention-value">The user is asking for a method or count.</span>
+                  </div>
+                  <div class="article-attention-slot article-attention-slot-prompt">
+                    <span class="article-token article-token-blue"> many</span>
+                    <span class="article-attention-kind">Prompt</span>
+                    <span class="article-attention-softmax">0.1</span>
+                    <span class="article-attention-value">The user wants a numeric answer.</span>
+                  </div>
+                  <div class="article-attention-slot article-attention-slot-prompt">
+                    <span class="article-token article-token-green"> r</span>
+                    <span class="article-attention-kind">Prompt</span>
+                    <span class="article-attention-softmax">0.1</span>
+                    <span class="article-attention-value">The letter to count is r.</span>
+                  </div>
+                  <div class="article-attention-slot article-attention-slot-prompt">
+                    <span class="article-token article-token-pink">'s</span>
+                    <span class="article-attention-kind">Prompt</span>
+                    <span class="article-attention-softmax">0.1</span>
+                    <span class="article-attention-value">This marks the counted letter as plural.</span>
+                  </div>
+                  <div class="article-attention-slot article-attention-slot-prompt">
+                    <span class="article-token article-token-lilac"> are</span>
+                    <span class="article-attention-kind">Prompt</span>
+                    <span class="article-attention-softmax">0.1</span>
+                    <span class="article-attention-value">This turns the prompt into a question.</span>
+                  </div>
+                  <div class="article-attention-slot article-attention-slot-prompt">
+                    <span class="article-token article-token-yellow"> in</span>
+                    <span class="article-attention-kind">Prompt</span>
+                    <span class="article-attention-softmax">0.1</span>
+                    <span class="article-attention-value">The count should happen inside the next word.</span>
+                  </div>
+                  <div class="article-attention-slot article-attention-slot-prompt">
+                    <span class="article-token article-token-mint"> strawberry</span>
+                    <span class="article-attention-kind">Prompt</span>
+                    <span class="article-attention-softmax">0.1</span>
+                    <span class="article-attention-value">The word to inspect is strawberry.</span>
+                  </div>
+                  <div class="article-attention-slot article-attention-slot-prompt">
+                    <span class="article-token article-token-orange">?</span>
+                    <span class="article-attention-kind">Prompt</span>
+                    <span class="article-attention-softmax">0.1</span>
+                    <span class="article-attention-value">The user question ends here.</span>
+                  </div>
+                  <div class="article-attention-slot article-attention-slot-prompt">
+                    <span class="article-token article-token-special">&lt;user_end&gt;</span>
+                    <span class="article-attention-kind">Prompt</span>
+                    <span class="article-attention-softmax">0.1</span>
+                    <span class="article-attention-value">The user prompt ends here.</span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-special">&lt;model_start&gt;</span>
+                    <span class="article-attention-kind">Model output</span>
+                    <span class="article-attention-softmax">0.0</span>
+                    <span class="article-attention-value">Model text starts...</span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-mint">The</span>
+                    <span class="article-attention-kind">Model output</span>
+                    <span class="article-attention-softmax">0.0</span>
+                    <span class="article-attention-value">Answer begins...</span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-orange"> number</span>
+                    <span class="article-attention-kind">Model output</span>
+                    <span class="article-attention-softmax">0.0</span>
+                    <span class="article-attention-value">Quantity being stated...</span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-cyan"> of</span>
+                    <span class="article-attention-kind">Model output</span>
+                    <span class="article-attention-softmax">0.0</span>
+                    <span class="article-attention-value">Links count target...</span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-lilac"> r</span>
+                    <span class="article-attention-kind">Model output</span>
+                    <span class="article-attention-softmax">0.0</span>
+                    <span class="article-attention-value">Restates counted letter...</span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-pink">'s</span>
+                    <span class="article-attention-kind">Model output</span>
+                    <span class="article-attention-softmax">0.0</span>
+                    <span class="article-attention-value">Plural marker...</span>
+                  </div>
+                  <div class="article-attention-slot">
+                    <span class="article-token article-token-blue"> is</span>
+                    <span class="article-attention-kind">Model output</span>
+                    <span class="article-attention-softmax">0.0</span>
+                    <span class="article-attention-value">Answer setup...</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </figure>
+          <p>
+            In this case here, the value vectors of the prompt are weighed
+            highly and, after mapping the output of the formula above to 12,288
+            dimensions, the aggregated information of the value vectors of this
+            head will be added to the input vector.
+          </p>
+          <p>
+            All 96 heads result in their own query and contribute their tweak to
+            the input vector. Out the other side comes a vector still of size
+            12,288, enriched with context from the previous tokens. It then
+            passes through two normalizations and one neural network step,
+            before entering the attention stage again in the next block with
+            different queries, different keys, and different values.
+          </p>
+          <p>
+            All of this requires those key and value vectors to be accessible.
+            The process of storing and fetching key and value vectors is called
+            KV-caching. Fetching from memory is much more efficient than
+            recalculating them every time. The problem is how many numbers there
+            are to fetch. What I described above was one head in one multi-head
+            attention layer. GPT-3 has 96 blocks, each with 96 heads running in
+            parallel, each demanding the key and value vectors of every previous
+            token in the context. Multiply that out if you like. Or skip to the
+            next section, which has already done it for you.
+          </p>
+          <h2>So why is memory bandwidth the bottleneck?</h2>
+          <p>
+            A single H100 (the GPU behind most LLM deployments) stores 80GB of
+            data in High-Bandwidth Memory (HBM). The actual compute units,
+            however, can only do math on data loaded into SRAM, which holds a
+            maximum of 117MB. At some point, the key and value vectors must be
+            loaded from HBM to SRAM. The speed of that transition (called
+            &quot;memory bandwidth&quot;) in an H100 is about 3.35 terabytes per
+            second.
+          </p>
+          <p>
+            This might sound like a lot, but let's do the numbers for GPT-3 and
+            then extrapolate to larger models.
+          </p>
+          <p>
+            GPT-3 has 96 transformer blocks, each with 96 attention heads. The
+            maximum number of previous tokens on which an LLM bases its
+            next-token prediction is called the context window. To predict the
+            next token at full context, we need to fetch 2 &times; 96 &times; 96
+            &times; context_size key and value vectors (key and value vectors for
+            all previous tokens for all heads).
+          </p>
+          <p>
+            With GPT-3's context window of 2,048 tokens and a head dimension of
+            128, that's 2 &times; 96 &times; 96 &times; 2,048 &times; 128
+            &asymp; 4.8 billion numbers. In FP8 that's 4.8 gigabytes of data
+            fetched to predict a single token! Considering that context windows
+            are now 100&times; larger and models have additionally grown in
+            size, you can see that memory bandwidth becomes the bottleneck
+            quicker than you can say &quot;Spare me AI overlords&quot;.
+          </p>
+          <p>
+            As you can see, the KV-cache scales linearly with context length.
+            From a compute standpoint, more tokens aren't much of a problem, as
+            most of the model's parameters live in the feedforward layers, which
+            are unaffected by context size. From a memory bandwidth standpoint,
+            more tokens however means more fetching and more fetching means that
+            your GPU ends up waiting rather than working.
+          </p>
+          <p>
+            We could compare the H100 to a Ferrari on the autobahn and the KV
+            cache to a traffic jam. However, I'm just as sick of bad AI
+            metaphors as you are, and most of them are misleading anyway. So I'd
+            rather just save your time and end this essay right here.
+          </p>
+          <p>One more thing. Remember to clear your context windows.</p>
+          <p>For any open questions, send me a mail or DM :)</p>
         </div>
       </article>
+      <aside class="article-afterword" aria-label="Article summary and literature">
+          <section class="article-afterword-section" aria-labelledby="article-summary-title">
+            <h2 id="article-summary-title">Summary</h2>
+            <p>
+              From an inference perspective, if we want to predict the next
+              token for a sentence like:
+            </p>
+            <p class="article-afterword-prompt">
+              &lt;user_start&gt; How many r&apos;s are in strawberry?
+              &lt;user_end&gt;&lt;model_start&gt; The number of r&apos;s is
+            </p>
+            <p>
+              We first embed the last token (&quot; is&quot;) as a vector of
+              size 12,288, and then repeatedly add information in two ways: via
+              the feedforward layers, which process our current vector in
+              isolation, and via multi-head attention, which adds information
+              from all previous tokens.
+            </p>
+            <p>
+              The output is again a vector of size 12,288, which we map back
+              into token space to get a probability distribution over all
+              possible next tokens.
+            </p>
+            <p>
+              As the number of previous tokens grows, loading their information
+              from HBM to SRAM takes longer and longer, eventually becoming the
+              bottleneck of LLM inference.
+            </p>
+          </section>
+          <section class="article-afterword-section" aria-labelledby="article-literature-title">
+            <h2 id="article-literature-title">Literature</h2>
+            <ul class="article-literature-list">
+              <li>
+                <p>
+                  <strong>&quot;Attention is all you need&quot; by Vaswani et
+                  al. 2017 introducing multi-head attention:</strong>
+                </p>
+                <p>
+                  Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones,
+                  L., Gomez, A. N., Kaiser, L., &amp; Polosukhin, I. (2017).
+                  Attention is all you need. <em>Advances in Neural Information
+                  Processing Systems, 30</em>, 5998-6008.
+                  <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noreferrer">
+                    https://arxiv.org/abs/1706.03762
+                  </a>
+                </p>
+              </li>
+              <li>
+                <p><strong>GPT-3 architecture and numbers:</strong></p>
+                <p>
+                  Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J. D.,
+                  Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell,
+                  A., Agarwal, S., Herbert-Voss, A., Krueger, G., Henighan, T.,
+                  Child, R., Ramesh, A., Ziegler, D., Wu, J., Winter, C., ...
+                  Amodei, D. (2020). Language models are few-shot learners.
+                  <em>Advances in Neural Information Processing Systems, 33</em>,
+                  1877-1901.
+                  <a href="https://arxiv.org/abs/2005.14165" target="_blank" rel="noreferrer">
+                    https://arxiv.org/abs/2005.14165
+                  </a>
+                </p>
+              </li>
+              <li>
+                <p><strong>H100 specifications (except SRAM):</strong></p>
+                <p>
+                  NVIDIA. (n.d.). NVIDIA H100 tensor core GPU datasheet.
+                  Retrieved June 16, 2026, from
+                  <a
+                    href="https://resources.nvidia.com/en-us-gpu-resources/h100-datasheet-24306"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    https://resources.nvidia.com/en-us-gpu-resources/h100-datasheet-24306
+                  </a>
+                </p>
+              </li>
+              <li>
+                <p><strong>My favorite deepdive on LLM performance optimization:</strong></p>
+                <p>
+                  Patel, D. [Dwarkesh Patel]. (2025, May). How GPT, Claude, and
+                  Gemini are actually trained and served - Reiner Pope [Video].
+                  YouTube.
+                  <a href="https://youtu.be/xmkSf5IS-zw" target="_blank" rel="noreferrer">
+                    https://youtu.be/xmkSf5IS-zw
+                  </a>
+                </p>
+              </li>
+            </ul>
+          </section>
+      </aside>
     </section>
     <footer class="site-footer">
       <p>&copy; 2026 Julius Uhlmann</p>

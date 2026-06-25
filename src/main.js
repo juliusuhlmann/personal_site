@@ -238,7 +238,7 @@ const getArticleParticleCount = () => {
     (window.innerWidth * window.innerHeight) / referenceArea,
   );
 
-  return Math.min(48, Math.max(16, Math.round(20 * viewportScale)));
+  return Math.min(333, Math.max(109, Math.round(141 * viewportScale)));
 };
 
 const articleParticlesConfig = {
@@ -247,7 +247,7 @@ const articleParticlesConfig = {
     ...particlesConfig.particles,
     number: {
       ...particlesConfig.particles.number,
-      value: 13,
+      value: 141,
       density: {
         ...particlesConfig.particles.number.density,
         enable: false,
@@ -377,6 +377,15 @@ const initializeArticleParticles = (articleWindow) => {
     });
 };
 
+const centerAttentionScrolls = (root = document) => {
+  root.querySelectorAll(".article-attention-scroll").forEach((scroller) => {
+    scroller.scrollLeft = Math.max(
+      0,
+      (scroller.scrollWidth - scroller.clientWidth) / 2,
+    );
+  });
+};
+
 const hideArticle = () => {
   articleWindows.forEach((articleWindow) => {
     if (articleWindow.overlay) {
@@ -401,6 +410,9 @@ const showArticle = (targetWindow, { updateHash = true } = {}) => {
   targetWindow.overlay.hidden = false;
   initializeArticleParticles(targetWindow);
   queueArticleScrollMorphUpdate();
+  window.requestAnimationFrame(() => {
+    centerAttentionScrolls(targetWindow.overlay);
+  });
   document.documentElement.classList.add("article-open");
   document.body.classList.add("article-open");
 
@@ -466,6 +478,7 @@ window.addEventListener("load", () => {
   updateEditorLineNumbers();
   updateParticleStageHeight();
   updateArticleScrollMorphs();
+  centerAttentionScrolls();
 });
 
 if (!reduceMotion && typeof window.particlesJS === "function") {
