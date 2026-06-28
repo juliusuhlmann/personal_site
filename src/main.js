@@ -268,7 +268,7 @@ const initializeWritingNotifyForms = () => {
         }
 
         if (status) {
-          status.textContent = "Thanks - I'll let you know.";
+          status.textContent = "Thanks, see you soon :)";
         }
 
         form.reset();
