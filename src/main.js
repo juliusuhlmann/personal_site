@@ -12,6 +12,7 @@ let particleFadeEnd = null;
 let particleDensityFrame = null;
 let currentParticleDensity = particlesConfig.particles.number.value;
 let articleScrollMorphFrame = null;
+let articleScrollbarFrame = null;
 
 const updateParticleDensity = () => {
   particleDensityFrame = null;
@@ -200,6 +201,43 @@ const queueArticleScrollMorphUpdate = () => {
   articleScrollMorphFrame = window.requestAnimationFrame(updateArticleScrollMorphs);
 };
 
+const updateArticleScrollbar = () => {
+  articleScrollbarFrame = null;
+
+  document.querySelectorAll(".article-overlay").forEach((overlay) => {
+    if (overlay.hidden) {
+      return;
+    }
+
+    const scrollbarInset = 12;
+    const scrollbarHeight = Math.max(1, overlay.clientHeight - scrollbarInset * 2);
+    const scrollableHeight = Math.max(0, overlay.scrollHeight - overlay.clientHeight);
+    const thumbHeight = Math.max(
+      48,
+      Math.round((overlay.clientHeight / overlay.scrollHeight) * scrollbarHeight),
+    );
+    const thumbTravel = Math.max(0, scrollbarHeight - thumbHeight);
+    const thumbTop =
+      scrollableHeight === 0
+        ? 0
+        : Math.round((overlay.scrollTop / scrollableHeight) * thumbTravel);
+
+    overlay.style.setProperty(
+      "--article-mobile-scrollbar-thumb-height",
+      `${thumbHeight}px`,
+    );
+    overlay.style.setProperty("--article-mobile-scrollbar-top", `${thumbTop}px`);
+  });
+};
+
+const queueArticleScrollbarUpdate = () => {
+  if (articleScrollbarFrame !== null) {
+    return;
+  }
+
+  articleScrollbarFrame = window.requestAnimationFrame(updateArticleScrollbar);
+};
+
 const initializeArticleScrollMorphs = () => {
   updateArticleScrollMorphs();
 
@@ -216,6 +254,9 @@ const initializeArticleScrollMorphs = () => {
 
   document.querySelectorAll(".article-overlay").forEach((overlay) => {
     overlay.addEventListener("scroll", queueArticleScrollMorphUpdate, {
+      passive: true,
+    });
+    overlay.addEventListener("scroll", queueArticleScrollbarUpdate, {
       passive: true,
     });
   });
@@ -477,8 +518,10 @@ const showArticle = (targetWindow, { updateHash = true } = {}) => {
   targetWindow.overlay.hidden = false;
   initializeArticleParticles(targetWindow);
   queueArticleScrollMorphUpdate();
+  queueArticleScrollbarUpdate();
   window.requestAnimationFrame(() => {
     centerAttentionScrolls(targetWindow.overlay);
+    updateArticleScrollbar();
   });
   document.documentElement.classList.add("article-open");
   document.body.classList.add("article-open");
@@ -540,12 +583,14 @@ updateParticleStageHeight();
 window.addEventListener("resize", updateParticleStageHeightOnLayoutResize);
 window.addEventListener("resize", updateArticleParticleDensity);
 window.addEventListener("resize", queueArticleScrollMorphUpdate);
+window.addEventListener("resize", queueArticleScrollbarUpdate);
 window.addEventListener("scroll", queueParticleDensityUpdate, { passive: true });
 window.addEventListener("scroll", queueArticleScrollMorphUpdate, { passive: true });
 window.addEventListener("load", () => {
   updateEditorLineNumbers();
   updateParticleStageHeight();
   updateArticleScrollMorphs();
+  updateArticleScrollbar();
   centerAttentionScrolls();
 });
 

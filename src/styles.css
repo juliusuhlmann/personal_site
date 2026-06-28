@@ -1724,6 +1724,8 @@ a:focus-visible {
   position: fixed;
   inset: 0;
   z-index: 6;
+  --article-mobile-scrollbar-top: 0px;
+  --article-mobile-scrollbar-thumb-height: 3rem;
   overflow-x: hidden;
   overflow-y: auto;
   background-color: #000000;
@@ -3360,6 +3362,30 @@ a:focus-visible {
 }
 
 @media (max-width: 760px) {
+  .article-overlay::before,
+  .article-overlay::after {
+    content: "";
+    position: fixed;
+    z-index: 7;
+    right: 0.45rem;
+    border-radius: 999px;
+    pointer-events: none;
+  }
+
+  .article-overlay::before {
+    top: 0.75rem;
+    bottom: 0.75rem;
+    width: 0.16rem;
+    background: rgba(240, 235, 228, 0.16);
+  }
+
+  .article-overlay::after {
+    top: calc(0.75rem + var(--article-mobile-scrollbar-top));
+    width: 0.24rem;
+    height: var(--article-mobile-scrollbar-thumb-height);
+    background: rgba(240, 235, 228, 0.52);
+  }
+
   .article-shell {
     display: block;
     width: min(calc(100vw - 4.5rem), 48rem);
