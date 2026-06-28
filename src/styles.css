@@ -2769,28 +2769,21 @@ a:focus-visible {
 .writing-notify {
   position: relative;
   display: grid;
-  gap: 0.8rem;
-  align-items: start;
-  width: min(100%, 36rem);
-  margin-top: 1.35rem;
-  padding: 1.35rem 0 0;
+  grid-template-columns: minmax(18rem, 1fr) minmax(24rem, 27rem);
+  gap: 0.9rem;
+  column-gap: 1.5rem;
+  align-items: center;
+  width: min(100%, 50rem);
+  margin-top: 1.45rem;
+  padding: 1.1rem 0 0;
   background: transparent;
   border: 0;
+  border-top: 1px solid rgba(240, 235, 228, 0.24);
   border-radius: 0;
 }
 
 .writing-notify::before {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    rgba(242, 240, 235, 0.16),
-    rgba(242, 240, 235, 0.04)
-  );
-  content: "";
+  content: none;
 }
 
 .writing-notify-copy {
@@ -2799,28 +2792,25 @@ a:focus-visible {
 
 .writing-notify-copy h3 {
   margin: 0;
-  color: #efe8dd;
+  color: #ede8df;
   font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 800;
-  line-height: 1.2;
-  white-space: nowrap;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.35;
 }
 
 .writing-notify-copy p {
-  margin: 0.18rem 0 0;
-  color: rgba(185, 176, 166, 0.82);
+  margin: 0.3rem 0 0;
+  color: #918c84;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 500;
-  line-height: 1.35;
-  white-space: nowrap;
+  font-size: 0.76rem;
+  line-height: 1.5;
 }
 
 .writing-notify-controls {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 17rem) auto;
   gap: 0;
   width: 100%;
   min-width: 0;
@@ -2842,18 +2832,18 @@ a:focus-visible {
 
 .writing-notify input,
 .writing-notify button {
-  min-height: 2.34rem;
+  min-height: 2.42rem;
   border: 0;
   border-radius: 0;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.76rem;
   line-height: 1;
 }
 
 .writing-notify input {
   min-width: 0;
   width: 100%;
-  padding: 0 0.84rem;
+  padding: 0 0.82rem;
   color: #f0ebe4;
   background: transparent;
   outline: none;
@@ -2868,7 +2858,7 @@ a:focus-visible {
 }
 
 .writing-notify button {
-  padding: 0 0.92rem;
+  padding: 0 0.95rem;
   color: #d9b4ef;
   background: rgba(217, 180, 239, 0.045);
   border-left: 1px solid rgba(217, 180, 239, 0.28);
@@ -2889,9 +2879,9 @@ a:focus-visible {
 }
 
 .writing-notify-status {
-  flex-basis: 100%;
+  grid-column: 1 / -1;
   min-height: 1.1rem;
-  margin: -0.35rem 0 0;
+  margin: -0.45rem 0 0;
   color: #b8a6ff;
   font-family: var(--font-mono);
   font-size: 0.74rem;
@@ -3140,6 +3130,14 @@ a:focus-visible {
 
 .site-footer p {
   margin: 0;
+}
+
+@media (max-width: 760px) {
+  .writing-notify {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    width: min(100%, 45rem);
+  }
 }
 
 @media (max-width: 480px) {
