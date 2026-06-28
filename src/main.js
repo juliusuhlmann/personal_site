@@ -225,8 +225,9 @@ const initializeWritingNotifyForms = () => {
   document.querySelectorAll("[data-writing-notify-form]").forEach((form) => {
     const input = form.querySelector("input[type='email']");
     const status = form.querySelector("[data-writing-notify-status]");
+    const button = form.querySelector("button[type='submit']");
 
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
 
       if (!input?.checkValidity()) {
@@ -234,11 +235,55 @@ const initializeWritingNotifyForms = () => {
         return;
       }
 
+      const email = input.value.trim();
+      const source = form.classList.contains("article-notify")
+        ? "article"
+        : "writing";
+
       if (status) {
-        status.textContent = "Thanks - this is a local preview for now.";
+        status.textContent = "Saving...";
       }
 
-      form.reset();
+      if (button) {
+        button.disabled = true;
+      }
+
+      try {
+        const response = await fetch("/api/writing-subscribe", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, source }),
+        });
+
+        if (!response.ok) {
+          const result = await response.json().catch(() => ({
+            message:
+              response.status === 404
+                ? "Signup endpoint unavailable. Run with Vercel or deploy first."
+                : "Could not save your email right now.",
+          }));
+          throw new Error(result.message);
+        }
+
+        if (status) {
+          status.textContent = "Thanks - I'll let you know.";
+        }
+
+        form.reset();
+      } catch (error) {
+        if (status) {
+          status.textContent =
+            error instanceof Error
+              ? error.message
+              : "Could not save your email right now.";
+        }
+      } finally {
+        if (button) {
+          button.disabled = false;
+        }
+      }
     });
   });
 };
