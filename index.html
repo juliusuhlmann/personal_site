@@ -825,7 +825,7 @@
             </div>
           </figure>
           <p>
-            We derive a query from our input vector and the previous tokens can
+            We derive a query from our input vector and all tokens can
             &quot;attend&quot; to that query with their keys.
           </p>
           <p>
@@ -857,7 +857,10 @@
           <h2>Attention is simple</h2>
           <p>Now, the full attention mechanism works as follows:</p>
           <ol>
-            <li>Calculate the <strong>query vector</strong> from our input vector</li>
+            <li>
+              Calculate the <strong>query, key and value vector</strong> from
+              our input vector
+            </li>
             <li>
               Fetch the <strong>keys and values</strong> from all previous
               tokens
@@ -868,10 +871,6 @@
               <strong>value information is added</strong> to our input vector
             </li>
           </ol>
-          <p>
-            (Also: our input token generates its own key and value vectors too.
-            We don&apos;t need them right now. The next token will.)
-          </p>
           <p>
             All of this collapses into one formula, from Vaswani et al. 2017,
             the paper that introduced this whole kind of architecture.
@@ -1069,7 +1068,7 @@
           <p>
             With GPT-3's context window of 2,048 tokens and a head dimension of
             128, that's 2 &times; 96 &times; 96 &times; 2,048 &times; 128
-            &asymp; 4.8 billion numbers. In FP8 that's 4.8 gigabytes of data
+            &asymp; 4.8 billion numbers. In FP16 that's 9.6 gigabytes of data
             fetched to predict a single token! Considering that context windows
             are now 100&times; larger and models have additionally grown in
             size, you can see that memory bandwidth becomes the bottleneck
@@ -1077,11 +1076,8 @@
           </p>
           <p>
             As you can see, the KV-cache scales linearly with context length.
-            From a compute standpoint, more tokens aren't much of a problem, as
-            most of the model's parameters live in the feedforward layers, which
-            are unaffected by context size. From a memory bandwidth standpoint,
-            more tokens however means more fetching and more fetching means that
-            your GPU ends up waiting rather than working.
+            Compute grows too, but memory bandwidth usually hurts first: more
+            context means more KV-cache data to fetch.
           </p>
           <p>
             We could compare the H100 to a Ferrari on the autobahn and the KV
