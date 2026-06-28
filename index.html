@@ -381,6 +381,25 @@
             </a>
           </li>
         </ul>
+        <form class="writing-notify" data-writing-notify-form>
+          <div class="writing-notify-copy">
+            <h3>Get notified about new writing</h3>
+            <p>Just a note when there is a new piece.</p>
+          </div>
+          <div class="writing-notify-controls">
+            <label class="sr-only" for="writing-notify-email">Email address</label>
+            <input
+              id="writing-notify-email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              placeholder="you@example.com"
+              required
+            />
+            <button type="submit">Notify me</button>
+          </div>
+          <p class="writing-notify-status" data-writing-notify-status aria-live="polite"></p>
+        </form>
       </div>
     </section>
     <section
@@ -1089,35 +1108,26 @@
           <p>For any open questions, send me a mail or DM :)</p>
         </div>
       </article>
-      <aside class="article-afterword" aria-label="Article summary and literature">
-          <section class="article-afterword-section" aria-labelledby="article-summary-title">
-            <h2 id="article-summary-title">Summary</h2>
-            <p>
-              From an inference perspective, if we want to predict the next
-              token for a sentence like:
-            </p>
-            <p class="article-afterword-prompt">
-              &lt;user_start&gt; How many r&apos;s are in strawberry?
-              &lt;user_end&gt;&lt;model_start&gt; The number of r&apos;s is
-            </p>
-            <p>
-              We first embed the last token (&quot; is&quot;) as a vector of
-              size 12,288, and then repeatedly add information in two ways: via
-              the feedforward layers, which process our current vector in
-              isolation, and via multi-head attention, which adds information
-              from all previous tokens.
-            </p>
-            <p>
-              The output is again a vector of size 12,288, which we map back
-              into token space to get a probability distribution over all
-              possible next tokens.
-            </p>
-            <p>
-              As the number of previous tokens grows, loading their information
-              from HBM to SRAM takes longer and longer, eventually becoming the
-              bottleneck of LLM inference.
-            </p>
-          </section>
+      <form class="article-notify" data-writing-notify-form>
+        <div class="article-notify-copy">
+          <h2>Get notified when I publish the next one</h2>
+          <p>Just a note when there is a new piece.</p>
+        </div>
+        <div class="article-notify-controls">
+          <label class="sr-only" for="article-notify-email">Email address</label>
+          <input
+            id="article-notify-email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            placeholder="you@example.com"
+            required
+          />
+          <button type="submit">Notify me</button>
+        </div>
+        <p class="article-notify-status" data-writing-notify-status aria-live="polite"></p>
+      </form>
+      <aside class="article-afterword" aria-label="Article literature">
           <section class="article-afterword-section" aria-labelledby="article-literature-title">
             <h2 id="article-literature-title">Literature</h2>
             <ul class="article-literature-list">

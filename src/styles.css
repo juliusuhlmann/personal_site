@@ -64,6 +64,17 @@ a:focus-visible {
   outline-offset: 0.28rem;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .home {
   position: relative;
   z-index: 1;
@@ -1962,12 +1973,122 @@ a:focus-visible {
   line-height: 1.72;
 }
 
+.article-notify {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.9rem;
+  width: min(calc(100vw - 3rem), 45rem);
+  max-width: 45rem;
+  margin: 2rem auto 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(240, 235, 228, 0.24);
+  color: #c8c0b4;
+}
+
+.article-notify-copy h2 {
+  margin: 0;
+  color: #ede8df;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.article-notify-copy p {
+  margin: 0.3rem 0 0;
+  color: #918c84;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+.article-notify-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 17rem) auto;
+  gap: 0.62rem;
+  width: min(100%, 27rem);
+  min-width: 0;
+}
+
+.article-notify input,
+.article-notify button {
+  min-height: 2.42rem;
+  border-radius: 0.36rem;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1;
+}
+
+.article-notify input {
+  min-width: 0;
+  width: 100%;
+  padding: 0 0.82rem;
+  color: #f0ebe4;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(242, 240, 235, 0.14);
+  outline: none;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.article-notify input::placeholder {
+  color: rgba(145, 140, 132, 0.72);
+}
+
+.article-notify input:focus {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(217, 180, 239, 0.48);
+  box-shadow: 0 0 0 3px rgba(217, 180, 239, 0.1);
+}
+
+.article-notify button {
+  padding: 0 0.95rem;
+  color: #d9b4ef;
+  background: rgba(217, 180, 239, 0.045);
+  border: 1px solid rgba(217, 180, 239, 0.34);
+  cursor: pointer;
+  font-weight: 700;
+  white-space: nowrap;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.article-notify button:hover,
+.article-notify button:focus-visible {
+  color: #f0d9fb;
+  background: rgba(217, 180, 239, 0.1);
+  border-color: rgba(217, 180, 239, 0.58);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.article-notify-status {
+  min-height: 1.1rem;
+  margin: -0.45rem 0 0;
+  color: #b8a6ff;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  line-height: 1.35;
+}
+
+.article-notify-status:empty,
+.writing-notify-status:empty {
+  min-height: 0;
+  margin: 0;
+}
+
 .article-afterword {
   position: relative;
   z-index: 1;
   width: min(calc(100vw - 3rem), 45rem);
   max-width: 45rem;
-  margin: 2rem auto 4.5rem;
+  margin: 5rem auto 4.5rem;
   padding-top: 1.4rem;
   border-top: 1px solid rgba(240, 235, 228, 0.24);
   color: #c8c0b4;
@@ -2645,6 +2766,129 @@ a:focus-visible {
   list-style: none;
 }
 
+.writing-notify {
+  position: relative;
+  display: grid;
+  width: min(100%, 42rem);
+  gap: 0.9rem;
+  align-items: start;
+  margin-top: 1.45rem;
+  padding: 1.05rem 0 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+.writing-notify::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(242, 240, 235, 0.16),
+    rgba(242, 240, 235, 0.04)
+  );
+  content: "";
+}
+
+.writing-notify-copy {
+  min-width: 0;
+}
+
+.writing-notify-copy h3 {
+  margin: 0;
+  color: #ede8df;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.writing-notify-copy p {
+  max-width: 34rem;
+  margin: 0.3rem 0 0;
+  color: #918c84;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+.writing-notify-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 17rem) auto;
+  gap: 0.62rem;
+  min-width: 0;
+  width: min(100%, 27rem);
+}
+
+.writing-notify input,
+.writing-notify button {
+  min-height: 2.42rem;
+  border-radius: 0.36rem;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1;
+}
+
+.writing-notify input {
+  min-width: 0;
+  width: 100%;
+  padding: 0 0.82rem;
+  color: #f0ebe4;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(242, 240, 235, 0.14);
+  outline: none;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.writing-notify input::placeholder {
+  color: rgba(145, 140, 132, 0.72);
+}
+
+.writing-notify input:focus {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(217, 180, 239, 0.48);
+  box-shadow: 0 0 0 3px rgba(217, 180, 239, 0.1);
+}
+
+.writing-notify button {
+  padding: 0 0.95rem;
+  color: #d9b4ef;
+  background: rgba(217, 180, 239, 0.045);
+  border: 1px solid rgba(217, 180, 239, 0.34);
+  cursor: pointer;
+  font-weight: 700;
+  white-space: nowrap;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.writing-notify button:hover,
+.writing-notify button:focus-visible {
+  color: #f0d9fb;
+  background: rgba(217, 180, 239, 0.1);
+  border-color: rgba(217, 180, 239, 0.58);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.writing-notify-status {
+  grid-column: 1 / -1;
+  min-height: 1.1rem;
+  margin: -0.45rem 0 0;
+  color: #b8a6ff;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  line-height: 1.35;
+}
+
 .writing-file-link {
   position: relative;
   isolation: isolate;
@@ -2894,6 +3138,41 @@ a:focus-visible {
     width: calc(100% - 2rem);
     padding: 1.1rem 0 1.65rem;
     font-size: 0.72rem;
+  }
+
+  .writing-notify {
+    gap: 0.95rem;
+    margin-top: 1.25rem;
+    padding: 1rem 0 0;
+  }
+
+  .writing-notify-copy h3 {
+    font-size: 0.86rem;
+  }
+
+  .writing-notify-copy p {
+    font-size: 0.74rem;
+  }
+
+  .writing-notify-controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .article-notify-controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .article-notify button {
+    width: 100%;
+  }
+
+  .writing-notify button {
+    width: 100%;
+  }
+
+  .writing-notify-status {
+    margin-top: -0.35rem;
+    font-size: 0.7rem;
   }
 
   .writing-file-link {

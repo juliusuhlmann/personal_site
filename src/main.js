@@ -221,6 +221,28 @@ const initializeArticleScrollMorphs = () => {
   });
 };
 
+const initializeWritingNotifyForms = () => {
+  document.querySelectorAll("[data-writing-notify-form]").forEach((form) => {
+    const input = form.querySelector("input[type='email']");
+    const status = form.querySelector("[data-writing-notify-status]");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      if (!input?.checkValidity()) {
+        input?.reportValidity();
+        return;
+      }
+
+      if (status) {
+        status.textContent = "Thanks - this is a local preview for now.";
+      }
+
+      form.reset();
+    });
+  });
+};
+
 const articleWindows = [
   {
     hash: "#but-how-does-the-llm-predict-the-next-token",
@@ -466,6 +488,7 @@ if (initialArticle) {
 
 renderArticleMath();
 initializeArticleScrollMorphs();
+initializeWritingNotifyForms();
 initializeTimelineDisclosures();
 updateEditorLineNumbers();
 updateParticleStageHeight();
