@@ -1591,7 +1591,7 @@ a:focus-visible {
 
   .timeline-item::before {
     top: 1.05rem;
-    bottom: -0.42rem;
+    bottom: -2.12rem;
     left: 0.79rem;
   }
 
