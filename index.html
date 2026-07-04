@@ -712,9 +712,10 @@
             Between the embedding and unembedding steps, GPT-3 runs the same
             four operations over and over again. Two of those steps are
             normalization: for every number in your 12,288-dimensional vector,
-            subtract the mean and divide by the standard deviation of all the
-            numbers. The &quot;Feed forward&quot; step is just a regular neural
-            network layer. That leaves the attention step, the only place in the
+            we pretty much just subtract the mean and divide by the standard
+            deviation of all the numbers. The &quot;Feed forward&quot; step is just a regular
+            two layer neural network, mapping a 12,288 vector to a 49,152
+            (=4*12,288) vector and back to 12,288 dimensions. That leaves the attention step, the only place in the
             architecture where tokens actually talk to each other, and the part
             we shall focus on here.
           </p>
@@ -727,7 +728,7 @@
           </p>
           <p>
             These heads are a large part of the reason why your Claude Code
-            subscription now makes up a substancial part of your monthly
+            subscription now makes up a substantial part of your monthly
             expenses. But before we get lost in a debate about whether AI is
             net-cheaper than developers and how badly we need to get off the AI
             wagon hurtling toward doom, let's rather skip the doomerism and zoom
@@ -1078,7 +1079,7 @@
           </p>
           <p>
             GPT-3 has 96 transformer blocks, each with 96 attention heads. The
-            maximum number of previous tokens on which an LLM bases its
+            maximum number of previous tokens on which an LLM can base its
             next-token prediction is called the context window. To predict the
             next token at full context, we need to fetch 2 &times; 96 &times; 96
             &times; context_size key and value vectors (key and value vectors for
