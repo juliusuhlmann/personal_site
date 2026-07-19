@@ -87,14 +87,99 @@
           Data Scientist drawn to <span class="hero-underline">LLM research</span>
         </p>
         <nav class="nav-links" aria-label="Primary">
-          <a href="#about" aria-label="Go to About Me">ABOUTME.md</a>
           <a href="#writing" aria-label="Go to Julius Uhlmann writing">Read Writing</a>
+          <a href="#about" aria-label="Go to About Me">ABOUTME.md</a>
         </nav>
       </section>
-      <a class="hero-scroll-cue" href="#about" aria-label="Scroll to About Me">
+      <a class="hero-scroll-cue" href="#writing" aria-label="Scroll to Writing">
         <span aria-hidden="true"></span>
       </a>
     </main>
+    <section class="canvas-section writing-section page" id="writing" aria-label="Writing">
+      <div class="writing-library" aria-label="Writing articles">
+        <h2 class="page-title writing-title">
+          <svg class="writing-title-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 20h9"></path>
+            <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
+          </svg>
+          <span>Writing</span>
+        </h2>
+        <ul class="writing-file-list">
+          <li>
+            <a
+              class="writing-file-link"
+              href="#finetuning-qwen3-32b-to-text-like-me"
+              aria-label="Open article: Finetuning Qwen3-32B to text like me"
+              data-article-open="finetuning-qwen3-32b-to-text-like-me"
+            >
+              <span class="writing-file-icon" aria-hidden="true">
+                <svg class="writing-chat-bubble" viewBox="-20 -16 200 120" aria-hidden="true">
+                  <g class="writing-chat-bubble-top" transform="translate(-12 5) scale(.72)">
+                    <path d="M4 7h20v18Z M21 7h127a8 8 0 0 1 8 8v22a8 8 0 0 1-8 8H21a8 8 0 0 1-8-8V15a8 8 0 0 1 8-8Z" />
+                  </g>
+                  <g class="writing-chat-bubble-lower" transform="translate(172 48) scale(-.72 .72)">
+                    <path d="M4 7h20v18Z" />
+                    <rect x="13" y="7" width="143" height="38" rx="8" />
+                  </g>
+                </svg>
+              </span>
+              <span class="writing-file-copy">
+                <span class="writing-file-name">Finetuning Qwen3-32B to text like me</span>
+                <span class="writing-file-kicker">
+                  Jul 18, 2026 &middot; 3 min read
+                </span>
+                <span class="writing-file-description">
+                  I finetuned Qwen3-32B/14B/4B on WhatsApp messaging data to reproduce my texting style.
+                </span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="writing-file-link"
+              href="#but-how-does-the-llm-predict-the-next-token"
+              aria-label="Open article: But how does the LLM predict the next token?"
+              data-article-open="but-how-does-the-llm-predict-the-next-token"
+            >
+              <span class="writing-file-icon" aria-hidden="true">
+                <span class="writing-file-mark"></span>
+              </span>
+              <span class="writing-file-copy">
+                <span class="writing-file-name">But how does the LLM predict the next token?</span>
+                <span class="writing-file-kicker">
+                  Jun 25, 2026 &middot; 8 min read
+                </span>
+                <span class="writing-file-description">
+                  An inference perspective on LLM architecture and why memory
+                  bandwidth is the inference bottleneck.
+                </span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="writing-file-link writing-file-link-thesis"
+              href="https://doi.org/10.60524/opus-3084"
+              aria-label="Open article: Assessing RLVR's Efficacy in Solving Previously Intractable Problems with LLMs"
+            >
+              <span class="writing-file-icon" aria-hidden="true">
+                <svg viewBox="0 0 120.91 50.62" role="img" aria-hidden="true">
+                  <path style="fill: currentColor" fill-rule="evenodd" d="M95.6,0c13.98,0,25.31,11.33,25.31,25.31c0,13.98-11.33,25.31-25.31,25.31c-13.98,0-25.31-11.33-25.31-25.31C70.29,11.33,81.62,0,95.6,0z M100.55,16.13c1.13-1.15,2.97-1.16,4.11-0.01c1.14,1.14,1.14,3,0.01,4.15l-4.97,5.04l4.97,5.05c1.12,1.14,1.11,2.99-0.03,4.13c-1.14,1.14-2.98,1.14-4.1-0.01l-4.94-5.01l-4.95,5.02c-1.13,1.15-2.97,1.16-4.11,0.01c-1.14-1.14-1.14-3-0.01-4.15l4.97-5.04l-4.98-5.05c-1.12-1.14-1.11-2.99,0.03-4.13c1.14-1.14,2.98-1.14,4.1,0.01l4.94,5.01L100.55,16.13z" clip-rule="evenodd" />
+                  <path style="fill: #dcf8c6" fill-rule="evenodd" d="M25.31,0c13.98,0,25.31,11.33,25.31,25.31c0,13.98-11.33,25.31-25.31,25.31C11.33,50.62,0,39.29,0,25.31C0,11.33,11.33,0,25.31,0z M14.11,25.98c0.34-1.97,2.59-3.06,4.36-2c0.16,0.1,0.31,0.21,0.46,0.34l0.01,0.01c0.8,0.76,1.69,1.56,2.57,2.34l0.76,0.68l9-9.44C31.8,17.36,32.2,17,33,16.82c2.76-0.61,4.7,2.76,2.74,4.83L24.54,33.41c-1.06,1.13-2.94,1.23-4.08,0.15c-0.65-0.6-1.36-1.22-2.07-1.84c-1.24-1.08-2.5-2.18-3.53-3.26C14.23,27.85,13.97,26.83,14.11,25.98z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <span class="writing-file-copy">
+                <span class="writing-file-name">Assessing RLVR's Efficacy in Solving Previously Intractable Problems with LLMs</span>
+                <span class="writing-file-kicker">Jan 27, 2026</span>
+                <span class="writing-file-description">
+                  My bachelor's thesis exploring whether RL actually enables LLMs to solve problems the base model could not solve.
+                </span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
     <section
       class="about-overlay page"
       id="about"
@@ -347,60 +432,6 @@
           </dl>
         </section>
       </article>
-    </section>
-    <section class="canvas-section writing-section page" id="writing" aria-label="Writing">
-      <div class="writing-library" aria-label="Writing articles">
-        <h2 class="page-title writing-title">
-          <svg class="writing-title-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 20h9"></path>
-            <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
-          </svg>
-          <span>Writing</span>
-        </h2>
-        <ul class="writing-file-list">
-          <li>
-            <a
-              class="writing-file-link"
-              href="#but-how-does-the-llm-predict-the-next-token"
-              aria-label="Open article: But how does the LLM predict the next token?"
-              data-article-open="but-how-does-the-llm-predict-the-next-token"
-            >
-              <span class="writing-file-icon" aria-hidden="true">
-                <span class="writing-file-mark"></span>
-              </span>
-              <span class="writing-file-copy">
-                <span class="writing-file-name">But how does the LLM predict the next token?</span>
-                <span class="writing-file-kicker">
-                  Jun 25, 2026 &middot; 8 min read
-                </span>
-                <span class="writing-file-description">
-                  An inference perspective on LLM architecture and why memory
-                  bandwidth is the inference bottleneck.
-                </span>
-              </span>
-            </a>
-          </li>
-        </ul>
-        <form class="writing-notify" data-writing-notify-form>
-          <div class="writing-notify-copy">
-            <h3>Get notified about new writing</h3>
-            <p>Just a note when I publish something new.</p>
-          </div>
-          <div class="writing-notify-controls">
-            <label class="sr-only" for="writing-notify-email">Email address</label>
-            <input
-              id="writing-notify-email"
-              name="email"
-              type="email"
-              autocomplete="email"
-              placeholder="you@example.com"
-              required
-            />
-            <button type="submit">Notify me</button>
-          </div>
-          <p class="writing-notify-status" data-writing-notify-status aria-live="polite"></p>
-        </form>
-      </div>
     </section>
     <section
       class="article-overlay"
@@ -1191,6 +1222,423 @@
           </section>
       </aside>
     </section>
+    <section
+      class="article-overlay"
+      aria-labelledby="article-title-2"
+      data-article-overlay="finetuning-qwen3-32b-to-text-like-me"
+      hidden
+    >
+      <article class="article-shell">
+        <div
+          class="article-particles article-particles-left"
+          data-article-particles
+          aria-hidden="true"
+        ></div>
+        <div
+          class="article-particles article-particles-right"
+          data-article-particles
+          aria-hidden="true"
+        ></div>
+        <div class="article-topbar">
+          <a
+            class="article-backlink"
+            href="#writing"
+            aria-label="Back to writing list"
+            data-window-target="#writing"
+          >
+            Writing
+          </a>
+        </div>
+        <header class="article-header">
+          <h1 id="article-title-2" class="article-title">
+            Finetuning Qwen3-32B to text like me
+          </h1>
+          <p class="article-lead">
+            I finetuned Qwen3-32B/14B/4B on a set of WhatsApp messaging data to reproduce my texting style.
+          </p>
+          <div class="article-meta">
+            <span class="article-meta-item">
+              <svg
+                class="article-meta-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="M8 2v4" />
+                <path d="M16 2v4" />
+                <path d="M3.5 9.2h17" />
+                <rect x="4" y="4" width="16" height="17" rx="2" />
+              </svg>
+              <time datetime="2026-07-18">Jul 18, 2026</time>
+            </span>
+            <span class="article-meta-item">
+              <svg
+                class="article-meta-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="8.5" />
+                <path d="M12 7.5v5l3.2 1.9" />
+              </svg>
+              <span>3 min read</span>
+            </span>
+          </div>
+        </header>
+        <div class="article-prose">
+          <section
+            class="finetuning-chat-comparison"
+            aria-label="Chat history and responses from six fine-tuning approaches"
+          >
+            <div class="finetuning-context-panel">
+              <div class="finetuning-section-heading">
+                <span>Context</span>
+              </div>
+              <div class="finetuning-chat-history" aria-label="Chat history">
+                <div class="finetuning-message finetuning-message-me">
+                  <span class="finetuning-message-role">Me</span>
+                  <p>Viel Spaß heute :)</p>
+                </div>
+                <div class="finetuning-message finetuning-message-them">
+                  <span class="finetuning-message-role">Them</span>
+                  <p>Dankee<br />Sind jetzt im größten Club der City ☺️</p>
+                </div>
+              </div>
+            </div>
+            <div class="finetuning-response-panel">
+              <div class="finetuning-section-heading">
+                <span>Responses</span>
+              </div>
+              <div class="finetuning-response-list" aria-label="Generated responses">
+                <article class="finetuning-response finetuning-response-julius">
+                  <h3>Actual Julius <span class="finetuning-reference-badge">Reference</span></h3>
+                  <p>Oha wild, wie isses?</p>
+                </article>
+                <article class="finetuning-response finetuning-response-finetuned">
+                  <h3>Qwen3 32B <span class="finetuning-model-badge">Finetuned</span></h3>
+                  <p>Aww nicee<br />Bin schon gespannt auf deinen Report</p>
+                </article>
+                <article class="finetuning-response finetuning-response-finetuned">
+                  <h3>Qwen3 14B <span class="finetuning-model-badge">Finetuned</span></h3>
+                  <p>Jaa nicee</p>
+                </article>
+                <article class="finetuning-response finetuning-response-finetuned">
+                  <h3>Qwen3 4B <span class="finetuning-model-badge">Finetuned</span></h3>
+                  <p>Jaa<br />Und?</p>
+                </article>
+                <article class="finetuning-response">
+                  <h3>Qwen3 32B Base Prompted</h3>
+                  <p>Juhu! Hoffe, es läuft gut!</p>
+                </article>
+                <article class="finetuning-response">
+                  <h3>Qwen3 32B Base</h3>
+                  <p>Das klingt ja mega! ✨<br />Im größten Club der Insel – ab ins Rampenlicht, ihr seid die Stars des Abends!</p>
+                </article>
+              </div>
+            </div>
+          </section>
+          <p>
+            Looking at the Qwen3 32B reply (<em>"Aww nicee / Bin schon gespannt auf deinen Report"</em>), it already captures multiple of my specific writing patterns, such as:
+          </p>
+          <ul>
+            <li>Repeating letters at the end of words</li>
+            <li>Mixing German and English</li>
+            <li>Dropping pronouns (using "Bin schon" instead of "Ich bin schon")</li>
+          </ul>
+          <h2>Overview</h2>
+          <p>There are two main ways to get a model to adapt to a specific writing style:</p>
+          <ol>
+            <li>System Instructions</li>
+            <li>Finetuning</li>
+          </ol>
+          <p>System instructions are great because they are model-independent, cheap, and easy to implement.</p>
+          <p>
+            They do, however, limit the style specifications to general guidelines and lose power as the desired style becomes more fine-grained and situation-dependent. This detailed level of style modification is where we get to use finetuning instead.
+          </p>
+          <p>
+            Finetuning's main advantage is that it allows small models, which have a harder time generalizing from system instructions anyways, to adopt a highly specific style.
+          </p>
+          <p>
+            I finetuned Qwen3-32B/14B/4B and compared these replies against the 32B base model, the base model with a system prompt about my specific style, and my actual responses to get a feel for how these approaches compare.
+          </p>
+          <h3 class="finetuning-subheading">Data</h3>
+          <p>
+            180k tokens worth of my replies + context were extracted, parsed, redacted, and cleaned from WhatsApp messages sent after 2023, with the consent of the chat partner.
+          </p>
+          <h3 class="finetuning-subheading">Training</h3>
+          <p>I rented an Nvidia L4 and A100 80GB and used QLoRA with 4-bit quantization.</p>
+          <p>
+            Basically, the original model remains frozen in 4-bit precision while only smaller adapter weight matrices are trained and added to the actual model matrices. This enables finetuning on less powerful GPUs with less memory.
+          </p>
+          <h3 class="finetuning-subheading">Evaluation</h3>
+          <p>
+            For evaluation, I held out 103 items, each consisting of a few back-and-forth messages and the actual message I sent next. The model's task was to predict this message.
+          </p>
+          <p>
+            To evaluate this, I ranked all the responses (including my actual message) by how much they sounded like me. First place means it sounded a lot like me (or was my actual message), while sixth place means it sounded the least like me.
+          </p>
+          <p>Here are the results:</p>
+          <div class="finetuning-results-table-wrap">
+            <table class="finetuning-results-table">
+              <thead>
+                <tr>
+                  <th scope="col">Approach</th>
+                  <th scope="col">Average ranking</th>
+                  <th scope="col">Comment</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Actual Julius</td>
+                  <td>1.70</td>
+                  <td>advantaged because of out of context information</td>
+                </tr>
+                <tr>
+                  <td>Qwen3 32B</td>
+                  <td>2.93</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Qwen3 14B</td>
+                  <td>3.01</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Qwen3 4B</td>
+                  <td>3.48</td>
+                  <td>nonsense answers oftentimes</td>
+                </tr>
+                <tr>
+                  <td>Prompted Baseline</td>
+                  <td>4.02</td>
+                  <td>generic</td>
+                </tr>
+                <tr>
+                  <td>Qwen3 32B Base</td>
+                  <td>5.86</td>
+                  <td>Assistant-like</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            I only finetuned the unprompted model. Combining prompting and finetuning could improve performance further.
+          </p>
+          <h2>Examples</h2>
+          <section
+            class="finetuning-chat-comparison"
+            aria-label="Ranked chat responses from six approaches"
+          >
+            <div class="finetuning-context-panel">
+              <div class="finetuning-section-heading">
+                <span>Context</span>
+              </div>
+              <div class="finetuning-chat-history" aria-label="Chat history">
+                <div class="finetuning-message finetuning-message-them">
+                  <span class="finetuning-message-role">Them</span>
+                  <p>There you go</p>
+                </div>
+                <div class="finetuning-message finetuning-message-me">
+                  <span class="finetuning-message-role">Me</span>
+                  <p>Ahh vielen Dank. Sehr nice 👍</p>
+                </div>
+                <div class="finetuning-message finetuning-message-them">
+                  <span class="finetuning-message-role">Them</span>
+                  <p>Dann siehts eher schlecht aus haha. Muss es wohl bezahlt werden<br />😣</p>
+                </div>
+              </div>
+            </div>
+            <div class="finetuning-response-panel">
+              <div class="finetuning-section-heading">
+                <span>Ranked responses</span>
+              </div>
+              <div class="finetuning-response-list" aria-label="Ranked generated responses">
+                <article class="finetuning-response finetuning-response-ranked finetuning-response-julius">
+                  <span class="finetuning-response-rank">1.</span>
+                  <h3>Actual Julius <span class="finetuning-reference-badge">Reference</span></h3>
+                  <p>😂 😂<br />Glaube ist auch ohne extra cash erschwingbar</p>
+                </article>
+                <article class="finetuning-response finetuning-response-ranked finetuning-response-finetuned">
+                  <span class="finetuning-response-rank">2.</span>
+                  <h3>Qwen3 32B <span class="finetuning-model-badge">Finetuned</span></h3>
+                  <p>Jaa, hab nochmal nachgeschaut<br />Da gibt es aber ne kleine Chance dass ich das bis Montag schaffe<br />Aber wenn nicht dann müssen wirs bezahlen</p>
+                </article>
+                <article class="finetuning-response finetuning-response-ranked finetuning-response-finetuned">
+                  <span class="finetuning-response-rank">3.</span>
+                  <h3>Qwen3 14B <span class="finetuning-model-badge">Finetuned</span></h3>
+                  <p>🤔</p>
+                </article>
+                <article class="finetuning-response finetuning-response-ranked finetuning-response-finetuned">
+                  <span class="finetuning-response-rank">4.</span>
+                  <h3>Qwen3 4B <span class="finetuning-model-badge">Finetuned</span></h3>
+                  <p>🤔</p>
+                </article>
+                <article class="finetuning-response finetuning-response-ranked">
+                  <span class="finetuning-response-rank">5.</span>
+                  <h3>Prompted Baseline</h3>
+                  <p>Jap, scheint so. Naja, zahlen halt. Irgendwie. 🤔</p>
+                </article>
+                <article class="finetuning-response finetuning-response-ranked">
+                  <span class="finetuning-response-rank">6.</span>
+                  <h3>Qwen3 32B Base</h3>
+                  <p>Kein Problem, gerne gesehen! 😄<br />Wenn's um so viel Geld geht – hoffentlich ist's was, wofür's sich lohnt! Oder zumindest was man irgendwann wieder zurückbekommt...<br />✌️ 😄</p>
+                </article>
+              </div>
+            </div>
+          </section>
+          <p class="finetuning-example-caption">The base model notably gives very generic assistant-like answers</p>
+          <section
+            class="finetuning-chat-comparison"
+            aria-label="Second ranked chat response comparison"
+          >
+            <div class="finetuning-context-panel">
+              <div class="finetuning-section-heading">
+                <span>Context</span>
+              </div>
+              <div class="finetuning-chat-history" aria-label="Chat history">
+                <div class="finetuning-message finetuning-message-me">
+                  <span class="finetuning-message-role">Me</span>
+                  <p>Du bist aber auch ne Nachteule, oder?</p>
+                </div>
+                <div class="finetuning-message finetuning-message-them">
+                  <span class="finetuning-message-role">Them</span>
+                  <p>Nein hahaha eigentlich nicht<br />Ich passe mich nur den Begebenheiten an</p>
+                </div>
+              </div>
+            </div>
+            <div class="finetuning-response-panel">
+              <div class="finetuning-section-heading">
+                <span>Ranked responses</span>
+              </div>
+              <div class="finetuning-response-list" aria-label="Ranked generated responses">
+                <article class="finetuning-response finetuning-response-ranked finetuning-response-julius">
+                  <span class="finetuning-response-rank">1.</span>
+                  <h3>Actual Julius <span class="finetuning-reference-badge">Reference</span></h3>
+                  <p>Jaja Lauras schuld</p>
+                </article>
+                <article class="finetuning-response finetuning-response-ranked finetuning-response-finetuned">
+                  <span class="finetuning-response-rank">2.</span>
+                  <h3>Qwen3 32B <span class="finetuning-model-badge">Finetuned</span></h3>
+                  <p>Was machst du denn so nachts?</p>
+                </article>
+                <article class="finetuning-response finetuning-response-ranked finetuning-response-finetuned">
+                  <span class="finetuning-response-rank">3.</span>
+                  <h3>Qwen3 4B <span class="finetuning-model-badge">Finetuned</span></h3>
+                  <p>Jaa<br />Aber du bist ja so nachttypisch<br />Und die Party war krass<br />Was machst du jetzt</p>
+                </article>
+                <article class="finetuning-response finetuning-response-ranked finetuning-response-finetuned">
+                  <span class="finetuning-response-rank">4.</span>
+                  <h3>Qwen3 14B <span class="finetuning-model-badge">Finetuned</span></h3>
+                  <p>Aber wie?<br />Sind ja keine so große Partyleute</p>
+                </article>
+                <article class="finetuning-response finetuning-response-ranked">
+                  <span class="finetuning-response-rank">5.</span>
+                  <h3>Prompted Baseline</h3>
+                  <p>Haha, klar, die berühmte Ausrede<br />Schlaf gut!</p>
+                </article>
+                <article class="finetuning-response finetuning-response-ranked">
+                  <span class="finetuning-response-rank">6.</span>
+                  <h3>Qwen3 32B Base</h3>
+                  <p>Ach, verstehe! Also eine „Gelegenheitsnachteule“<br />Dann viel Erfolg beim Anpassen – und vielleicht wird’s irgendwann zur Gewohnheit<br />Gute Nacht nochmal, bis morgen! ✨</p>
+                </article>
+              </div>
+            </div>
+          </section>
+          <p class="finetuning-example-caption">
+            Messages that mention information not present in the context often give away the actual Julius message.
+          </p>
+          <section
+            class="finetuning-chat-comparison"
+            aria-label="Third ranked chat response comparison"
+          >
+            <div class="finetuning-context-panel">
+              <div class="finetuning-section-heading">
+                <span>Context</span>
+              </div>
+              <div class="finetuning-chat-history" aria-label="Chat history">
+                <div class="finetuning-message finetuning-message-them">
+                  <span class="finetuning-message-role">Them</span>
+                  <p>4:00 brooooo 😭 😭 😭</p>
+                </div>
+              </div>
+            </div>
+            <div class="finetuning-response-panel">
+              <div class="finetuning-section-heading">
+                <span>Ranked responses</span>
+              </div>
+              <div class="finetuning-response-list" aria-label="Ranked generated responses">
+                <article class="finetuning-response finetuning-response-ranked finetuning-response-julius">
+                  <span class="finetuning-response-rank">1.</span>
+                  <h3>Actual Julius <span class="finetuning-reference-badge">Reference</span></h3>
+                  <p>💀</p>
+                </article>
+                <article class="finetuning-response finetuning-response-ranked finetuning-response-finetuned">
+                  <span class="finetuning-response-rank">2.</span>
+                  <h3>Qwen3 4B <span class="finetuning-model-badge">Finetuned</span></h3>
+                  <p>Haha, dass is ja bisschen wild</p>
+                </article>
+                <article class="finetuning-response finetuning-response-ranked finetuning-response-finetuned">
+                  <span class="finetuning-response-rank">3.</span>
+                  <h3>Qwen3 14B <span class="finetuning-model-badge">Finetuned</span></h3>
+                  <p>Haha ja</p>
+                </article>
+                <article class="finetuning-response finetuning-response-ranked finetuning-response-finetuned">
+                  <span class="finetuning-response-rank">4.</span>
+                  <h3>Qwen3 32B v2 <span class="finetuning-model-badge">Finetuned</span></h3>
+                  <p>Haha was is los?</p>
+                </article>
+                <article class="finetuning-response finetuning-response-ranked">
+                  <span class="finetuning-response-rank">5.</span>
+                  <h3>Prompted Baseline</h3>
+                  <p>was ist los? 🥺</p>
+                </article>
+                <article class="finetuning-response finetuning-response-ranked">
+                  <span class="finetuning-response-rank">6.</span>
+                  <h3>Qwen3 32B Base</h3>
+                  <p>Hey, 4 AM is a rough time to be feeling down. What’s going on? If you want to talk about it, I’m here. Sometimes just getting things out can help lighten the load. If not, know that it’s okay to feel this way—everyone has moments like this. You’re not alone.</p>
+                </article>
+              </div>
+            </div>
+          </section>
+        </div>
+      </article>
+      <form class="article-notify" data-writing-notify-form>
+        <div class="article-notify-copy">
+          <h2>Get notified when I publish the next one</h2>
+          <p>Just a note when there is a new piece.</p>
+        </div>
+        <div class="article-notify-controls">
+          <label class="sr-only" for="finetuning-notify-email">Email address</label>
+          <input
+            id="finetuning-notify-email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            placeholder="you@example.com"
+            required
+          />
+          <button type="submit">Notify me</button>
+        </div>
+        <p class="article-notify-status" data-writing-notify-status aria-live="polite"></p>
+      </form>
+    </section>
+    <form class="writing-notify" data-writing-notify-form>
+      <div class="writing-notify-copy">
+        <h3>Get notified about new writing</h3>
+        <p>Just a note when I publish something new.</p>
+      </div>
+      <div class="writing-notify-controls">
+        <label class="sr-only" for="writing-notify-email">Email address</label>
+        <input
+          id="writing-notify-email"
+          name="email"
+          type="email"
+          autocomplete="email"
+          placeholder="you@example.com"
+          required
+        />
+        <button type="submit">Notify me</button>
+      </div>
+      <p class="writing-notify-status" data-writing-notify-status aria-live="polite"></p>
+    </form>
     <footer class="site-footer">
       <p>&copy; 2026 Julius Uhlmann</p>
     </footer>

@@ -364,13 +364,13 @@ a:focus-visible {
     transform 160ms ease;
 }
 
-.nav-links a[href="#about"] {
+.nav-links a[href="#writing"] {
   border-color: #b88dd3;
   background: #b88dd3;
   color: #ffffff;
 }
 
-.nav-links a[href="#about"]::after {
+.nav-links a[href="#writing"]::after {
   content: none;
 }
 
@@ -382,8 +382,8 @@ a:focus-visible {
   transform: translateY(-1px);
 }
 
-.nav-links a[href="#about"]:hover,
-.nav-links a[href="#about"]:focus-visible {
+.nav-links a[href="#writing"]:hover,
+.nav-links a[href="#writing"]:focus-visible {
   border-color: #b88dd3;
   background: #b88dd3;
 }
@@ -1389,7 +1389,7 @@ a:focus-visible {
     padding: 0.5rem 0.82rem;
   }
 
-  .nav-links a[href="#about"] {
+  .nav-links a[href="#writing"] {
     border-color: #b88dd3;
     background: #b88dd3;
   }
@@ -1988,6 +1988,10 @@ a:focus-visible {
   color: #c8c0b4;
 }
 
+.article-overlay[data-article-overlay="finetuning-qwen3-32b-to-text-like-me"] .article-notify {
+  margin-bottom: 3rem;
+}
+
 .article-notify-copy h2 {
   margin: 0;
   color: #ede8df;
@@ -2326,6 +2330,339 @@ a:focus-visible {
   padding: 0 0 0 0.9rem;
   border-color: transparent;
   background: transparent;
+}
+
+.finetuning-chat-comparison {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0.8rem;
+  border: 1px solid rgba(217, 180, 239, 0.22);
+  border-radius: 6px;
+  background: rgba(12, 10, 15, 0.42);
+  font-family: var(--font-mono);
+}
+
+.article-prose .finetuning-example-caption {
+  margin-top: 0.65rem;
+  color: #918c84;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.article-prose .finetuning-example-caption + .finetuning-chat-comparison {
+  margin-top: 2.5rem;
+}
+
+.article-prose .finetuning-chat-comparison + .finetuning-chat-comparison {
+  margin-top: 2.5rem;
+}
+
+.article-prose .finetuning-subheading {
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.article-prose .finetuning-subheading + p {
+  margin-top: 0.4rem;
+}
+
+.finetuning-results-table-wrap {
+  overflow-x: auto;
+}
+
+.finetuning-results-table {
+  width: 100%;
+  min-width: 34rem;
+  border-collapse: collapse;
+  color: #f0ebe4;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.finetuning-results-table th,
+.finetuning-results-table td {
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid rgba(240, 235, 228, 0.14);
+  text-align: left;
+}
+
+.finetuning-results-table th {
+  color: #918c84;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.finetuning-results-table td:nth-child(2) {
+  font-variant-numeric: tabular-nums;
+}
+
+.finetuning-results-table td:first-child {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.finetuning-context-panel {
+  display: grid;
+  align-content: start;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.finetuning-section-heading {
+  display: flex;
+  min-height: 1.2rem;
+  align-items: center;
+  justify-content: space-between;
+  color: #6f6b65;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.finetuning-chat-history {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: start;
+  gap: 0.7rem;
+  padding: 0.8rem 0.65rem;
+  border: 1px solid rgba(240, 235, 228, 0.08);
+  border-radius: 6px;
+  background:
+    radial-gradient(circle at 1px 1px, rgba(240, 235, 228, 0.055) 1px, transparent 0)
+      0 0 / 18px 18px,
+    rgba(8, 13, 15, 0.68);
+}
+
+.finetuning-message {
+  display: grid;
+  width: fit-content;
+  max-width: 92%;
+  gap: 0.18rem;
+}
+
+.finetuning-message-me {
+  justify-self: end;
+}
+
+.finetuning-message-them {
+  justify-self: start;
+}
+
+.finetuning-message-role,
+.finetuning-response h3 {
+  margin: 0;
+  color: #918c84;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.finetuning-message p,
+.finetuning-response p {
+  margin: 0;
+  font-family: var(--font-mono), "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", monospace;
+  white-space: pre-line;
+}
+
+.finetuning-message p {
+  position: relative;
+  padding: 0.5rem 0.62rem;
+  border: 0;
+  border-radius: 2px 7px 7px 7px;
+  background: #202c33;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.22);
+  color: #f0ebe4;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.finetuning-message-me p {
+  border-radius: 7px 2px 7px 7px;
+  background: #075e54;
+}
+
+.finetuning-message p::before {
+  position: absolute;
+  top: 0;
+  left: -0.3rem;
+  width: 0.42rem;
+  height: 0.48rem;
+  background: #202c33;
+  clip-path: polygon(100% 0, 100% 100%, 0 0);
+  content: "";
+}
+
+.finetuning-message-me p::before {
+  right: -0.3rem;
+  left: auto;
+  background: #075e54;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.finetuning-message-me .finetuning-message-role {
+  justify-self: end;
+}
+
+.finetuning-response-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.4rem;
+  padding: 0.65rem 0.7rem 0.75rem;
+  border: 1px solid rgba(217, 180, 239, 0.22);
+  border-radius: 6px;
+  background: rgba(217, 180, 239, 0.035);
+}
+
+.finetuning-response-panel {
+  display: grid;
+  align-content: start;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.finetuning-response {
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(8.5rem, 0.72fr);
+  align-items: start;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.finetuning-response h3 {
+  display: flex;
+  grid-column: 2;
+  grid-row: 1;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.35rem;
+  padding-top: 0.48rem;
+  color: #b7b0a9;
+  line-height: 1.25;
+  text-align: right;
+}
+
+.finetuning-response p {
+  position: relative;
+  grid-column: 1;
+  grid-row: 1;
+  padding: 0.48rem 0.62rem;
+  border: 1px solid rgba(240, 235, 228, 0.12);
+  border-radius: 2px 6px 6px 6px;
+  background: rgba(240, 235, 228, 0.07);
+  color: #f0ebe4;
+  font-size: 0.78rem;
+  line-height: 1.42;
+}
+
+.finetuning-response-ranked {
+  grid-template-columns: 1.35rem minmax(0, 1.28fr) minmax(8.5rem, 0.72fr);
+}
+
+.finetuning-response-ranked .finetuning-response-rank {
+  grid-column: 1;
+  grid-row: 1;
+  padding-top: 0.48rem;
+  color: #918c84;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: right;
+}
+
+.finetuning-response-ranked h3 {
+  grid-column: 3;
+}
+
+.finetuning-response-ranked p {
+  grid-column: 2;
+}
+
+.finetuning-response-julius {
+  border: 0;
+  background: transparent;
+}
+
+.finetuning-response-julius h3 {
+  color: #8ed6ba;
+}
+
+.finetuning-response-julius p {
+  border-color: rgba(142, 214, 186, 0.32);
+  background: rgba(142, 214, 186, 0.07);
+}
+
+.finetuning-response-finetuned h3 {
+  color: #d9b4ef;
+}
+
+.finetuning-response-finetuned p {
+  border-color: rgba(217, 180, 239, 0.38);
+}
+
+.finetuning-reference-badge,
+.finetuning-model-badge {
+  padding: 0.14rem 0.28rem;
+  border-radius: 3px;
+  font-size: 0.48rem;
+  letter-spacing: 0.04em;
+}
+
+.finetuning-reference-badge {
+  border: 1px solid rgba(142, 214, 186, 0.3);
+  color: rgba(142, 214, 186, 0.82);
+}
+
+.finetuning-model-badge {
+  border: 1px solid rgba(217, 180, 239, 0.3);
+  color: rgba(217, 180, 239, 0.82);
+}
+
+@media (max-width: 480px) {
+  .finetuning-response {
+    grid-template-columns: 1fr;
+    gap: 0.22rem;
+  }
+
+  .finetuning-response h3 {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: end;
+    padding-top: 0;
+  }
+
+  .finetuning-response p {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .finetuning-response-ranked {
+    grid-template-columns: 1.35rem minmax(0, 1fr);
+  }
+
+  .finetuning-response-ranked .finetuning-response-rank {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .finetuning-response-ranked h3 {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .finetuning-response-ranked p {
+    grid-column: 2;
+    grid-row: 1;
+  }
 }
 
 .article-generation-cursor {
@@ -2768,6 +3105,10 @@ a:focus-visible {
   list-style: none;
 }
 
+.writing-file-list li + li {
+  margin-top: 1rem;
+}
+
 .writing-notify {
   position: relative;
   display: grid;
@@ -2776,7 +3117,7 @@ a:focus-visible {
   column-gap: 1.5rem;
   align-items: center;
   width: min(100%, 50rem);
-  margin: 1.45rem auto 0;
+  margin: 1.45rem auto 4rem;
   padding: 1.25rem 0.85rem 0.15rem;
   background: transparent;
   border: 0;
@@ -2921,7 +3262,7 @@ a:focus-visible {
   right: 1.75rem;
   bottom: 1rem;
   color: rgba(217, 180, 239, 0.88);
-  content: "$ open example-writing.md _";
+  content: "$ open finetuning.md _";
   font-family: var(--font-mono);
   font-size: 0.78rem;
   font-weight: 700;
@@ -2932,6 +3273,14 @@ a:focus-visible {
   transition:
     opacity 160ms ease,
     transform 160ms ease;
+}
+
+.writing-file-link[data-article-open="but-how-does-the-llm-predict-the-next-token"]::after {
+  content: "$ open inference.md _";
+}
+
+.writing-file-link-thesis::after {
+  content: "$ open thesis.md _";
 }
 
 .writing-file-icon {
@@ -2955,6 +3304,27 @@ a:focus-visible {
   height: 7rem;
   fill: currentColor;
   transition: transform 180ms ease;
+}
+
+.writing-file-icon .writing-chat-bubble {
+  width: min(88%, 13.125rem);
+  height: auto;
+  fill: #f2f0eb;
+  opacity: 0.82;
+}
+
+.writing-chat-bubble-top {
+  fill: #d8d3cb;
+}
+
+.writing-chat-bubble-lower {
+  fill: #ffffff;
+}
+
+.writing-file-link:hover .writing-chat-bubble,
+.writing-file-link:focus-visible .writing-chat-bubble {
+  fill: #f2f0eb;
+  opacity: 0.94;
 }
 
 .writing-file-icon img {
@@ -2989,8 +3359,8 @@ a:focus-visible {
 
 .writing-file-link:hover .writing-file-icon,
 .writing-file-link:focus-visible .writing-file-icon {
-  color: rgba(217, 180, 239, 0.94);
-  background-color: rgba(217, 180, 239, 0.035);
+  color: rgba(242, 240, 235, 0.82);
+  background-color: rgba(242, 240, 235, 0.025);
 }
 
 .writing-file-link:hover .writing-file-icon svg,
@@ -3006,7 +3376,17 @@ a:focus-visible {
 .writing-file-link:focus-visible::after {
   opacity: 1;
   transform: translateY(0);
-  animation: writing-prompt-cursor 1250ms steps(2, end) infinite;
+  animation: writing-prompt-cursor-finetuning 1250ms steps(2, end) infinite;
+}
+
+.writing-file-link[data-article-open="but-how-does-the-llm-predict-the-next-token"]:hover::after,
+.writing-file-link[data-article-open="but-how-does-the-llm-predict-the-next-token"]:focus-visible::after {
+  animation-name: writing-prompt-cursor-inference;
+}
+
+.writing-file-link-thesis:hover::after,
+.writing-file-link-thesis:focus-visible::after {
+  animation-name: writing-prompt-cursor-thesis;
 }
 
 .writing-file-link:hover .writing-file-name,
@@ -3104,15 +3484,39 @@ a:focus-visible {
   content: none;
 }
 
-@keyframes writing-prompt-cursor {
+@keyframes writing-prompt-cursor-finetuning {
   0%,
   45% {
-    content: "$ open example-writing.md _";
+    content: "$ open finetuning.md _";
   }
 
   46%,
   100% {
-    content: "$ open example-writing.md";
+    content: "$ open finetuning.md";
+  }
+}
+
+@keyframes writing-prompt-cursor-inference {
+  0%,
+  45% {
+    content: "$ open inference.md _";
+  }
+
+  46%,
+  100% {
+    content: "$ open inference.md";
+  }
+}
+
+@keyframes writing-prompt-cursor-thesis {
+  0%,
+  45% {
+    content: "$ open thesis.md _";
+  }
+
+  46%,
+  100% {
+    content: "$ open thesis.md";
   }
 }
 
@@ -3151,7 +3555,7 @@ a:focus-visible {
 
   .writing-notify {
     gap: 0.9rem;
-    margin-top: 1.35rem;
+    margin: 1.35rem auto 3.25rem;
     padding: 1.25rem 0.7rem 0.1rem;
   }
 

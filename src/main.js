@@ -52,7 +52,7 @@ const queueParticleDensityUpdate = () => {
 const updateParticleStageHeight = () => {
   const stage = document.querySelector("#particles-js");
   const footer = document.querySelector(".site-footer");
-  const aboutPanel = document.querySelector("[data-about-overlay] .about-panel");
+  const writingSection = document.querySelector("#writing");
 
   if (!stage) {
     return;
@@ -61,9 +61,9 @@ const updateParticleStageHeight = () => {
   const footerHeight = footer?.offsetHeight ?? 0;
   stage.style.height = `${document.documentElement.scrollHeight - footerHeight}px`;
 
-  if (aboutPanel && particleFadeEnd === null) {
-    const aboutPanelRect = aboutPanel.getBoundingClientRect();
-    particleFadeEnd = aboutPanelRect.bottom + window.scrollY;
+  if (writingSection && particleFadeEnd === null) {
+    const writingSectionRect = writingSection.getBoundingClientRect();
+    particleFadeEnd = writingSectionRect.bottom + window.scrollY;
   }
 
   if (particleFadeEnd !== null) {
@@ -330,6 +330,14 @@ const initializeWritingNotifyForms = () => {
 };
 
 const articleWindows = [
+  {
+    hash: "#finetuning-qwen3-32b-to-text-like-me",
+    openerSelector:
+      '[data-article-open="finetuning-qwen3-32b-to-text-like-me"]',
+    overlay: document.querySelector(
+      '[data-article-overlay="finetuning-qwen3-32b-to-text-like-me"]',
+    ),
+  },
   {
     hash: "#but-how-does-the-llm-predict-the-next-token",
     openerSelector:
