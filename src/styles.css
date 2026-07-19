@@ -2635,14 +2635,20 @@ a:focus-visible {
 
   .finetuning-response h3 {
     grid-column: 1;
-    grid-row: 2;
-    justify-self: end;
-    padding-top: 0;
+    grid-row: 1;
+    z-index: 1;
+    align-self: start;
+    justify-self: start;
+    max-width: 100%;
+    flex-wrap: wrap;
+    padding: 0.5rem 0.62rem 0;
+    text-align: left;
   }
 
   .finetuning-response p {
     grid-column: 1;
     grid-row: 1;
+    padding-top: 2rem;
   }
 
   .finetuning-response-ranked {
@@ -2656,7 +2662,7 @@ a:focus-visible {
 
   .finetuning-response-ranked h3 {
     grid-column: 2;
-    grid-row: 2;
+    grid-row: 1;
   }
 
   .finetuning-response-ranked p {
