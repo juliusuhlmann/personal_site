@@ -1386,15 +1386,24 @@ a:focus-visible {
 
   .timeline-title-company::after {
     display: inline-block;
-    margin-left: 0.55rem;
+    margin-left: 0.28em;
     color: #7f7a73;
     content: "+";
     font-weight: 700;
+    opacity: 0;
+    transition:
+      color 160ms ease,
+      opacity 160ms ease;
+  }
+
+  .timeline-item:hover .timeline-title-company::after {
+    opacity: 1;
   }
 
   .timeline-item-open .timeline-title-company::after {
     color: #d9b4ef;
     content: "-";
+    opacity: 1;
   }
 
   .writing-library {
