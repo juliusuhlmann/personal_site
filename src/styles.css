@@ -1380,8 +1380,10 @@ a:focus-visible {
     margin-top: 0.14rem;
   }
 
-  .timeline-content h4::after {
+  .timeline-content h4::after,
+  .timeline-item-open .timeline-content h4::after {
     content: none;
+    display: none;
   }
 
   .timeline-title-company::after {
