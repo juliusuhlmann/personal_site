@@ -262,73 +262,6 @@ const initializeArticleScrollMorphs = () => {
   });
 };
 
-const initializeWritingNotifyForms = () => {
-  document.querySelectorAll("[data-writing-notify-form]").forEach((form) => {
-    const input = form.querySelector("input[type='email']");
-    const status = form.querySelector("[data-writing-notify-status]");
-    const button = form.querySelector("button[type='submit']");
-
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-
-      if (!input?.checkValidity()) {
-        input?.reportValidity();
-        return;
-      }
-
-      const email = input.value.trim();
-      const source = form.classList.contains("article-notify")
-        ? "article"
-        : "writing";
-
-      if (status) {
-        status.textContent = "Saving...";
-      }
-
-      if (button) {
-        button.disabled = true;
-      }
-
-      try {
-        const response = await fetch("/api/writing-subscribe", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, source }),
-        });
-
-        if (!response.ok) {
-          const result = await response.json().catch(() => ({
-            message:
-              response.status === 404
-                ? "Signup endpoint unavailable. Run with Vercel or deploy first."
-                : "Could not save your email right now.",
-          }));
-          throw new Error(result.message);
-        }
-
-        if (status) {
-          status.textContent = "Thanks, see you soon :)";
-        }
-
-        form.reset();
-      } catch (error) {
-        if (status) {
-          status.textContent =
-            error instanceof Error
-              ? error.message
-              : "Could not save your email right now.";
-        }
-      } finally {
-        if (button) {
-          button.disabled = false;
-        }
-      }
-    });
-  });
-};
-
 const articleWindows = [
   {
     hash: "#finetuning-qwen3-32b-to-text-like-me",
@@ -584,7 +517,6 @@ if (initialArticle) {
 
 renderArticleMath();
 initializeArticleScrollMorphs();
-initializeWritingNotifyForms();
 initializeTimelineDisclosures();
 updateEditorLineNumbers();
 updateParticleStageHeight();
