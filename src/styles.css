@@ -1380,6 +1380,23 @@ a:focus-visible {
     margin-top: 0.14rem;
   }
 
+  .timeline-content h4::after {
+    content: none;
+  }
+
+  .timeline-title-company::after {
+    display: inline-block;
+    margin-left: 0.55rem;
+    color: #7f7a73;
+    content: "+";
+    font-weight: 700;
+  }
+
+  .timeline-item-open .timeline-title-company::after {
+    color: #d9b4ef;
+    content: "-";
+  }
+
   .writing-library {
     width: min(calc(100% - 3rem), 45rem);
     margin: 0 auto;
