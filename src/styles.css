@@ -891,12 +891,24 @@ a:focus-visible {
 
 .timeline-item::before {
   position: absolute;
-  top: 1.12rem;
-  bottom: -0.46rem;
+  top: 2.13rem;
+  bottom: -0.11rem;
   left: 0.95rem;
   width: 1px;
-  background: rgba(184, 166, 255, 0.16);
+  background: #7f7a73;
   content: "";
+}
+
+.timeline-item:has(> .timeline-dot-small)::before {
+  top: 1.62rem;
+}
+
+.timeline-item:has(> .timeline-logo-tha)::before {
+  top: 2.36rem;
+}
+
+.timeline-item:has(+ .timeline-item > .timeline-dot-small)::before {
+  bottom: -0.72rem;
 }
 
 .timeline-item:last-child::before {
@@ -904,7 +916,7 @@ a:focus-visible {
 }
 
 .timeline-item-open::before {
-  background: rgba(217, 180, 239, 0.28);
+  background: rgba(217, 180, 239, 0.72);
 }
 
 .timeline-item-open::after {
@@ -977,8 +989,8 @@ a:focus-visible {
 }
 
 .timeline-dot-small {
-  width: 0.5rem;
-  height: 0.5rem;
+  width: 0.6rem;
+  height: 0.6rem;
   margin-top: 0.87rem;
 }
 
@@ -989,7 +1001,9 @@ a:focus-visible {
 }
 
 .timeline-dot-white::before {
-  background: #ffffff;
+  box-sizing: border-box;
+  border: 1px solid #7f7a73;
+  background: transparent;
 }
 
 .timeline-item-open .timeline-dot::before {
@@ -1008,7 +1022,8 @@ a:focus-visible {
 }
 
 .timeline-item-open .timeline-dot-white::before {
-  background: #ffffff;
+  border-color: rgba(217, 180, 239, 0.72);
+  background: transparent;
   filter: none;
 }
 
@@ -1098,7 +1113,7 @@ a:focus-visible {
 
 @media (hover: hover) and (pointer: fine) {
   .timeline-item:hover::before {
-    background: rgba(217, 180, 239, 0.28);
+    background: rgba(217, 180, 239, 0.72);
   }
 
   .timeline-item:hover::after {
@@ -1122,7 +1137,8 @@ a:focus-visible {
   }
 
   .timeline-item:hover .timeline-dot-white::before {
-    background: #ffffff;
+    border-color: rgba(217, 180, 239, 0.72);
+    background: transparent;
     filter: none;
   }
 
@@ -1686,9 +1702,21 @@ a:focus-visible {
   }
 
   .timeline-item::before {
-    top: 1.05rem;
-    bottom: -2.12rem;
+    top: 2.06rem;
+    bottom: -1.74rem;
     left: 0.79rem;
+  }
+
+  .timeline-item:has(> .timeline-dot-small)::before {
+    top: 0.94rem;
+  }
+
+  .timeline-item:has(> .timeline-logo-tha)::before {
+    top: 2.29rem;
+  }
+
+  .timeline-item:has(+ .timeline-item > .timeline-dot-small)::before {
+    bottom: -1.74rem;
   }
 
   .timeline-meta {
