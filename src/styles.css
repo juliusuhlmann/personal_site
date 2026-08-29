@@ -1716,7 +1716,7 @@ a:focus-visible {
   }
 
   .timeline-item:has(+ .timeline-item > .timeline-dot-small)::before {
-    bottom: -1.74rem;
+    bottom: -1.63rem;
   }
 
   .timeline-meta {
@@ -1732,7 +1732,7 @@ a:focus-visible {
   }
 
   .timeline-dot-small {
-    margin-top: 0.8rem;
+    margin-top: 0.08rem;
   }
 
   .timeline-content {
