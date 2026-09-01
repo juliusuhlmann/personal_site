@@ -3230,16 +3230,6 @@ a:focus-visible {
   transition: transform 180ms ease;
 }
 
-.writing-file-icon .writing-essay-icon {
-  width: 6.5rem;
-  height: 6.5rem;
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 3;
-}
-
 .writing-file-icon .writing-chat-bubble {
   width: min(88%, 13.125rem);
   height: auto;
@@ -3279,6 +3269,15 @@ a:focus-visible {
   transition: transform 180ms ease;
 }
 
+.writing-essay-mark {
+  display: block;
+  width: min(72%, 8.5rem);
+  aspect-ratio: 115 / 94;
+  background: currentColor;
+  mask: url("/milk-carton-leaf.svg") center / contain no-repeat;
+  transition: transform 180ms ease;
+}
+
 .writing-file-link:hover,
 .writing-file-link:focus-visible {
   background:
@@ -3302,7 +3301,9 @@ a:focus-visible {
 .writing-file-link:hover .writing-file-icon img,
 .writing-file-link:focus-visible .writing-file-icon img,
 .writing-file-link:hover .writing-file-mark,
-.writing-file-link:focus-visible .writing-file-mark {
+.writing-file-link:focus-visible .writing-file-mark,
+.writing-file-link:hover .writing-essay-mark,
+.writing-file-link:focus-visible .writing-essay-mark {
   transform: scale(1.04);
 }
 

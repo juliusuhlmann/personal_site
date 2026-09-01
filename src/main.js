@@ -279,6 +279,13 @@ const articleWindows = [
       '[data-article-overlay="but-how-does-the-llm-predict-the-next-token"]',
     ),
   },
+  {
+    hash: "#a-case-for-lacto-vegetarianism",
+    openerSelector: '[data-article-open="a-case-for-lacto-vegetarianism"]',
+    overlay: document.querySelector(
+      '[data-article-overlay="a-case-for-lacto-vegetarianism"]',
+    ),
+  },
 ];
 
 const getArticleParticleCount = () => {
