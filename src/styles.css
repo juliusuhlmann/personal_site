@@ -3125,13 +3125,38 @@ a:focus-visible {
   margin-top: 1rem;
 }
 
+.writing-category-title {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 2.8rem 0 1rem;
+  color: #a8b8a0;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.writing-category-title::after {
+  height: 1px;
+  flex: 1;
+  background: rgba(168, 184, 160, 0.22);
+  content: "";
+}
+
+.writing-category-title-llms {
+  margin-top: 0.15rem;
+}
+
 .writing-file-link {
   position: relative;
   isolation: isolate;
   display: grid;
   grid-template-columns: minmax(16rem, 35%) minmax(0, 1fr);
   align-items: stretch;
-  min-height: 11.5rem;
+  min-height: 10rem;
   padding: 0;
   overflow: hidden;
   -webkit-tap-highlight-color: transparent;
@@ -3177,13 +3202,18 @@ a:focus-visible {
   content: "$ open thesis.md _";
 }
 
+.writing-file-link-everything::after {
+  color: rgba(182, 201, 173, 0.9);
+  content: "$ open lacto-vegetarianism.md _";
+}
+
 .writing-file-icon {
   grid-column: 1;
   grid-row: 1;
   display: grid;
   place-items: center;
   width: 100%;
-  min-height: 11.5rem;
+  min-height: 10rem;
   color: rgba(242, 240, 235, 0.82);
   background: rgba(242, 240, 235, 0.025);
   border-right: 1px solid rgba(242, 240, 235, 0.08);
@@ -3198,6 +3228,16 @@ a:focus-visible {
   height: 7rem;
   fill: currentColor;
   transition: transform 180ms ease;
+}
+
+.writing-file-icon .writing-essay-icon {
+  width: 6.5rem;
+  height: 6.5rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
 }
 
 .writing-file-icon .writing-chat-bubble {
@@ -3283,6 +3323,24 @@ a:focus-visible {
   animation-name: writing-prompt-cursor-thesis;
 }
 
+.writing-file-link-everything:hover,
+.writing-file-link-everything:focus-visible {
+  background:
+    linear-gradient(90deg, rgba(143, 169, 132, 0.1), rgba(143, 169, 132, 0)),
+    rgba(242, 240, 235, 0.018);
+  border-color: rgba(168, 184, 160, 0.34);
+}
+
+.writing-file-link-everything:hover::after,
+.writing-file-link-everything:focus-visible::after {
+  animation-name: writing-prompt-cursor-lacto;
+}
+
+.writing-file-link.writing-file-link-everything:hover .writing-file-name,
+.writing-file-link.writing-file-link-everything:focus-visible .writing-file-name {
+  color: #b6c9ad;
+}
+
 .writing-file-link:hover .writing-file-name,
 .writing-file-link:focus-visible .writing-file-name {
   color: #d9b4ef;
@@ -3304,9 +3362,9 @@ a:focus-visible {
   grid-column: 2;
   display: grid;
   align-content: start;
-  gap: 0.72rem;
+  gap: 0.58rem;
   min-width: 0;
-  padding: 1.45rem 2.25rem 2.65rem;
+  padding: 1.25rem 2.25rem 2.35rem;
 }
 
 .writing-file-name {
@@ -3414,6 +3472,18 @@ a:focus-visible {
   }
 }
 
+@keyframes writing-prompt-cursor-lacto {
+  0%,
+  45% {
+    content: "$ open lacto-vegetarianism.md _";
+  }
+
+  46%,
+  100% {
+    content: "$ open lacto-vegetarianism.md";
+  }
+}
+
 .site-footer {
   position: relative;
   z-index: 1;
@@ -3444,7 +3514,7 @@ a:focus-visible {
 
   .writing-file-link {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: 35fr 65fr;
+    grid-template-rows: 8rem auto;
     min-height: 0;
     padding: 0;
     border-radius: 0.44rem;
@@ -3454,8 +3524,8 @@ a:focus-visible {
     grid-column: 1;
     grid-row: auto;
     width: 100%;
-    height: 100%;
-    min-height: 0;
+    height: auto;
+    min-height: 8rem;
     border-right: 0;
     border-bottom: 1px solid rgba(242, 240, 235, 0.08);
   }
@@ -3529,7 +3599,7 @@ a:focus-visible {
 @media (min-width: 481px) and (max-width: 640px) {
   .writing-file-link {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: 35fr 65fr;
+    grid-template-rows: 9rem auto;
     padding: 0;
   }
 
@@ -3537,8 +3607,8 @@ a:focus-visible {
     grid-column: 1;
     grid-row: auto;
     width: 100%;
-    height: 100%;
-    min-height: 0;
+    height: auto;
+    min-height: 9rem;
     border-right: 0;
     border-bottom: 1px solid rgba(242, 240, 235, 0.08);
   }
