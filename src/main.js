@@ -49,6 +49,53 @@ const queueParticleDensityUpdate = () => {
   particleDensityFrame = window.requestAnimationFrame(updateParticleDensity);
 };
 
+const positionParticlesAroundHero = () => {
+  const hero = document.querySelector(".intro");
+  const stage = document.querySelector("#particles-js");
+  const particleInstance = window.pJSDom?.find(
+    ({ pJS }) => pJS.canvas.el.parentElement?.id === "particles-js",
+  )?.pJS;
+
+  if (!hero || !stage || !particleInstance) {
+    return;
+  }
+
+  const heroRect = hero.getBoundingClientRect();
+  const stageRect = stage.getBoundingClientRect();
+  const pixelRatio = particleInstance.canvas.pxratio || 1;
+  const centerX =
+    (heroRect.left - stageRect.left + heroRect.width / 2) * pixelRatio;
+  const centerY =
+    (heroRect.top - stageRect.top + heroRect.height / 2) * pixelRatio;
+  const spreadX = Math.max(220, heroRect.width * 0.58) * pixelRatio;
+  const spreadY = Math.max(130, heroRect.height * 0.9) * pixelRatio;
+
+  particleInstance.particles.array.forEach((particle) => {
+    const angle = Math.random() * Math.PI * 2;
+    const distance = Math.sqrt(Math.random());
+    const speed = 0.35 + Math.random() * 0.65;
+
+    particle.x = Math.max(
+      particle.radius,
+      Math.min(
+        particleInstance.canvas.w - particle.radius,
+        centerX + Math.cos(angle) * spreadX * distance,
+      ),
+    );
+    particle.y = Math.max(
+      particle.radius,
+      Math.min(
+        particleInstance.canvas.h - particle.radius,
+        centerY + Math.sin(angle) * spreadY * distance,
+      ),
+    );
+    particle.vx = Math.cos(angle) * speed;
+    particle.vy = Math.sin(angle) * speed;
+    particle.vx_i = particle.vx;
+    particle.vy_i = particle.vy;
+  });
+};
+
 const updateParticleStageHeight = () => {
   const stage = document.querySelector("#particles-js");
   const footer = document.querySelector(".site-footer");
@@ -288,13 +335,18 @@ const articleWindows = [
   },
 ];
 
+const articleParticleCountScale = 0.5;
+
 const getArticleParticleCount = () => {
   const referenceArea = 1440 * 900;
   const viewportScale = Math.sqrt(
     (window.innerWidth * window.innerHeight) / referenceArea,
   );
 
-  return Math.min(333, Math.max(109, Math.round(141 * viewportScale)));
+  return Math.round(
+    Math.min(333, Math.max(109, Math.round(141 * viewportScale))) *
+      articleParticleCountScale,
+  );
 };
 
 const articleParticlesConfig = {
@@ -303,7 +355,7 @@ const articleParticlesConfig = {
     ...particlesConfig.particles,
     number: {
       ...particlesConfig.particles.number,
-      value: 141,
+      value: Math.round(141 * articleParticleCountScale),
       density: {
         ...particlesConfig.particles.number.density,
         enable: false,
@@ -543,5 +595,6 @@ window.addEventListener("load", () => {
 
 if (!reduceMotion && typeof window.particlesJS === "function") {
   window.particlesJS("particles-js", particlesConfig);
+  positionParticlesAroundHero();
   queueParticleDensityUpdate();
 }
