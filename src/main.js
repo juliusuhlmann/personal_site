@@ -63,7 +63,10 @@ const updateParticleStageHeight = () => {
 
   if (writingSection && particleFadeEnd === null) {
     const writingSectionRect = writingSection.getBoundingClientRect();
-    particleFadeEnd = writingSectionRect.bottom + window.scrollY;
+    particleFadeEnd =
+      writingSectionRect.top +
+      window.scrollY +
+      writingSectionRect.height * 0.5;
   }
 
   if (particleFadeEnd !== null) {
