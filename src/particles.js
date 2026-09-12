@@ -1176,6 +1176,9 @@ var pJS = function(tag_id, params){
 
       /* calc number of particles based on density area */
       var nb_particles = area * pJS.particles.number.value / pJS.particles.number.density.value_area;
+      if(Number.isFinite(pJS.particles.number.maximum)){
+        nb_particles = Math.min(nb_particles, pJS.particles.number.maximum);
+      }
 
       /* add or remove X particles */
       var missing_particles = pJS.particles.array.length - nb_particles;

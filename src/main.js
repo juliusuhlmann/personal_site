@@ -1,6 +1,3 @@
-import "./particles.js";
-import katex from "katex";
-import "katex/dist/katex.min.css";
 import particlesConfig from "./particles-config.js";
 
 const reduceMotion = window.matchMedia(
@@ -13,13 +10,24 @@ let particleDensityFrame = null;
 let currentParticleDensity = particlesConfig.particles.number.value;
 let articleScrollMorphFrame = null;
 let articleScrollbarFrame = null;
+let particlesModulePromise = null;
+let articleMathModulePromise = null;
+let homeParticlesInView = true;
+
+const loadParticlesModule = () => {
+  particlesModulePromise ??= import("./particles.js");
+  return particlesModulePromise;
+};
+
+const getHomeParticleInstance = () =>
+  window.pJSDom?.find(
+    ({ pJS }) => pJS.canvas.el.parentElement?.id === "particles-js",
+  )?.pJS;
 
 const updateParticleDensity = () => {
   particleDensityFrame = null;
 
-  const particleInstance = window.pJSDom?.find(
-    ({ pJS }) => pJS.canvas.el.parentElement?.id === "particles-js",
-  )?.pJS;
+  const particleInstance = getHomeParticleInstance();
 
   if (!particleInstance || particleFadeEnd === null) {
     return;
@@ -131,22 +139,44 @@ const scrollToHash = (hash) => {
   });
 };
 
-const renderArticleMath = () => {
-  document.querySelectorAll(".article-math, .article-equation").forEach((node) => {
-    const tex = node.dataset.tex;
+const renderArticleMath = async (root) => {
+  const nodes = Array.from(
+    root.querySelectorAll(
+      ".article-math:not([data-math-rendered]), .article-equation:not([data-math-rendered])",
+    ),
+  );
 
-    if (!tex) {
-      return;
-    }
+  if (nodes.length === 0) {
+    return;
+  }
 
-    katex.render(tex, node, {
-      displayMode:
-        node.dataset.display === "true" ||
-        node.classList.contains("article-equation"),
-      throwOnError: false,
-      strict: "warn",
+  articleMathModulePromise ??= Promise.all([
+    import("katex"),
+    import("katex/dist/katex.min.css"),
+  ]).then(([{ default: katex }]) => katex);
+
+  try {
+    const katex = await articleMathModulePromise;
+
+    nodes.forEach((node) => {
+      const tex = node.dataset.tex;
+
+      if (!tex) {
+        return;
+      }
+
+      katex.render(tex, node, {
+        displayMode:
+          node.dataset.display === "true" ||
+          node.classList.contains("article-equation"),
+        throwOnError: false,
+        strict: "warn",
+      });
+      node.dataset.mathRendered = "true";
     });
-  });
+  } catch (error) {
+    console.error("Unable to load article math.", error);
+  }
 };
 
 const setArticleScrollMorphProgress = (morph, progress) => {
@@ -410,10 +440,12 @@ const initializeTimelineDisclosures = () => {
     });
 };
 
-const initializeArticleParticles = (articleWindow) => {
+const initializeArticleParticles = async (articleWindow) => {
   if (!articleWindow?.overlay) {
     return;
   }
+
+  await loadParticlesModule();
 
   articleWindow.overlay
     .querySelectorAll("[data-article-particles]")
@@ -472,7 +504,8 @@ const showArticle = (targetWindow, { updateHash = true } = {}) => {
   });
 
   targetWindow.overlay.hidden = false;
-  initializeArticleParticles(targetWindow);
+  void initializeArticleParticles(targetWindow);
+  void renderArticleMath(targetWindow.overlay);
   queueArticleScrollMorphUpdate();
   queueArticleScrollbarUpdate();
   window.requestAnimationFrame(() => {
@@ -530,7 +563,6 @@ if (initialArticle) {
   showArticle(initialArticle, { updateHash: false });
 }
 
-renderArticleMath();
 initializeArticleScrollMorphs();
 initializeTimelineDisclosures();
 updateEditorLineNumbers();
@@ -549,7 +581,59 @@ window.addEventListener("load", () => {
   centerAttentionScrolls();
 });
 
-if (!reduceMotion && typeof window.particlesJS === "function") {
+const syncHomeParticleAnimation = () => {
+  const particleInstance = getHomeParticleInstance();
+
+  if (!particleInstance) {
+    return;
+  }
+
+  const shouldAnimate = !document.hidden && homeParticlesInView;
+
+  if (shouldAnimate === particleInstance.particles.move.enable) {
+    return;
+  }
+
+  particleInstance.particles.move.enable = shouldAnimate;
+
+  if (shouldAnimate) {
+    particleInstance.fn.vendors.draw();
+  } else {
+    window.cancelRequestAnimFrame(particleInstance.fn.drawAnimFrame);
+  }
+};
+
+const initializeHomeParticles = async () => {
+  await loadParticlesModule();
+
+  if (typeof window.particlesJS !== "function") {
+    return;
+  }
+
   window.particlesJS("particles-js", particlesConfig);
   queueParticleDensityUpdate();
+
+  const canvas = getHomeParticleInstance()?.canvas.el;
+
+  if (canvas && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(([entry]) => {
+      homeParticlesInView = entry.isIntersecting;
+      syncHomeParticleAnimation();
+    });
+    observer.observe(canvas);
+  }
+
+  syncHomeParticleAnimation();
+};
+
+document.addEventListener("visibilitychange", syncHomeParticleAnimation);
+
+if (!reduceMotion) {
+  const startHomeParticles = () => void initializeHomeParticles();
+
+  if ("requestIdleCallback" in window) {
+    window.requestIdleCallback(startHomeParticles, { timeout: 800 });
+  } else {
+    window.requestAnimationFrame(() => window.setTimeout(startHomeParticles, 0));
+  }
 }
