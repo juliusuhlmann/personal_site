@@ -369,6 +369,8 @@ a:focus-visible {
 
 .nav-links a[href="#writing"] {
   gap: 0.48rem;
+  border-width: 1.5px;
+  border-color: #b5b0a8;
 }
 
 .nav-links a[href="#writing"]::after {
@@ -390,6 +392,7 @@ a:focus-visible {
 
 .nav-links a[href="#writing"]:hover,
 .nav-links a[href="#writing"]:focus-visible {
+  border-color: #f0ece5;
   color: #ffffff;
 }
 
@@ -484,12 +487,12 @@ a:focus-visible {
   flex: 0 0 auto;
   width: 1.02rem;
   height: 1.18rem;
-  border: 1.7px solid rgba(var(--accent-rgb), 0.84);
+  border: 1.7px solid #ffffff;
   border-radius: 0.15rem;
   background:
-    linear-gradient(rgba(var(--accent-rgb), 0.84), rgba(var(--accent-rgb), 0.84))
+    linear-gradient(#ffffff, #ffffff)
       0.28rem 0.48rem / 0.46rem 1.5px no-repeat,
-    linear-gradient(rgba(var(--accent-rgb), 0.68), rgba(var(--accent-rgb), 0.68))
+    linear-gradient(#ffffff, #ffffff)
       0.28rem 0.72rem / 0.34rem 1.5px no-repeat;
   content: "";
 }
@@ -499,8 +502,8 @@ a:focus-visible {
   height: 0.28rem;
   margin-left: -0.9rem;
   align-self: flex-start;
-  border-left: 1.5px solid rgba(var(--accent-rgb), 0.72);
-  border-bottom: 1.5px solid rgba(var(--accent-rgb), 0.72);
+  border-left: 1.5px solid #ffffff;
+  border-bottom: 1.5px solid #ffffff;
   content: "";
   pointer-events: none;
   transform: translateY(0.08rem) rotate(0deg);
@@ -3131,7 +3134,7 @@ a:focus-visible {
   width: 1.32rem;
   height: 1.32rem;
   flex: 0 0 1.32rem;
-  color: rgba(var(--accent-rgb), 0.9);
+  color: #ffffff;
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;
@@ -3306,6 +3309,15 @@ a:focus-visible {
   transition: transform 180ms ease;
 }
 
+.writing-file-icon svg,
+.writing-file-icon img,
+.writing-file-mark,
+.writing-essay-mark {
+  transition:
+    transform 180ms ease,
+    filter 180ms ease;
+}
+
 .writing-file-link:hover,
 .writing-file-link:focus-visible {
   background:
@@ -3334,6 +3346,9 @@ a:focus-visible {
 .writing-file-link:hover .writing-essay-mark,
 .writing-file-link:focus-visible .writing-essay-mark {
   transform: scale(1.04);
+  filter:
+    drop-shadow(0 0 0.4rem rgba(var(--accent-rgb), 0.4))
+    drop-shadow(0 0 0.85rem rgba(var(--accent-rgb), 0.16));
 }
 
 .writing-file-link:hover::after,
