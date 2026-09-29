@@ -1,6 +1,6 @@
 :root {
-  --accent: #c17dff;
-  --accent-rgb: 193, 125, 255;
+  --accent: #d06fff;
+  --accent-rgb: 208, 111, 255;
   --accent-muted: #918c84;
   --font-mono:
     "Cascadia Mono", "Cascadia Code", "SFMono-Regular", Menlo, Monaco,
@@ -171,8 +171,8 @@ a:focus-visible {
   white-space: nowrap;
 }
 
-.site-brand-accent {
-  color: var(--accent);
+.site-brand-prefix {
+  color: var(--accent-muted);
 }
 
 .social-links {
@@ -239,9 +239,9 @@ a:focus-visible {
   background-image:
     radial-gradient(
       circle at 0 7rem,
-      rgba(var(--accent-rgb), 0.24) 0,
-      rgba(var(--accent-rgb), 0.12) 10rem,
-      rgba(var(--accent-rgb), 0.04) 18rem,
+      rgba(var(--accent-rgb), 0.17) 0,
+      rgba(var(--accent-rgb), 0.08) 10rem,
+      rgba(var(--accent-rgb), 0.025) 18rem,
       transparent 31rem
     ),
     var(--background-dot);
@@ -313,7 +313,7 @@ a:focus-visible {
   bottom: -0.36em;
   left: -0.06em;
   height: 0.38em;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 20' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath d='M3 10C14 4 23 4 34 10C45 16 54 14 64 6C74 3 82 4 89 12C96 16 103 14 110 7C114 5 117 6 118 8' fill='none' stroke='%23c17dff' stroke-width='6.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 20' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath d='M3 10C14 4 23 4 34 10C45 16 54 14 64 6C74 3 82 4 89 12C96 16 103 14 110 7C114 5 117 6 118 8' fill='none' stroke='%23d06fff' stroke-width='6.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
     center / 100% 100% no-repeat;
   content: "";
   pointer-events: none;
@@ -1534,7 +1534,7 @@ a:focus-visible {
   }
 
   .hero-underline::after {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 20' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath d='M3 10C14 4 23 4 34 10C45 16 54 14 64 6C74 3 82 4 89 12C96 16 103 14 110 7C114 5 117 6 118 8' fill='none' stroke='%23c17dff' stroke-width='6.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 20' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath d='M3 10C14 4 23 4 34 10C45 16 54 14 64 6C74 3 82 4 89 12C96 16 103 14 110 7C114 5 117 6 118 8' fill='none' stroke='%23d06fff' stroke-width='6.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   }
 
   .intro h1,
@@ -3309,15 +3309,6 @@ a:focus-visible {
   transition: transform 180ms ease;
 }
 
-.writing-file-icon svg,
-.writing-file-icon img,
-.writing-file-mark,
-.writing-essay-mark {
-  transition:
-    transform 180ms ease,
-    filter 180ms ease;
-}
-
 .writing-file-link:hover,
 .writing-file-link:focus-visible {
   background:
@@ -3346,9 +3337,6 @@ a:focus-visible {
 .writing-file-link:hover .writing-essay-mark,
 .writing-file-link:focus-visible .writing-essay-mark {
   transform: scale(1.04);
-  filter:
-    drop-shadow(0 0 0.4rem rgba(var(--accent-rgb), 0.4))
-    drop-shadow(0 0 0.85rem rgba(var(--accent-rgb), 0.16));
 }
 
 .writing-file-link:hover::after,
