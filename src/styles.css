@@ -3249,6 +3249,11 @@ a:focus-visible {
   transition: transform 180ms ease;
 }
 
+.writing-file-icon .writing-unlocked-padlock {
+  width: min(57%, 6.45rem);
+  height: auto;
+}
+
 .writing-file-icon .writing-chat-bubble {
   width: min(88%, 13.125rem);
   height: auto;
@@ -3816,4 +3821,162 @@ a:focus-visible {
     animation: none;
   }
 
+}
+
+.unalignment-prose h3 {
+  margin-top: 2.3rem;
+  color: #f0ebe4;
+  font-family: var(--font-mono);
+  font-size: 1.08rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.unalignment-section-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+}
+
+.unalignment-section-heading span {
+  flex: none;
+  color: #88837e;
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.unalignment-note {
+  font-size: 0.94rem;
+}
+
+.unalignment-note p {
+  margin: 0;
+  color: #aaa6a0;
+  font-style: italic;
+}
+
+.article-tokenized-section.unalignment-tokens {
+  margin-block: 1.35rem;
+  margin-left: 0;
+  padding: 0;
+}
+
+.unalignment-table-scroll { overflow-x: auto; }
+
+.unalignment-table-scroll table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.unalignment-table-scroll caption {
+  margin-bottom: 0.8rem;
+  text-align: left;
+  color: #c8c0b4;
+}
+
+.unalignment-table-scroll th,
+.unalignment-table-scroll td {
+  padding: 0.8rem;
+  border-bottom: 1px solid rgba(240, 235, 228, 0.18);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.unalignment-table-scroll th { color: #fff; font-weight: 600; }
+.unalignment-table-scroll th:first-child { text-align: left; }
+.unalignment-table-scroll tbody tr:last-child { background: rgba(217, 180, 239, 0.07); }
+
+.writing-file-link[data-article-open="unaligning-qwen3-8-27b-with-reinforcement-learning"]::after {
+  content: "$ open unalignment.md _";
+}
+
+.writing-file-link[data-article-open="unaligning-qwen3-8-27b-with-reinforcement-learning"]:hover::after,
+.writing-file-link[data-article-open="unaligning-qwen3-8-27b-with-reinforcement-learning"]:focus-visible::after {
+  animation-name: writing-prompt-cursor-unalignment;
+}
+
+@keyframes writing-prompt-cursor-unalignment {
+  0%, 45% { content: "$ open unalignment.md _"; }
+  46%, 100% { content: "$ open unalignment.md"; }
+}
+
+.article-citation {
+  font-size: 0.72em;
+  line-height: 0;
+  vertical-align: super;
+}
+
+.article-citation a { padding-inline: 0.08em; }
+
+.article-references {
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.article-references li + li { margin-top: 1rem; }
+.article-references li { scroll-margin-block: 2rem; }
+
+/* Optional training details in a quiet disclosure card. */
+.article-prose.unalignment-prose { margin-top: 1.5rem; }
+
+.unalignment-training-summary {
+  margin-top: 0;
+  padding-inline: 1.25rem;
+  border: 1px solid rgba(240, 235, 228, 0.12);
+  border-radius: 10px;
+  background: linear-gradient(145deg, rgba(41, 41, 41, 0.61), rgba(34, 34, 34, 0.61));
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.035), 0 8px 22px rgba(0, 0, 0, 0.13);
+}
+
+.unalignment-training-summary summary {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.65rem;
+  padding: 1rem 1.25rem;
+  margin-inline: -1.25rem;
+  border-radius: 9px;
+  cursor: pointer;
+  list-style: none;
+  color: #e0dcd6;
+  font-family: var(--font-prose);
+  font-size: 0.98rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.unalignment-training-summary summary::-webkit-details-marker { display: none; }
+
+.unalignment-training-summary summary::after {
+  content: "";
+  width: 0.38rem;
+  height: 0.38rem;
+  margin-right: 0.2rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.unalignment-training-summary[open] summary::after { transform: rotate(225deg); }
+.unalignment-training-summary summary:hover,
+.unalignment-training-summary summary:focus-visible {
+  color: #f0ebe4;
+  background: rgba(255, 255, 255, 0.025);
+}
+.unalignment-training-summary[open] { padding-bottom: 1.3rem; }
+.unalignment-training-summary > p,
+.unalignment-training-summary > ol { margin: 1.15rem 0 0; }
+.unalignment-training-summary > p {
+  margin-top: 0.25rem;
+  color: #c7c4bf;
+}
+.unalignment-training-summary > ol { color: #c7c4bf; }
+.unalignment-training-summary + p { margin-top: 2rem; }
+
+.unalignment-agent-prompt {
+  color: #c9c5bf;
+  font-style: italic;
 }

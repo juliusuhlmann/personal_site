@@ -297,6 +297,11 @@ const initializeArticleScrollMorphs = () => {
 
 const articleWindows = [
   {
+    hash: "#unaligning-qwen3-8-27b-with-reinforcement-learning",
+    openerSelector: '[data-article-open="unaligning-qwen3-8-27b-with-reinforcement-learning"]',
+    overlay: document.querySelector('[data-article-overlay="unaligning-qwen3-8-27b-with-reinforcement-learning"]'),
+  },
+  {
     hash: "#finetuning-qwen3-32b-to-text-like-me",
     openerSelector:
       '[data-article-open="finetuning-qwen3-32b-to-text-like-me"]',
@@ -526,6 +531,16 @@ articleWindows.forEach((articleWindow) => {
       event.preventDefault();
       showArticle(articleWindow);
     });
+  });
+});
+
+document.querySelectorAll("[data-article-reference]").forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const target = document.getElementById(link.hash.slice(1));
+    if (!target) return;
+    event.preventDefault();
+    target.focus({ preventScroll: true });
+    target.scrollIntoView({ block: "center", behavior: reduceMotion ? "auto" : "smooth" });
   });
 });
 
