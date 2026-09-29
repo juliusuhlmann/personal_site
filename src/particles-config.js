@@ -9,7 +9,7 @@ const particlesConfig = {
       },
     },
     color: {
-      value: "#a96be8",
+      value: "#c17dff",
     },
     shape: {
       type: "polygon",
@@ -39,7 +39,7 @@ const particlesConfig = {
     line_linked: {
       enable: true,
       distance: 220,
-      color: "#a96be8",
+      color: "#c17dff",
       opacity: 0.14,
       width: 1,
     },
