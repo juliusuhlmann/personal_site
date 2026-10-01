@@ -13,8 +13,6 @@ let articleScrollbarFrame = null;
 let particlesModulePromise = null;
 let articleMathModulePromise = null;
 let homeParticlesInView = true;
-let homeIsScrolling = false;
-let homeScrollIdleTimer = null;
 
 const loadParticlesModule = () => {
   particlesModulePromise ??= import("./particles.js");
@@ -29,7 +27,6 @@ const getHomeParticleInstance = () =>
 const shouldAnimateHomeParticles = () =>
   !document.hidden &&
   homeParticlesInView &&
-  !homeIsScrolling &&
   !document.documentElement.classList.contains("article-open");
 
 const cancelParticleDensityUpdate = () => {
@@ -651,26 +648,6 @@ function syncHomeParticleAnimation() {
   }
 }
 
-const pauseHomeParticlesWhileScrolling = () => {
-  if (
-    !homeParticlesInView ||
-    document.documentElement.classList.contains("article-open")
-  ) {
-    return;
-  }
-
-  if (!homeIsScrolling) {
-    homeIsScrolling = true;
-    syncHomeParticleAnimation();
-  }
-
-  window.clearTimeout(homeScrollIdleTimer);
-  homeScrollIdleTimer = window.setTimeout(() => {
-    homeIsScrolling = false;
-    syncHomeParticleAnimation();
-  }, 140);
-};
-
 const initializeHomeParticles = async () => {
   await loadParticlesModule();
 
@@ -697,7 +674,7 @@ const initializeHomeParticles = async () => {
 document.addEventListener("visibilitychange", syncHomeParticleAnimation);
 
 if (!reduceMotion) {
-  window.addEventListener("scroll", pauseHomeParticlesWhileScrolling, { passive: true });
+  window.addEventListener("scroll", queueParticleDensityUpdate, { passive: true });
   const startHomeParticles = () => void initializeHomeParticles();
   const scheduleHomeParticles = () => {
     if ("requestIdleCallback" in window) {
