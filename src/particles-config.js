@@ -80,6 +80,7 @@ const particlesConfig = {
     },
   },
   retina_detect: true,
+  max_pixel_ratio: 1.5,
 };
 
 export default particlesConfig;

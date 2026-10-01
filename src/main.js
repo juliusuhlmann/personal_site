@@ -50,7 +50,11 @@ const updateParticleDensity = () => {
 };
 
 const queueParticleDensityUpdate = () => {
-  if (particleDensityFrame !== null) {
+  if (
+    particleDensityFrame !== null ||
+    !homeParticlesInView ||
+    document.documentElement.classList.contains("article-open")
+  ) {
     return;
   }
 
@@ -227,7 +231,10 @@ const updateArticleScrollMorphs = () => {
 };
 
 const queueArticleScrollMorphUpdate = () => {
-  if (articleScrollMorphFrame !== null) {
+  if (
+    articleScrollMorphFrame !== null ||
+    !document.querySelector(".article-overlay:not([hidden])")
+  ) {
     return;
   }
 
@@ -495,6 +502,7 @@ const hideArticle = () => {
   });
   document.documentElement.classList.remove("article-open");
   document.body.classList.remove("article-open");
+  syncHomeParticleAnimation();
 };
 
 const showArticle = (targetWindow, { updateHash = true } = {}) => {
@@ -519,6 +527,7 @@ const showArticle = (targetWindow, { updateHash = true } = {}) => {
   });
   document.documentElement.classList.add("article-open");
   document.body.classList.add("article-open");
+  syncHomeParticleAnimation();
 
   if (updateHash && window.location.hash !== targetWindow.hash) {
     window.history.pushState(null, "", targetWindow.hash);
@@ -596,14 +605,17 @@ window.addEventListener("load", () => {
   centerAttentionScrolls();
 });
 
-const syncHomeParticleAnimation = () => {
+function syncHomeParticleAnimation() {
   const particleInstance = getHomeParticleInstance();
 
   if (!particleInstance) {
     return;
   }
 
-  const shouldAnimate = !document.hidden && homeParticlesInView;
+  const shouldAnimate =
+    !document.hidden &&
+    homeParticlesInView &&
+    !document.documentElement.classList.contains("article-open");
 
   if (shouldAnimate === particleInstance.particles.move.enable) {
     return;
@@ -612,11 +624,12 @@ const syncHomeParticleAnimation = () => {
   particleInstance.particles.move.enable = shouldAnimate;
 
   if (shouldAnimate) {
+    queueParticleDensityUpdate();
     particleInstance.fn.vendors.draw();
   } else {
     window.cancelRequestAnimFrame(particleInstance.fn.drawAnimFrame);
   }
-};
+}
 
 const initializeHomeParticles = async () => {
   await loadParticlesModule();
@@ -645,10 +658,17 @@ document.addEventListener("visibilitychange", syncHomeParticleAnimation);
 
 if (!reduceMotion) {
   const startHomeParticles = () => void initializeHomeParticles();
+  const scheduleHomeParticles = () => {
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(startHomeParticles, { timeout: 2000 });
+    } else {
+      window.setTimeout(startHomeParticles, 500);
+    }
+  };
 
-  if ("requestIdleCallback" in window) {
-    window.requestIdleCallback(startHomeParticles, { timeout: 800 });
+  if (document.readyState === "complete") {
+    scheduleHomeParticles();
   } else {
-    window.requestAnimationFrame(() => window.setTimeout(startHomeParticles, 0));
+    window.addEventListener("load", scheduleHomeParticles, { once: true });
   }
 }

@@ -126,6 +126,7 @@ var pJS = function(tag_id, params){
       mouse:{}
     },
     retina_detect: false,
+    max_pixel_ratio: Infinity,
     fn: {
       interact: {},
       modes: {},
@@ -157,7 +158,7 @@ var pJS = function(tag_id, params){
   pJS.fn.retinaInit = function(){
 
     if(pJS.retina_detect && window.devicePixelRatio > 1){
-      pJS.canvas.pxratio = window.devicePixelRatio; 
+      pJS.canvas.pxratio = Math.min(window.devicePixelRatio, pJS.max_pixel_ratio);
       pJS.tmp.retina = true;
     } 
     else{
@@ -1169,10 +1170,8 @@ var pJS = function(tag_id, params){
     if(pJS.particles.number.density.enable){
 
       /* calc area */
-      var area = pJS.canvas.el.width * pJS.canvas.el.height / 1000;
-      if(pJS.tmp.retina){
-        area = area/(pJS.canvas.pxratio*2);
-      }
+      var area = pJS.canvas.el.width * pJS.canvas.el.height /
+        (1000 * pJS.canvas.pxratio * pJS.canvas.pxratio);
 
       /* calc number of particles based on density area */
       var nb_particles = area * pJS.particles.number.value / pJS.particles.number.density.value_area;
