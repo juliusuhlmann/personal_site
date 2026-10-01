@@ -13,6 +13,8 @@ let articleScrollbarFrame = null;
 let particlesModulePromise = null;
 let articleMathModulePromise = null;
 let homeParticlesInView = true;
+let homeIsScrolling = false;
+let homeScrollIdleTimer = null;
 
 const loadParticlesModule = () => {
   particlesModulePromise ??= import("./particles.js");
@@ -53,6 +55,7 @@ const queueParticleDensityUpdate = () => {
   if (
     particleDensityFrame !== null ||
     !homeParticlesInView ||
+    homeIsScrolling ||
     document.documentElement.classList.contains("article-open")
   ) {
     return;
@@ -595,7 +598,6 @@ window.addEventListener("resize", updateParticleStageHeightOnLayoutResize);
 window.addEventListener("resize", updateArticleParticleDensity);
 window.addEventListener("resize", queueArticleScrollMorphUpdate);
 window.addEventListener("resize", queueArticleScrollbarUpdate);
-window.addEventListener("scroll", queueParticleDensityUpdate, { passive: true });
 window.addEventListener("scroll", queueArticleScrollMorphUpdate, { passive: true });
 window.addEventListener("load", () => {
   updateEditorLineNumbers();
@@ -615,6 +617,7 @@ function syncHomeParticleAnimation() {
   const shouldAnimate =
     !document.hidden &&
     homeParticlesInView &&
+    !homeIsScrolling &&
     !document.documentElement.classList.contains("article-open");
 
   if (shouldAnimate === particleInstance.particles.move.enable) {
@@ -630,6 +633,26 @@ function syncHomeParticleAnimation() {
     window.cancelRequestAnimFrame(particleInstance.fn.drawAnimFrame);
   }
 }
+
+const pauseHomeParticlesWhileScrolling = () => {
+  if (
+    !homeParticlesInView ||
+    document.documentElement.classList.contains("article-open")
+  ) {
+    return;
+  }
+
+  if (!homeIsScrolling) {
+    homeIsScrolling = true;
+    syncHomeParticleAnimation();
+  }
+
+  window.clearTimeout(homeScrollIdleTimer);
+  homeScrollIdleTimer = window.setTimeout(() => {
+    homeIsScrolling = false;
+    syncHomeParticleAnimation();
+  }, 140);
+};
 
 const initializeHomeParticles = async () => {
   await loadParticlesModule();
@@ -657,6 +680,7 @@ const initializeHomeParticles = async () => {
 document.addEventListener("visibilitychange", syncHomeParticleAnimation);
 
 if (!reduceMotion) {
+  window.addEventListener("scroll", pauseHomeParticlesWhileScrolling, { passive: true });
   const startHomeParticles = () => void initializeHomeParticles();
   const scheduleHomeParticles = () => {
     if ("requestIdleCallback" in window) {
