@@ -26,12 +26,29 @@ const getHomeParticleInstance = () =>
     ({ pJS }) => pJS.canvas.el.parentElement?.id === "particles-js",
   )?.pJS;
 
+const shouldAnimateHomeParticles = () =>
+  !document.hidden &&
+  homeParticlesInView &&
+  !homeIsScrolling &&
+  !document.documentElement.classList.contains("article-open");
+
+const cancelParticleDensityUpdate = () => {
+  if (particleDensityFrame !== null) {
+    window.cancelAnimationFrame(particleDensityFrame);
+    particleDensityFrame = null;
+  }
+};
+
 const updateParticleDensity = () => {
   particleDensityFrame = null;
 
   const particleInstance = getHomeParticleInstance();
 
-  if (!particleInstance || particleFadeEnd === null) {
+  if (
+    !particleInstance ||
+    particleFadeEnd === null ||
+    !shouldAnimateHomeParticles()
+  ) {
     return;
   }
 
@@ -54,9 +71,7 @@ const updateParticleDensity = () => {
 const queueParticleDensityUpdate = () => {
   if (
     particleDensityFrame !== null ||
-    !homeParticlesInView ||
-    homeIsScrolling ||
-    document.documentElement.classList.contains("article-open")
+    !shouldAnimateHomeParticles()
   ) {
     return;
   }
@@ -614,11 +629,11 @@ function syncHomeParticleAnimation() {
     return;
   }
 
-  const shouldAnimate =
-    !document.hidden &&
-    homeParticlesInView &&
-    !homeIsScrolling &&
-    !document.documentElement.classList.contains("article-open");
+  const shouldAnimate = shouldAnimateHomeParticles();
+
+  if (!shouldAnimate) {
+    cancelParticleDensityUpdate();
+  }
 
   if (shouldAnimate === particleInstance.particles.move.enable) {
     return;
@@ -627,7 +642,9 @@ function syncHomeParticleAnimation() {
   particleInstance.particles.move.enable = shouldAnimate;
 
   if (shouldAnimate) {
-    queueParticleDensityUpdate();
+    cancelParticleDensityUpdate();
+    // Apply the current scroll density before drawing the first resumed frame.
+    updateParticleDensity();
     particleInstance.fn.vendors.draw();
   } else {
     window.cancelRequestAnimFrame(particleInstance.fn.drawAnimFrame);

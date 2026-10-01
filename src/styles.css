@@ -252,7 +252,8 @@ a:focus-visible {
 #particles-js canvas {
   display: block;
   width: 100%;
-  height: var(--particle-field-height);
+  /* Override particles.js's inline 100% height before it sizes the buffer. */
+  height: var(--particle-field-height) !important;
   -webkit-mask-image: linear-gradient(
     to bottom,
     #000000 0,
