@@ -348,7 +348,7 @@ const articleWindows = [
   },
 ];
 
-const articleParticleCountScale = 0.5;
+const articleParticleCountScale = 0.4;
 
 const getArticleParticleCount = () => {
   const referenceArea = 1440 * 900;
