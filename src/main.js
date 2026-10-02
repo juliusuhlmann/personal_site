@@ -416,7 +416,7 @@ const updateArticleParticleDensity = () => {
 
 const initializeTimelineDisclosures = () => {
   document
-    .querySelectorAll("[data-about-overlay] .timeline-item")
+    .querySelectorAll("[data-about-overlay] .timeline-item:not(.timeline-item-static)")
     .forEach((item, index) => {
       const details = item.querySelector(".timeline-details");
 

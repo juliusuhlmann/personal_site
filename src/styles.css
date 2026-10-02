@@ -1139,37 +1139,37 @@ a:focus-visible {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .timeline-item:hover::before {
+  .timeline-item:not(.timeline-item-static):hover::before {
     background: rgba(var(--accent-rgb), 0.72);
   }
 
-  .timeline-item:hover::after {
+  .timeline-item:not(.timeline-item-static):hover::after {
     opacity: 1;
     transform: translateX(0);
   }
 
-  .timeline-item:hover .timeline-dot::before {
+  .timeline-item:not(.timeline-item-static):hover .timeline-dot::before {
     background: rgba(var(--accent-rgb), 0.96);
     filter: drop-shadow(0 0 0.45rem rgba(var(--accent-rgb), 0.48));
   }
 
-  .timeline-item:hover .timeline-logo-allianz::before {
+  .timeline-item:not(.timeline-item-static):hover .timeline-logo-allianz::before {
     background: #003781;
     filter: none;
   }
 
-  .timeline-item:hover .timeline-logo-sz::before {
+  .timeline-item:not(.timeline-item-static):hover .timeline-logo-sz::before {
     background: #17b4ab;
     filter: none;
   }
 
-  .timeline-item:hover .timeline-dot-white::before {
+  .timeline-item:not(.timeline-item-static):hover .timeline-dot-white::before {
     border-color: rgba(var(--accent-rgb), 0.72);
     background: transparent;
     filter: none;
   }
 
-  .timeline-item:hover
+  .timeline-item:not(.timeline-item-static):hover
     .timeline-dot:is(
       .timeline-logo-bmw,
       .timeline-logo-tha,
@@ -1180,24 +1180,24 @@ a:focus-visible {
     filter: none;
   }
 
-  .timeline-item:hover .timeline-content {
+  .timeline-item:not(.timeline-item-static):hover .timeline-content {
     color: #f0ece5;
   }
 
-  .timeline-item:hover .timeline-content h3,
-  .timeline-item:hover .timeline-content h4 {
+  .timeline-item:not(.timeline-item-static):hover .timeline-content h3,
+  .timeline-item:not(.timeline-item-static):hover .timeline-content h4 {
     color: #ffffff;
   }
 
-  .timeline-item:hover .timeline-content h4::after {
+  .timeline-item:not(.timeline-item-static):hover .timeline-content h4::after {
     opacity: 1;
   }
 
-  .timeline-item:hover .timeline-title-company {
+  .timeline-item:not(.timeline-item-static):hover .timeline-title-company {
     color: #7f7a73;
   }
 
-  .timeline-item:hover .timeline-meta {
+  .timeline-item:not(.timeline-item-static):hover .timeline-meta {
     color: #7f7a73;
   }
 }
@@ -1446,7 +1446,7 @@ a:focus-visible {
       opacity 160ms ease;
   }
 
-  .timeline-item:hover .timeline-title-company::after {
+  .timeline-item:not(.timeline-item-static):hover .timeline-title-company::after {
     opacity: 1;
   }
 
@@ -4020,4 +4020,21 @@ a:focus-visible {
 }
 @media (max-width: 480px) {
   :is(.article-prose, .article-afterword) .article-section-heading { font-size: 23px; }
+}
+
+/* Experience entries are always visible and have no disclosure affordance. */
+.timeline-item-static { cursor: default; }
+.timeline-item-static::after,
+.timeline-item-static .timeline-content h4::after,
+.timeline-item-static .timeline-title-company::after {
+  content: none;
+  display: none;
+}
+.timeline-item-static:not(.timeline-item-open) .timeline-details {
+  max-height: none;
+  margin-top: 0.38rem;
+  opacity: 1;
+  pointer-events: auto;
+  overflow: visible;
+  transition: none;
 }
