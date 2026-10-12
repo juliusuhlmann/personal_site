@@ -4065,6 +4065,10 @@ a:focus-visible {
     border-width: 0;
     font-size: 0.82rem;
   }
+
+  .article-prose .comp-ml-table-scroll + :is(h3, p) {
+    margin-top: 2.75rem;
+  }
 }
 
 .writing-file-link[data-article-open="unaligning-qwen3-8-27b-with-reinforcement-learning"]::after {
