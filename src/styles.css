@@ -2181,9 +2181,18 @@ a:focus-visible {
 }
 
 .article-afterword a {
-  color: var(--accent);
-  text-decoration-color: rgba(var(--accent-rgb), 0.38);
+  color: inherit;
+  text-decoration-color: rgba(240, 235, 228, 0.25);
   text-underline-offset: 0.2em;
+  transition:
+    color 160ms ease,
+    text-decoration-color 160ms ease;
+}
+
+.article-afterword a:hover,
+.article-afterword a:focus-visible {
+  color: var(--accent);
+  text-decoration-color: rgba(var(--accent-rgb), 0.5);
 }
 
 .article-afterword-prompt {
@@ -3998,6 +4007,45 @@ a:focus-visible {
 .comp-ml-table-scroll td[style="--v:0"] {
   color: rgba(240, 235, 228, 0.28);
   background-color: rgba(242, 240, 235, 0.025);
+}
+
+/* On narrow screens each label gets its own line, with the tiles in thirds below it. */
+@media (max-width: 720px) {
+  .comp-ml-table-scroll table,
+  .comp-ml-table-scroll thead,
+  .comp-ml-table-scroll tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .comp-ml-table-scroll tr {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .comp-ml-table-scroll thead th,
+  .comp-ml-table-scroll td {
+    flex: 0 0 calc(100% / 3);
+    width: auto;
+  }
+
+  .comp-ml-table-scroll thead th {
+    padding: 0 3px 0.5rem;
+  }
+
+  .comp-ml-table-scroll thead th:first-child {
+    display: none;
+  }
+
+  .comp-ml-table-scroll tbody th {
+    flex: 0 0 100%;
+    padding: 0.7rem 0 0.2rem;
+  }
+
+  .comp-ml-table-scroll td {
+    padding-block: 0.4rem;
+    border-width: 2px 3px;
+  }
 }
 
 .writing-file-link[data-article-open="unaligning-qwen3-8-27b-with-reinforcement-learning"]::after {
