@@ -340,6 +340,13 @@ const articleWindows = [
     ),
   },
   {
+    hash: "#the-state-of-competitive-ml",
+    openerSelector: '[data-article-open="the-state-of-competitive-ml"]',
+    overlay: document.querySelector(
+      '[data-article-overlay="the-state-of-competitive-ml"]',
+    ),
+  },
+  {
     hash: "#a-case-for-lacto-vegetarianism",
     openerSelector: '[data-article-open="a-case-for-lacto-vegetarianism"]',
     overlay: document.querySelector(

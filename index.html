@@ -201,6 +201,43 @@
         <ul class="writing-file-list">
           <li>
             <a
+              class="writing-file-link writing-file-link-comp-ml"
+              href="#the-state-of-competitive-ml"
+              aria-label="Open article: The State of Competitive ML"
+              data-article-open="the-state-of-competitive-ml"
+            >
+              <span class="writing-file-icon" aria-hidden="true">
+                <svg class="writing-regression" viewBox="0 0 120 96" aria-hidden="true">
+                  <path class="writing-regression-axes" d="M8 4v84h110M3.5 10 8 4l4.5 6M112 83.5l6 4.5-6 4.5" />
+                  <path class="writing-regression-curve" d="M16 72C26 50 34 34 44 34S66 62 78 62 98 40 108 16" />
+                  <circle cx="17" cy="62" r="2.2" />
+                  <circle cx="24" cy="65" r="2.2" />
+                  <circle cx="31" cy="36" r="2.2" />
+                  <circle cx="38" cy="47" r="2.2" />
+                  <circle cx="46" cy="24" r="2.2" />
+                  <circle cx="54" cy="50" r="2.2" />
+                  <circle cx="62" cy="39" r="2.2" />
+                  <circle cx="71" cy="67" r="2.2" />
+                  <circle cx="79" cy="52" r="2.2" />
+                  <circle cx="87" cy="69" r="2.2" />
+                  <circle cx="95" cy="39" r="2.2" />
+                  <circle cx="102" cy="42" r="2.2" />
+                  <circle cx="107" cy="9" r="2.2" />
+                </svg>
+              </span>
+              <span class="writing-file-copy">
+                <span class="writing-file-name">The State of Competitive ML</span>
+                <span class="writing-file-kicker">
+                  Oct 12, 2026 &middot; 3 min read
+                </span>
+                <span class="writing-file-description">
+                  Exploring the latest 100 Kaggle first-place solution write-ups to extract common methods, models and tricks in competitive machine learning.
+                </span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a
               class="writing-file-link writing-file-link-everything"
               href="#a-case-for-lacto-vegetarianism"
               aria-label="Open article: A Case for Lacto-Vegetarianism"
@@ -1790,6 +1827,94 @@
               </div>
             </div>
           </section>
+        </div>
+      </article>
+    </section>
+    <section
+      class="article-overlay"
+      aria-labelledby="article-title-comp-ml"
+      data-article-overlay="the-state-of-competitive-ml"
+      hidden
+    >
+      <article class="article-shell">
+        <div
+          class="article-particles article-particles-left"
+          data-article-particles
+          aria-hidden="true"
+        ></div>
+        <div
+          class="article-particles article-particles-right"
+          data-article-particles
+          aria-hidden="true"
+        ></div>
+        <div class="article-topbar">
+          <a
+            class="article-backlink"
+            href="#writing"
+            aria-label="Back to writing list"
+            data-window-target="#writing"
+          >
+            Writing
+          </a>
+        </div>
+        <header class="article-header">
+          <h1 id="article-title-comp-ml" class="article-title">
+            The State of Competitive ML
+          </h1>
+          <p class="article-lead">
+            Exploring the latest 100 Kaggle first-place solution write-ups to extract common methods, models and tricks in competitive machine learning.
+          </p>
+          <div class="article-meta">
+            <span class="article-meta-item">
+              <svg
+                class="article-meta-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="M8 2v4" />
+                <path d="M16 2v4" />
+                <path d="M3.5 9.2h17" />
+                <rect x="4" y="4" width="16" height="17" rx="2" />
+              </svg>
+              <time datetime="2026-10-12">Oct 12, 2026</time>
+            </span>
+            <span class="article-meta-item">
+              <svg
+                class="article-meta-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="8.5" />
+                <path d="M12 7.5v5l3.2 1.9" />
+              </svg>
+              <span>3 min read</span>
+            </span>
+          </div>
+        </header>
+        <div class="article-prose comp-ml-prose">
+          <p>Let’s skip the intro and deep dive into the most interesting insights from aggregating winning comp ML solutions.</p>
+          <p>I used agents (Sonnet 5.5 &amp; GPT-6 Luna) to scrape the latest 100 Kaggle competitions with a published first-place write-up and created a <a href="https://github.com/juliusuhlmann/kaggle-first-place-solutions" target="_blank" rel="noreferrer">dataset</a> of the approaches, models and techniques used in each winning solution. Below you can find an overview of the models and methods used (“Overview”) and the typical winning workflow for each structured data, unstructured data and LLM competitions (“Typical Workflows”).</p>
+
+          <h2 class="article-section-heading">Overview</h2>
+          <p>Across all competition winners (12 optimization and simulation competitions are left out), the following models and methods were used:</p>
+          <h3 class="article-subsection-heading"><span>Model Families</span></h3>
+          <div class="comp-ml-table-scroll" role="region" aria-label="Model families used by winners" tabindex="0"><table><thead><tr><th scope="col">Model family</th><th scope="col">Structured<span>n=40</span></th><th scope="col">Unstructured<span>n=31</span></th></tr></thead><tbody><tr><th scope="row">Trees</th><td style="--v:60">60%</td><td style="--v:6">6%</td></tr><tr><th scope="row">MLP / tabular neural nets</th><td style="--v:35">35%</td><td style="--v:10">10%</td></tr><tr><th scope="row">Linear / logistic</th><td style="--v:23">23%</td><td style="--v:10">10%</td></tr><tr><th scope="row">AutoGluon (mixed toolkit)</th><td style="--v:10">10%</td><td style="--v:3">3%</td></tr><tr><th scope="row">CNN / U-Net</th><td style="--v:13">13%</td><td style="--v:42">42%</td></tr><tr><th scope="row">Encoder / vision transformers</th><td style="--v:13">13%</td><td style="--v:45">45%</td></tr></tbody></table></div>
+          <h3 class="article-subsection-heading"><span>Models</span></h3>
+          <div class="comp-ml-table-scroll" role="region" aria-label="Models used by winners" tabindex="0"><table><thead><tr><th scope="col">Model</th><th scope="col">Structured<span>n=40</span></th><th scope="col">Unstructured<span>n=31</span></th></tr></thead><tbody><tr><th scope="row">XGBoost</th><td style="--v:45">45%</td><td style="--v:3">3%</td></tr><tr><th scope="row">CatBoost</th><td style="--v:33">33%</td><td style="--v:0">0%</td></tr><tr><th scope="row">LightGBM</th><td style="--v:33">33%</td><td style="--v:0">0%</td></tr><tr><th scope="row">MLP</th><td style="--v:33">33%</td><td style="--v:10">10%</td></tr><tr><th scope="row">TabM</th><td style="--v:18">18%</td><td style="--v:0">0%</td></tr><tr><th scope="row">CNN</th><td style="--v:10">10%</td><td style="--v:35">35%</td></tr><tr><th scope="row">U-Net</th><td style="--v:3">3%</td><td style="--v:19">19%</td></tr><tr><th scope="row">Transformer</th><td style="--v:10">10%</td><td style="--v:13">13%</td></tr><tr><th scope="row">DINO</th><td style="--v:0">0%</td><td style="--v:13">13%</td></tr></tbody></table></div>
+          <h3 class="article-subsection-heading"><span>Base LLMs</span></h3>
+          <div class="comp-ml-table-scroll" role="region" aria-label="LLM base models used by winners" tabindex="0"><table><thead><tr><th scope="col">Base model</th><th scope="col">LLM<span>n=17</span></th></tr></thead><tbody><tr><th scope="row">Qwen</th><td style="--v:59">59%</td></tr><tr><th scope="row">Gemma</th><td style="--v:29">29%</td></tr><tr><th scope="row">Llama</th><td style="--v:18">18%</td></tr><tr><th scope="row">DeepSeek</th><td style="--v:18">18%</td></tr></tbody></table></div>
+          <h3 class="article-subsection-heading"><span>Methods</span></h3>
+          <div class="comp-ml-table-scroll" role="region" aria-label="Methods used by winners" tabindex="0"><table><thead><tr><th scope="col">Method</th><th scope="col">Structured<span>n=40</span></th><th scope="col">Unstructured<span>n=31</span></th><th scope="col">LLM<span>n=17</span></th></tr></thead><tbody><tr><th scope="row">Ensembling</th><td style="--v:85">85%</td><td style="--v:84">84%</td><td style="--v:47">47%</td></tr><tr><th scope="row">Feature engineering</th><td style="--v:85">85%</td><td style="--v:23">23%</td><td style="--v:6">6%</td></tr><tr><th scope="row">Post-processing</th><td style="--v:30">30%</td><td style="--v:71">71%</td><td style="--v:47">47%</td></tr><tr><th scope="row">Pretrained backbone / transfer learning</th><td style="--v:3">3%</td><td style="--v:55">55%</td><td style="--v:100">100%</td></tr><tr><th scope="row">Stacking or learned blend weights</th><td style="--v:65">65%</td><td style="--v:13">13%</td><td style="--v:0">0%</td></tr><tr><th scope="row">External or original data</th><td style="--v:35">35%</td><td style="--v:26">26%</td><td style="--v:12">12%</td></tr><tr><th scope="row">Data augmentation</th><td style="--v:10">10%</td><td style="--v:48">48%</td><td style="--v:18">18%</td></tr><tr><th scope="row">Pseudo-labelling</th><td style="--v:5">5%</td><td style="--v:26">26%</td><td style="--v:18">18%</td></tr><tr><th scope="row">Hyperparameter search</th><td style="--v:23">23%</td><td style="--v:6">6%</td><td style="--v:0">0%</td></tr><tr><th scope="row">Supervised fine-tuning (SFT)</th><td style="--v:0">0%</td><td style="--v:3">3%</td><td style="--v:59">59%</td></tr><tr><th scope="row">Synthetic training data</th><td style="--v:0">0%</td><td style="--v:13">13%</td><td style="--v:35">35%</td></tr><tr><th scope="row">Quantization</th><td style="--v:0">0%</td><td style="--v:6">6%</td><td style="--v:47">47%</td></tr><tr><th scope="row">Distillation</th><td style="--v:0">0%</td><td style="--v:10">10%</td><td style="--v:24">24%</td></tr><tr><th scope="row">LoRA / QLoRA</th><td style="--v:0">0%</td><td style="--v:0">0%</td><td style="--v:29">29%</td></tr></tbody></table></div>
+          <p>Authors oftentimes don’t mention every method and model they used, so these numbers are lower bounds (especially for hyperparameter search and feature engineering).</p>
+
+          <h2 class="article-section-heading">Typical Workflows</h2>
+          <h3 class="article-subsection-heading"><span>Structured</span></h3>
+          <ol><li>Build useful features, such as binned numbers, target-encoded categories or calendar information, and add domain knowledge where you can.</li><li>Start with gradient-boosted trees and NNs (for diversity).</li><li>Keep the out-of-fold predictions of all models (even during hyperparameter tuning and from weak variants).</li><li>Combine these OOF predictions into an ensemble, either by training a meta-model on them (usually Ridge or a small neural net) or with hill climbing.</li><li>Judge a new model by whether it improves the ensemble’s score, not by its individual score. Therefore specialized models and models that make different mistakes than the existing ensemble are favored.</li></ol>
+          <h3 class="article-subsection-heading"><span>Unstructured</span></h3>
+          <ol><li>Start from a strong pretrained model (e.g. DINOv2/ConvNeXt) and fine-tune it.</li><li>Pre-process model inputs (e.g. crop regions of interest with another model, split large 3D scans and long audio into overlapping chunks and aggregate the predictions) and apply realistic augmentations.</li><li>Add auxiliary outputs that give the model extra information to learn from (e.g. predicting an object’s location in the image while classifying it).</li><li>Use your current models to label unlabelled or test data (pseudo-labelling), then retrain on the expanded data.</li><li>Ensemble by averaging models that differ in backbone, input or resolution.</li><li>Apply output processing such as enforcing domain rules (e.g. removing impossible classes) and calibrating thresholds (e.g. to match the expected share of positives)</li></ol>
+          <h3 class="article-subsection-heading"><span>LLMs</span></h3>
+          <ol><li>Choose an open model that fits the hardware constraints (Qwen in 59% of winners).</li><li>Build training data with larger models, by generating synthetic examples or distilling their answers, and filter it hard (e.g. keep only math solutions with verified answers).</li><li>Fine-tune with SFT + LoRA, or build a system around the base model instead.</li><li>Sample many answers, check them (e.g. by running code or tests), and select the best or majority answer.</li></ol>
+          <p>These workflows are simplified and won’t fit every use case. Rather, they are an aggregated illustration of how winners typically approached each competition type. For any questions, feel free to DM me :)</p>
         </div>
       </article>
     </section>

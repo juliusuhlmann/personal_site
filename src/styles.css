@@ -3229,6 +3229,33 @@ a:focus-visible {
   content: "$ open lacto-vegetarianism.md _";
 }
 
+.writing-file-link-comp-ml::after {
+  content: "$ open competitive-ml.md _";
+}
+
+.writing-file-icon .writing-regression {
+  width: min(72%, 8.5rem);
+  height: auto;
+  overflow: visible;
+}
+
+.writing-regression-axes,
+.writing-regression-curve {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.writing-regression-axes {
+  stroke-width: 1.6;
+  opacity: 0.55;
+}
+
+.writing-regression-curve {
+  stroke-width: 2.5;
+}
+
 .writing-file-icon {
   grid-column: 1;
   grid-row: 1;
@@ -3355,6 +3382,11 @@ a:focus-visible {
 .writing-file-link-everything:hover::after,
 .writing-file-link-everything:focus-visible::after {
   animation-name: writing-prompt-cursor-lacto;
+}
+
+.writing-file-link-comp-ml:hover::after,
+.writing-file-link-comp-ml:focus-visible::after {
+  animation-name: writing-prompt-cursor-comp-ml;
 }
 
 .writing-file-link:hover .writing-file-name,
@@ -3497,6 +3529,18 @@ a:focus-visible {
   46%,
   100% {
     content: "$ open lacto-vegetarianism.md";
+  }
+}
+
+@keyframes writing-prompt-cursor-comp-ml {
+  0%,
+  45% {
+    content: "$ open competitive-ml.md _";
+  }
+
+  46%,
+  100% {
+    content: "$ open competitive-ml.md";
   }
 }
 
@@ -3884,6 +3928,77 @@ a:focus-visible {
 .unalignment-table-scroll th { color: #fff; font-weight: 600; }
 .unalignment-table-scroll th:first-child { text-align: left; }
 .unalignment-table-scroll tbody tr:last-child { background: rgba(var(--accent-rgb), 0.07); }
+
+/* Minimal heatmap: each percentage cell is a tile whose fill scales with --v. */
+.comp-ml-table-scroll {
+  overflow-x: auto;
+}
+
+.comp-ml-table-scroll table {
+  margin: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(242, 240, 235, 0.08);
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.comp-ml-table-scroll th,
+.comp-ml-table-scroll td {
+  padding: 0.45rem 0.6rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.comp-ml-table-scroll th:first-child {
+  padding-left: 0;
+  text-align: left;
+  white-space: normal;
+}
+
+.comp-ml-table-scroll thead th {
+  width: 7.5rem;
+  padding: 0 0 0.5rem 12px;
+  vertical-align: bottom;
+  line-height: 1.35;
+  color: #c8c0b4;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  border-bottom: 1px solid rgba(242, 240, 235, 0.08);
+  text-align: center;
+}
+
+.comp-ml-table-scroll thead th:first-child {
+  width: 18rem;
+  padding-left: 0;
+}
+
+.comp-ml-table-scroll thead th span {
+  display: block;
+  color: #88837e;
+  font-size: 0.68rem;
+}
+
+.comp-ml-table-scroll tbody th { color: #f0ebe4; }
+
+.comp-ml-table-scroll td {
+  color: #f0ebe4;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  background: rgba(var(--accent-rgb), calc(0.04 + var(--v, 0) * 0.0056));
+  background-clip: padding-box;
+  border: solid transparent;
+  border-width: 2px 0 2px 12px;
+  border-radius: 0.35rem;
+}
+
+.comp-ml-table-scroll td[style="--v:0"] {
+  color: rgba(240, 235, 228, 0.28);
+  background-color: rgba(242, 240, 235, 0.025);
+}
 
 .writing-file-link[data-article-open="unaligning-qwen3-8-27b-with-reinforcement-learning"]::after {
   content: "$ open unalignment.md _";
