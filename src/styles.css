@@ -4018,19 +4018,37 @@ a:focus-visible {
     width: 100%;
   }
 
+  .comp-ml-table-scroll table {
+    padding-bottom: 0;
+  }
+
   .comp-ml-table-scroll tr {
     display: flex;
     flex-wrap: wrap;
+    column-gap: 0.5rem;
+  }
+
+  .comp-ml-table-scroll thead tr {
+    border-bottom: 1px solid rgba(242, 240, 235, 0.08);
+  }
+
+  .comp-ml-table-scroll tbody tr {
+    padding-block: 0.75rem;
+  }
+
+  .comp-ml-table-scroll tbody tr + tr {
+    border-top: 1px solid rgba(242, 240, 235, 0.05);
   }
 
   .comp-ml-table-scroll thead th,
   .comp-ml-table-scroll td {
-    flex: 0 0 calc(100% / 3);
+    flex: 0 0 calc((100% - 1rem) / 3);
     width: auto;
   }
 
   .comp-ml-table-scroll thead th {
-    padding: 0 3px 0.5rem;
+    padding: 0 0 0.6rem;
+    border-bottom: 0;
   }
 
   .comp-ml-table-scroll thead th:first-child {
@@ -4039,12 +4057,13 @@ a:focus-visible {
 
   .comp-ml-table-scroll tbody th {
     flex: 0 0 100%;
-    padding: 0.7rem 0 0.2rem;
+    padding: 0 0 0.5rem;
   }
 
   .comp-ml-table-scroll td {
-    padding-block: 0.4rem;
-    border-width: 2px 3px;
+    padding-block: 0.55rem;
+    border-width: 0;
+    font-size: 0.82rem;
   }
 }
 
