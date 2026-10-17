@@ -311,10 +311,10 @@ a:focus-visible {
 .hero-underline::after {
   position: absolute;
   right: -0.04em;
-  bottom: -0.36em;
+  bottom: -0.48em;
   left: -0.06em;
-  height: 0.38em;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 20' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath d='M3 10C14 4 23 4 34 10C45 16 54 14 64 6C74 3 82 4 89 12C96 16 103 14 110 7C114 5 117 6 118 8' fill='none' stroke='%23d06fff' stroke-width='6.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+  height: 0.52em;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 20' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath d='M3 12C8 6 13 4 20 8C28 13 32 16 40 12C49 7 53 3 62 7C69 10 74 15 83 11C90 8 95 5 101 7C107 9 112 11 117 7' fill='none' stroke='%23d06fff' stroke-width='5.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
     center / 100% 100% no-repeat;
   content: "";
   pointer-events: none;
@@ -1534,7 +1534,7 @@ a:focus-visible {
   }
 
   .hero-underline::after {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 20' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath d='M3 10C14 4 23 4 34 10C45 16 54 14 64 6C74 3 82 4 89 12C96 16 103 14 110 7C114 5 117 6 118 8' fill='none' stroke='%23d06fff' stroke-width='6.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 20' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath d='M3 12C8 6 13 4 20 8C28 13 32 16 40 12C49 7 53 3 62 7C69 10 74 15 83 11C90 8 95 5 101 7C107 9 112 11 117 7' fill='none' stroke='%23d06fff' stroke-width='5.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   }
 
   .intro h1,
