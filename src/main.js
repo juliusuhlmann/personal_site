@@ -56,7 +56,7 @@ const mouseTrailFadeMs = 500;
 const touchTrailRadius = 46;
 const touchTrailFadeMs = 1200;
 const touchRippleRadius = 45;
-const touchRippleMs = 700;
+const touchRippleMs = 450;
 const dotTrailEmptyMask = "linear-gradient(transparent, transparent)";
 
 // Reveal a purple copy of the dot grid along the mouse or finger path and let
@@ -129,7 +129,7 @@ const initializeBackgroundDotTrail = () => {
       `<svg xmlns="http://www.w3.org/2000/svg" width="${background.offsetWidth}" height="${background.offsetHeight}">` +
       `<defs><radialGradient id="g"><stop offset="0" stop-color="#fff"/>` +
       `<stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>` +
-      `<radialGradient id="ring"><stop offset="0.55" stop-color="#fff" stop-opacity="0"/>` +
+      `<radialGradient id="ring"><stop offset="0.6" stop-color="#fff" stop-opacity="0"/>` +
       `<stop offset="0.85" stop-color="#fff"/>` +
       `<stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>` +
       `<g fill="url(#g)">${circles.join("")}</g></svg>`;
@@ -203,12 +203,22 @@ const initializeBackgroundDotTrail = () => {
   window.addEventListener(
     "touchstart",
     (event) => {
+      const touch = event.touches[0];
       endTouch();
-      traceTouch(event);
 
-      if (lastTouch) {
-        ripples.push({ ...lastTouch, time: performance.now() });
+      if (!touch || document.documentElement.classList.contains("article-open")) {
+        return;
       }
+
+      // Leave the touch point dark so the ripple reads as a ring; the trail
+      // starts once the finger moves.
+      const origin = background.getBoundingClientRect();
+      lastTouch = {
+        x: Math.round(touch.clientX - origin.left),
+        y: Math.round(touch.clientY - origin.top),
+      };
+      ripples.push({ ...lastTouch, time: performance.now() });
+      trailFrame ??= window.requestAnimationFrame(drawTrail);
     },
     { passive: true },
   );
