@@ -55,6 +55,9 @@ const mouseTrailRadius = 34;
 const mouseTrailFadeMs = 500;
 const touchTrailRadius = 46;
 const touchTrailFadeMs = 1200;
+const touchRippleRadius = 150;
+const touchRippleMs = 700;
+const touchHapticMs = 8;
 const dotTrailEmptyMask = "linear-gradient(transparent, transparent)";
 
 // Reveal a purple copy of the dot grid along the mouse or finger path and let
@@ -74,6 +77,7 @@ const initializeBackgroundDotTrail = () => {
 
   // Fading spots, keyed by grid cell so a path never stacks up.
   const spots = new Map();
+  const ripples = [];
   let lastMouse = null;
   let lastTouch = null;
   let trailFrame = null;
@@ -102,6 +106,21 @@ const initializeBackgroundDotTrail = () => {
       );
     });
 
+    for (let index = ripples.length - 1; index >= 0; index -= 1) {
+      const progress = (now - ripples[index].time) / touchRippleMs;
+
+      if (progress >= 1) {
+        ripples.splice(index, 1);
+        continue;
+      }
+
+      // Ease out so the ring bursts outward and slows as it fades.
+      const radius = touchRippleRadius * (1 - (1 - progress) ** 3);
+      circles.push(
+        `<circle cx="${ripples[index].x}" cy="${ripples[index].y}" r="${radius.toFixed(1)}" fill="url(#ring)" opacity="${(1 - progress).toFixed(3)}"/>`,
+      );
+    }
+
     if (circles.length === 0) {
       setMask(dotTrailEmptyMask);
       return;
@@ -110,6 +129,9 @@ const initializeBackgroundDotTrail = () => {
     const svg =
       `<svg xmlns="http://www.w3.org/2000/svg" width="${background.offsetWidth}" height="${background.offsetHeight}">` +
       `<defs><radialGradient id="g"><stop offset="0" stop-color="#fff"/>` +
+      `<stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>` +
+      `<radialGradient id="ring"><stop offset="0.55" stop-color="#fff" stop-opacity="0"/>` +
+      `<stop offset="0.85" stop-color="#fff"/>` +
       `<stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>` +
       `<g fill="url(#g)">${circles.join("")}</g></svg>`;
 
@@ -184,6 +206,11 @@ const initializeBackgroundDotTrail = () => {
     (event) => {
       endTouch();
       traceTouch(event);
+
+      if (lastTouch) {
+        ripples.push({ ...lastTouch, time: performance.now() });
+        navigator.vibrate?.(touchHapticMs);
+      }
     },
     { passive: true },
   );
