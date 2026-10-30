@@ -55,8 +55,6 @@ const mouseTrailRadius = 34;
 const mouseTrailFadeMs = 500;
 const touchTrailRadius = 46;
 const touchTrailFadeMs = 1200;
-const touchRippleRadius = 45;
-const touchRippleMs = 450;
 const dotTrailEmptyMask = "linear-gradient(transparent, transparent)";
 
 // Reveal a purple copy of the dot grid along the mouse or finger path and let
@@ -76,7 +74,6 @@ const initializeBackgroundDotTrail = () => {
 
   // Fading spots, keyed by grid cell so a path never stacks up.
   const spots = new Map();
-  const ripples = [];
   let lastMouse = null;
   let lastTouch = null;
   let trailFrame = null;
@@ -105,21 +102,6 @@ const initializeBackgroundDotTrail = () => {
       );
     });
 
-    for (let index = ripples.length - 1; index >= 0; index -= 1) {
-      const progress = (now - ripples[index].time) / touchRippleMs;
-
-      if (progress >= 1) {
-        ripples.splice(index, 1);
-        continue;
-      }
-
-      // Ease out so the ring bursts outward and slows as it fades.
-      const radius = touchRippleRadius * (1 - (1 - progress) ** 3);
-      circles.push(
-        `<circle cx="${ripples[index].x}" cy="${ripples[index].y}" r="${radius.toFixed(1)}" fill="url(#ring)" opacity="${(1 - progress).toFixed(3)}"/>`,
-      );
-    }
-
     if (circles.length === 0) {
       setMask(dotTrailEmptyMask);
       return;
@@ -128,9 +110,6 @@ const initializeBackgroundDotTrail = () => {
     const svg =
       `<svg xmlns="http://www.w3.org/2000/svg" width="${background.offsetWidth}" height="${background.offsetHeight}">` +
       `<defs><radialGradient id="g"><stop offset="0" stop-color="#fff"/>` +
-      `<stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>` +
-      `<radialGradient id="ring"><stop offset="0.6" stop-color="#fff" stop-opacity="0"/>` +
-      `<stop offset="0.85" stop-color="#fff"/>` +
       `<stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>` +
       `<g fill="url(#g)">${circles.join("")}</g></svg>`;
 
@@ -203,22 +182,8 @@ const initializeBackgroundDotTrail = () => {
   window.addEventListener(
     "touchstart",
     (event) => {
-      const touch = event.touches[0];
       endTouch();
-
-      if (!touch || document.documentElement.classList.contains("article-open")) {
-        return;
-      }
-
-      // Leave the touch point dark so the ripple reads as a ring; the trail
-      // starts once the finger moves.
-      const origin = background.getBoundingClientRect();
-      lastTouch = {
-        x: Math.round(touch.clientX - origin.left),
-        y: Math.round(touch.clientY - origin.top),
-      };
-      ripples.push({ ...lastTouch, time: performance.now() });
-      trailFrame ??= window.requestAnimationFrame(drawTrail);
+      traceTouch(event);
     },
     { passive: true },
   );
