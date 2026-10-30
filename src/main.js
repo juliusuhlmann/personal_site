@@ -55,7 +55,7 @@ const mouseTrailRadius = 34;
 const mouseTrailFadeMs = 500;
 const touchTrailRadius = 46;
 const touchTrailFadeMs = 1200;
-const touchRippleRadius = 70;
+const touchRippleRadius = 45;
 const touchRippleMs = 700;
 const dotTrailEmptyMask = "linear-gradient(transparent, transparent)";
 
