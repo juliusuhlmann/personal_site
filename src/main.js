@@ -54,7 +54,7 @@ const initializeBackgroundAccentDots = () => {
 const mouseTrailRadius = 34;
 const mouseTrailFadeMs = 500;
 const touchTrailRadius = 56;
-const touchTrailFadeMs = 1200;
+const touchTrailFadeMs = 800;
 const dotTrailEmptyMask = "linear-gradient(transparent, transparent)";
 
 // Reveal a purple copy of the dot grid along the mouse or finger path and let
@@ -164,9 +164,14 @@ const initializeBackgroundDotTrail = () => {
     },
     { passive: true },
   );
-  document.addEventListener("pointerleave", () => {
+  const endMouseTrail = () => {
     lastMouse = null;
-  });
+  };
+
+  document.addEventListener("pointerleave", endMouseTrail);
+  // Scrolling moves the page under a still cursor, so start a fresh path
+  // instead of joining the old and new positions.
+  window.addEventListener("scroll", endMouseTrail, { passive: true });
 
   const traceTouch = (event) => {
     const touch = event.touches[0];
