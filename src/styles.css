@@ -225,11 +225,7 @@ a:focus-visible {
   opacity: 0.82;
 }
 
-#particles-js {
-  --particle-fade-start: 56vh;
-  --particle-fade-end: 280vh;
-  --particle-field-height: var(--particle-fade-end);
-
+#site-background {
   position: absolute;
   inset: 0;
   z-index: 0;
@@ -246,26 +242,7 @@ a:focus-visible {
     ),
     var(--background-dot);
   background-size: auto, 20px 20px;
-  pointer-events: auto;
-}
-
-#particles-js canvas {
-  display: block;
-  width: 100%;
-  /* Override particles.js's inline 100% height before it sizes the buffer. */
-  height: var(--particle-field-height) !important;
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    #000000 0,
-    #000000 var(--particle-fade-start),
-    transparent var(--particle-fade-end)
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    #000000 0,
-    #000000 var(--particle-fade-start),
-    transparent var(--particle-fade-end)
-  );
+  pointer-events: none;
 }
 
 .intro h1,
@@ -1906,32 +1883,6 @@ a:focus-visible {
 
 .article-overlay::-webkit-scrollbar-thumb:hover {
   background: #6b655e;
-}
-
-.article-particles {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  z-index: 0;
-  width: var(--article-rail-width);
-  min-height: 0;
-  pointer-events: none;
-  opacity: 1;
-  overflow: hidden;
-}
-
-.article-particles-left {
-  left: 0;
-}
-
-.article-particles-right {
-  right: 0;
-}
-
-.article-particles canvas {
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
 }
 
 .article-shell {
@@ -3782,10 +3733,6 @@ a:focus-visible {
     display: block;
     width: min(calc(100vw - 4.5rem), 48rem);
     padding: 1.1rem 0 3rem;
-  }
-
-  .article-particles {
-    display: none;
   }
 
   .article-scroll-morph-stage {

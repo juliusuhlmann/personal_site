@@ -1,106 +1,22 @@
-import particlesConfig from "./particles-config.js";
-
 const reduceMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)",
 ).matches;
 
-let particleStageWidth = window.innerWidth;
-let particleFadeEnd = null;
-let particleDensityFrame = null;
-let currentParticleDensity = particlesConfig.particles.number.value;
+let backgroundWidth = window.innerWidth;
 let articleScrollMorphFrame = null;
 let articleScrollbarFrame = null;
-let particlesModulePromise = null;
 let articleMathModulePromise = null;
-let homeParticlesInView = true;
 
-const loadParticlesModule = () => {
-  particlesModulePromise ??= import("./particles.js");
-  return particlesModulePromise;
-};
-
-const getHomeParticleInstance = () =>
-  window.pJSDom?.find(
-    ({ pJS }) => pJS.canvas.el.parentElement?.id === "particles-js",
-  )?.pJS;
-
-const shouldAnimateHomeParticles = () =>
-  !document.hidden &&
-  homeParticlesInView &&
-  !document.documentElement.classList.contains("article-open");
-
-const cancelParticleDensityUpdate = () => {
-  if (particleDensityFrame !== null) {
-    window.cancelAnimationFrame(particleDensityFrame);
-    particleDensityFrame = null;
-  }
-};
-
-const updateParticleDensity = () => {
-  particleDensityFrame = null;
-
-  const particleInstance = getHomeParticleInstance();
-
-  if (
-    !particleInstance ||
-    particleFadeEnd === null ||
-    !shouldAnimateHomeParticles()
-  ) {
-    return;
-  }
-
-  const densityRange = Math.max(1, particleFadeEnd - window.innerHeight);
-  const scrollProgress = Math.min(1, Math.max(0, window.scrollY / densityRange));
-  const densityScale = 1 - scrollProgress * 0.6;
-  const nextDensity = Math.round(
-    particlesConfig.particles.number.value * densityScale,
-  );
-
-  if (nextDensity === currentParticleDensity) {
-    return;
-  }
-
-  currentParticleDensity = nextDensity;
-  particleInstance.particles.number.value = nextDensity;
-  particleInstance.fn.vendors.densityAutoParticles();
-};
-
-const queueParticleDensityUpdate = () => {
-  if (
-    particleDensityFrame !== null ||
-    !shouldAnimateHomeParticles()
-  ) {
-    return;
-  }
-
-  particleDensityFrame = window.requestAnimationFrame(updateParticleDensity);
-};
-
-const updateParticleStageHeight = () => {
-  const stage = document.querySelector("#particles-js");
+const updateBackgroundHeight = () => {
+  const background = document.querySelector("#site-background");
   const footer = document.querySelector(".site-footer");
-  const writingSection = document.querySelector("#writing");
 
-  if (!stage) {
+  if (!background) {
     return;
   }
 
   const footerHeight = footer?.offsetHeight ?? 0;
-  stage.style.height = `${document.documentElement.scrollHeight - footerHeight}px`;
-
-  if (writingSection && particleFadeEnd === null) {
-    const writingSectionRect = writingSection.getBoundingClientRect();
-    particleFadeEnd =
-      writingSectionRect.top +
-      window.scrollY +
-      writingSectionRect.height * 0.5;
-  }
-
-  if (particleFadeEnd !== null) {
-    stage.style.setProperty("--particle-fade-end", `${particleFadeEnd}px`);
-    stage.style.setProperty("--particle-field-height", `${particleFadeEnd}px`);
-    queueParticleDensityUpdate();
-  }
+  background.style.height = `${document.documentElement.scrollHeight - footerHeight}px`;
 };
 
 const updateEditorLineNumbers = () => {
@@ -134,15 +50,14 @@ const updateEditorLineNumbers = () => {
   });
 };
 
-const updateParticleStageHeightOnLayoutResize = () => {
-  if (window.innerWidth === particleStageWidth) {
+const updateBackgroundHeightOnLayoutResize = () => {
+  if (window.innerWidth === backgroundWidth) {
     return;
   }
 
-  particleStageWidth = window.innerWidth;
-  particleFadeEnd = null;
+  backgroundWidth = window.innerWidth;
   updateEditorLineNumbers();
-  updateParticleStageHeight();
+  updateBackgroundHeight();
 };
 
 const scrollToHash = (hash) => {
@@ -355,72 +270,6 @@ const articleWindows = [
   },
 ];
 
-const articleParticleCountScale = 0.4;
-
-const getArticleParticleCount = () => {
-  const referenceArea = 1440 * 900;
-  const viewportScale = Math.sqrt(
-    (window.innerWidth * window.innerHeight) / referenceArea,
-  );
-
-  return Math.round(
-    Math.min(333, Math.max(109, Math.round(141 * viewportScale))) *
-      articleParticleCountScale,
-  );
-};
-
-const articleParticlesConfig = {
-  ...particlesConfig,
-  particles: {
-    ...particlesConfig.particles,
-    number: {
-      ...particlesConfig.particles.number,
-      value: Math.round(141 * articleParticleCountScale),
-      density: {
-        ...particlesConfig.particles.number.density,
-        enable: false,
-      },
-    },
-    move: {
-      ...particlesConfig.particles.move,
-      enable: false,
-    },
-  },
-  interactivity: {
-    ...particlesConfig.interactivity,
-    events: {
-      ...particlesConfig.interactivity.events,
-      onhover: {
-        ...particlesConfig.interactivity.events.onhover,
-        enable: false,
-      },
-      onclick: {
-        ...particlesConfig.interactivity.events.onclick,
-        enable: false,
-      },
-    },
-  },
-};
-
-const updateArticleParticleDensity = () => {
-  const nextCount = getArticleParticleCount();
-
-  window.pJSDom?.forEach(({ pJS }) => {
-    if (!pJS.canvas.el.parentElement?.matches("[data-article-particles]")) {
-      return;
-    }
-
-    const currentCount = pJS.particles.array.length;
-    pJS.particles.number.value = nextCount;
-
-    if (currentCount < nextCount) {
-      pJS.fn.modes.pushParticles(nextCount - currentCount);
-    } else if (currentCount > nextCount) {
-      pJS.fn.modes.removeParticles(currentCount - nextCount);
-    }
-  });
-};
-
 const initializeTimelineDisclosures = () => {
   document
     .querySelectorAll("[data-about-overlay] .timeline-item:not(.timeline-item-static)")
@@ -474,39 +323,6 @@ const initializeTimelineDisclosures = () => {
     });
 };
 
-const initializeArticleParticles = async (articleWindow) => {
-  if (!articleWindow?.overlay) {
-    return;
-  }
-
-  await loadParticlesModule();
-
-  articleWindow.overlay
-    .querySelectorAll("[data-article-particles]")
-    .forEach((container, index) => {
-      if (container.dataset.particlesInitialized === "true") {
-        return;
-      }
-
-      const id =
-        container.id || `article-particles-${articleWindow.hash.slice(1)}-${index + 1}`;
-      container.id = id;
-      if (typeof window.particlesJS === "function") {
-        window.particlesJS(id, {
-          ...articleParticlesConfig,
-          particles: {
-            ...articleParticlesConfig.particles,
-            number: {
-              ...articleParticlesConfig.particles.number,
-              value: getArticleParticleCount(),
-            },
-          },
-        });
-      }
-      container.dataset.particlesInitialized = "true";
-    });
-};
-
 const centerAttentionScrolls = (root = document) => {
   root.querySelectorAll(".article-attention-scroll").forEach((scroller) => {
     scroller.scrollLeft = Math.max(
@@ -524,7 +340,6 @@ const hideArticle = () => {
   });
   document.documentElement.classList.remove("article-open");
   document.body.classList.remove("article-open");
-  syncHomeParticleAnimation();
 };
 
 const showArticle = (targetWindow, { updateHash = true } = {}) => {
@@ -539,7 +354,6 @@ const showArticle = (targetWindow, { updateHash = true } = {}) => {
   });
 
   targetWindow.overlay.hidden = false;
-  void initializeArticleParticles(targetWindow);
   void renderArticleMath(targetWindow.overlay);
   queueArticleScrollMorphUpdate();
   queueArticleScrollbarUpdate();
@@ -549,7 +363,6 @@ const showArticle = (targetWindow, { updateHash = true } = {}) => {
   });
   document.documentElement.classList.add("article-open");
   document.body.classList.add("article-open");
-  syncHomeParticleAnimation();
 
   if (updateHash && window.location.hash !== targetWindow.hash) {
     window.history.pushState(null, "", targetWindow.hash);
@@ -612,88 +425,15 @@ if (initialArticle) {
 initializeArticleScrollMorphs();
 initializeTimelineDisclosures();
 updateEditorLineNumbers();
-updateParticleStageHeight();
-window.addEventListener("resize", updateParticleStageHeightOnLayoutResize);
-window.addEventListener("resize", updateArticleParticleDensity);
+updateBackgroundHeight();
+window.addEventListener("resize", updateBackgroundHeightOnLayoutResize);
 window.addEventListener("resize", queueArticleScrollMorphUpdate);
 window.addEventListener("resize", queueArticleScrollbarUpdate);
 window.addEventListener("scroll", queueArticleScrollMorphUpdate, { passive: true });
 window.addEventListener("load", () => {
   updateEditorLineNumbers();
-  updateParticleStageHeight();
+  updateBackgroundHeight();
   updateArticleScrollMorphs();
   updateArticleScrollbar();
   centerAttentionScrolls();
 });
-
-function syncHomeParticleAnimation() {
-  const particleInstance = getHomeParticleInstance();
-
-  if (!particleInstance) {
-    return;
-  }
-
-  const shouldAnimate = shouldAnimateHomeParticles();
-
-  if (!shouldAnimate) {
-    cancelParticleDensityUpdate();
-  }
-
-  if (shouldAnimate === particleInstance.particles.move.enable) {
-    return;
-  }
-
-  particleInstance.particles.move.enable = shouldAnimate;
-
-  if (shouldAnimate) {
-    cancelParticleDensityUpdate();
-    // Apply the current scroll density before drawing the first resumed frame.
-    updateParticleDensity();
-    particleInstance.fn.vendors.draw();
-  } else {
-    window.cancelRequestAnimFrame(particleInstance.fn.drawAnimFrame);
-  }
-}
-
-const initializeHomeParticles = async () => {
-  await loadParticlesModule();
-
-  if (typeof window.particlesJS !== "function") {
-    return;
-  }
-
-  window.particlesJS("particles-js", particlesConfig);
-  queueParticleDensityUpdate();
-
-  const canvas = getHomeParticleInstance()?.canvas.el;
-
-  if (canvas && "IntersectionObserver" in window) {
-    const observer = new IntersectionObserver(([entry]) => {
-      homeParticlesInView = entry.isIntersecting;
-      syncHomeParticleAnimation();
-    });
-    observer.observe(canvas);
-  }
-
-  syncHomeParticleAnimation();
-};
-
-document.addEventListener("visibilitychange", syncHomeParticleAnimation);
-
-if (!reduceMotion) {
-  window.addEventListener("scroll", queueParticleDensityUpdate, { passive: true });
-  const startHomeParticles = () => void initializeHomeParticles();
-  const scheduleHomeParticles = () => {
-    if ("requestIdleCallback" in window) {
-      window.requestIdleCallback(startHomeParticles, { timeout: 2000 });
-    } else {
-      window.setTimeout(startHomeParticles, 500);
-    }
-  };
-
-  if (document.readyState === "complete") {
-    scheduleHomeParticles();
-  } else {
-    window.addEventListener("load", scheduleHomeParticles, { once: true });
-  }
-}
