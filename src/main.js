@@ -55,9 +55,8 @@ const mouseTrailRadius = 34;
 const mouseTrailFadeMs = 500;
 const touchTrailRadius = 46;
 const touchTrailFadeMs = 1200;
-const touchRippleRadius = 150;
+const touchRippleRadius = 70;
 const touchRippleMs = 700;
-const touchHapticMs = 8;
 const dotTrailEmptyMask = "linear-gradient(transparent, transparent)";
 
 // Reveal a purple copy of the dot grid along the mouse or finger path and let
@@ -209,7 +208,6 @@ const initializeBackgroundDotTrail = () => {
 
       if (lastTouch) {
         ripples.push({ ...lastTouch, time: performance.now() });
-        navigator.vibrate?.(touchHapticMs);
       }
     },
     { passive: true },
