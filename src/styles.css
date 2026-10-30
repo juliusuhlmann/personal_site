@@ -235,9 +235,9 @@ a:focus-visible {
   background-image:
     radial-gradient(
       circle at 0 7rem,
-      rgba(var(--accent-rgb), 0.17) 0,
-      rgba(var(--accent-rgb), 0.08) 10rem,
-      rgba(var(--accent-rgb), 0.025) 18rem,
+      rgba(var(--accent-rgb), 0.136) 0,
+      rgba(var(--accent-rgb), 0.064) 10rem,
+      rgba(var(--accent-rgb), 0.02) 18rem,
       transparent 31rem
     ),
     var(--background-dot);
