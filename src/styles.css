@@ -8,6 +8,9 @@
   --font-prose: "Spectral", Georgia, "Times New Roman", serif;
   --background-dot:
     radial-gradient(circle, rgba(255, 255, 255, 0.13) 1px, transparent 1px);
+  /* Replaced at runtime with a randomly scattered tile of purple dots. */
+  --background-dot-accent: none;
+  --background-dot-accent-size: auto;
 
   color: #e6e3dc;
   background: #000000;
@@ -39,8 +42,8 @@ body {
   position: relative;
   min-height: 100vh;
   background-color: #000000;
-  background-image: var(--background-dot);
-  background-size: 20px 20px;
+  background-image: var(--background-dot-accent), var(--background-dot);
+  background-size: var(--background-dot-accent-size), 20px 20px;
   overflow-x: hidden;
 }
 
@@ -240,8 +243,23 @@ a:focus-visible {
       rgba(var(--accent-rgb), 0.02) 18rem,
       transparent 31rem
     ),
+    var(--background-dot-accent),
     var(--background-dot);
-  background-size: auto, 20px 20px;
+  background-size: auto, var(--background-dot-accent-size), 20px 20px;
+  pointer-events: none;
+}
+
+.background-cursor-trail {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle,
+    rgba(var(--accent-rgb), 0.85) 1px,
+    transparent 1px
+  );
+  background-size: 20px 20px;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
   pointer-events: none;
 }
 
@@ -1858,9 +1876,10 @@ a:focus-visible {
   overflow-y: auto;
   background-color: #000000;
   background-image:
+    var(--background-dot-accent),
     var(--background-dot),
     linear-gradient(180deg, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.95) 100%);
-  background-size: 20px 20px, auto;
+  background-size: var(--background-dot-accent-size), 20px 20px, auto;
   background-attachment: fixed;
   color: #e6e3dc;
   scrollbar-color: #4b4742 #080808;

@@ -19,6 +19,166 @@ const updateBackgroundHeight = () => {
   background.style.height = `${document.documentElement.scrollHeight - footerHeight}px`;
 };
 
+const backgroundDotSpacing = 20;
+const backgroundAccentTileCells = 100;
+const backgroundAccentDotRatio = 1 / 140;
+
+// Tint a random scattering of background grid dots with the accent color.
+const initializeBackgroundAccentDots = () => {
+  const tileSize = backgroundDotSpacing * backgroundAccentTileCells;
+  const circles = [];
+
+  for (let row = 0; row < backgroundAccentTileCells; row += 1) {
+    for (let column = 0; column < backgroundAccentTileCells; column += 1) {
+      if (Math.random() >= backgroundAccentDotRatio) {
+        continue;
+      }
+
+      const x = column * backgroundDotSpacing + backgroundDotSpacing / 2;
+      const y = row * backgroundDotSpacing + backgroundDotSpacing / 2;
+      circles.push(`<circle cx="${x}" cy="${y}" r="1"/>`);
+    }
+  }
+
+  const svg =
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${tileSize}" height="${tileSize}">` +
+    `<g fill="rgb(208, 111, 255)" fill-opacity="0.6">${circles.join("")}</g></svg>`;
+  const rootStyle = document.documentElement.style;
+  rootStyle.setProperty(
+    "--background-dot-accent",
+    `url("data:image/svg+xml,${encodeURIComponent(svg)}")`,
+  );
+  rootStyle.setProperty("--background-dot-accent-size", `${tileSize}px ${tileSize}px`);
+};
+
+const cursorTrailRadius = 34;
+const cursorTrailEmptyMask = "linear-gradient(transparent, transparent)";
+
+// Reveal a purple copy of the dot grid wherever the mouse has been.
+// The copy shares the background's box, so only existing grid dots light up.
+const initializeBackgroundCursorTrail = () => {
+  const background = document.querySelector("#site-background");
+
+  if (!background || reduceMotion) {
+    return;
+  }
+
+  const trail = document.createElement("div");
+  trail.className = "background-cursor-trail";
+  trail.setAttribute("aria-hidden", "true");
+  background.append(trail);
+
+  const visitedCells = new Map();
+  let lastPointer = null;
+  let trailFrame = null;
+
+  const setMask = (mask) => {
+    trail.style.maskImage = mask;
+    trail.style.webkitMaskImage = mask;
+  };
+
+  const drawTrail = () => {
+    trailFrame = null;
+
+    const width = background.offsetWidth;
+    const height = background.offsetHeight;
+    const circles = [...visitedCells.values()]
+      .map(({ x, y }) => `<circle cx="${x}" cy="${y}" r="${cursorTrailRadius}"/>`)
+      .join("");
+    const svg =
+      `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
+      `<defs><radialGradient id="g"><stop offset="0" stop-color="#fff"/>` +
+      `<stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>` +
+      `<g fill="url(#g)">${circles}</g></svg>`;
+
+    setMask(`url("data:image/svg+xml,${encodeURIComponent(svg)}")`);
+  };
+
+  const visit = (x, y) => {
+    const column = Math.floor(x / backgroundDotSpacing);
+    const row = Math.floor(y / backgroundDotSpacing);
+    const key = `${column},${row}`;
+
+    if (visitedCells.has(key)) {
+      return false;
+    }
+
+    visitedCells.set(key, { x, y });
+    return true;
+  };
+
+  const trace = (clientX, clientY) => {
+    if (document.documentElement.classList.contains("article-open")) {
+      lastPointer = null;
+      return;
+    }
+
+    const origin = background.getBoundingClientRect();
+    const pointer = {
+      x: Math.round(clientX - origin.left),
+      y: Math.round(clientY - origin.top),
+    };
+
+    // Fill in the gaps left by fast movement.
+    const from = lastPointer ?? pointer;
+    const steps = Math.max(
+      1,
+      Math.ceil(Math.hypot(pointer.x - from.x, pointer.y - from.y) / (backgroundDotSpacing / 2)),
+    );
+    let changed = false;
+
+    for (let step = 1; step <= steps; step += 1) {
+      changed =
+        visit(
+          Math.round(from.x + ((pointer.x - from.x) * step) / steps),
+          Math.round(from.y + ((pointer.y - from.y) * step) / steps),
+        ) || changed;
+    }
+
+    lastPointer = pointer;
+
+    if (changed) {
+      trailFrame ??= window.requestAnimationFrame(drawTrail);
+    }
+  };
+
+  const traceTouch = (event) => {
+    const touch = event.touches[0];
+
+    if (touch) {
+      trace(touch.clientX, touch.clientY);
+    }
+  };
+
+  const endTrace = () => {
+    lastPointer = null;
+  };
+
+  window.addEventListener(
+    "pointermove",
+    (event) => {
+      // Touches are traced through touch events, which keep firing while scrolling.
+      if (event.pointerType === "mouse") {
+        trace(event.clientX, event.clientY);
+      }
+    },
+    { passive: true },
+  );
+  window.addEventListener(
+    "touchstart",
+    (event) => {
+      endTrace();
+      traceTouch(event);
+    },
+    { passive: true },
+  );
+  window.addEventListener("touchmove", traceTouch, { passive: true });
+  window.addEventListener("touchend", endTrace, { passive: true });
+  window.addEventListener("touchcancel", endTrace, { passive: true });
+  document.addEventListener("pointerleave", endTrace);
+  setMask(cursorTrailEmptyMask);
+};
+
 const updateEditorLineNumbers = () => {
   document.querySelectorAll("[data-editor-line-numbers]").forEach((rail) => {
     const panel = rail.closest(".about-panel");
@@ -422,6 +582,8 @@ if (initialArticle) {
   showArticle(initialArticle, { updateHash: false });
 }
 
+initializeBackgroundAccentDots();
+initializeBackgroundCursorTrail();
 initializeArticleScrollMorphs();
 initializeTimelineDisclosures();
 updateEditorLineNumbers();
