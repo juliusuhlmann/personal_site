@@ -51,9 +51,10 @@ const initializeBackgroundAccentDots = () => {
   rootStyle.setProperty("--background-dot-accent-size", `${tileSize}px ${tileSize}px`);
 };
 
-const dotTrailRadius = 34;
+const mouseTrailRadius = 34;
 const mouseTrailFadeMs = 500;
-const touchTrailFadeMs = 2500;
+const touchTrailRadius = 46;
+const touchTrailFadeMs = 1200;
 const dotTrailEmptyMask = "linear-gradient(transparent, transparent)";
 
 // Reveal a purple copy of the dot grid along the mouse or finger path and let
@@ -97,7 +98,7 @@ const initializeBackgroundDotTrail = () => {
       }
 
       circles.push(
-        `<circle cx="${spot.x}" cy="${spot.y}" r="${dotTrailRadius}" opacity="${opacity.toFixed(3)}"/>`,
+        `<circle cx="${spot.x}" cy="${spot.y}" r="${spot.radius}" opacity="${opacity.toFixed(3)}"/>`,
       );
     });
 
@@ -117,7 +118,7 @@ const initializeBackgroundDotTrail = () => {
   };
 
   // Light the path from the previous point to this one and return the new point.
-  const tracePath = (from, clientX, clientY, fadeMs) => {
+  const tracePath = (from, clientX, clientY, radius, fadeMs) => {
     if (document.documentElement.classList.contains("article-open")) {
       return null;
     }
@@ -140,7 +141,7 @@ const initializeBackgroundDotTrail = () => {
       const y = Math.round(start.y + ((pointer.y - start.y) * step) / steps);
       const key = `${Math.floor(x / backgroundDotSpacing)},${Math.floor(y / backgroundDotSpacing)}`;
 
-      spots.set(key, { x, y, time: now, fadeMs });
+      spots.set(key, { x, y, radius, time: now, fadeMs });
     }
 
     trailFrame ??= window.requestAnimationFrame(drawTrail);
@@ -152,7 +153,13 @@ const initializeBackgroundDotTrail = () => {
     (event) => {
       // Touches are traced through touch events, which keep firing while scrolling.
       if (event.pointerType === "mouse") {
-        lastMouse = tracePath(lastMouse, event.clientX, event.clientY, mouseTrailFadeMs);
+        lastMouse = tracePath(
+          lastMouse,
+          event.clientX,
+          event.clientY,
+          mouseTrailRadius,
+          mouseTrailFadeMs,
+        );
       }
     },
     { passive: true },
@@ -164,7 +171,7 @@ const initializeBackgroundDotTrail = () => {
   const traceTouch = (event) => {
     const touch = event.touches[0];
     lastTouch = touch
-      ? tracePath(lastTouch, touch.clientX, touch.clientY, touchTrailFadeMs)
+      ? tracePath(lastTouch, touch.clientX, touch.clientY, touchTrailRadius, touchTrailFadeMs)
       : null;
   };
 
