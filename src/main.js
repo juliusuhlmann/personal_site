@@ -53,7 +53,7 @@ const initializeBackgroundAccentDots = () => {
 
 const mouseTrailRadius = 34;
 const mouseTrailFadeMs = 500;
-const touchTrailRadius = 46;
+const touchTrailRadius = 56;
 const touchTrailFadeMs = 1200;
 const dotTrailEmptyMask = "linear-gradient(transparent, transparent)";
 
