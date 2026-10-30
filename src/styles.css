@@ -249,7 +249,7 @@ a:focus-visible {
   pointer-events: none;
 }
 
-.background-cursor-trail {
+.background-dot-trail {
   position: absolute;
   inset: 0;
   background-image: radial-gradient(
