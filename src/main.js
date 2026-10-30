@@ -52,9 +52,9 @@ const initializeBackgroundAccentDots = () => {
 };
 
 const mouseTrailRadius = 34;
-const mouseTrailFadeMs = 500;
+const mouseTrailFadeMs = 420;
 const touchTrailRadius = 56;
-const touchTrailFadeMs = 800;
+const touchTrailFadeMs = 600;
 const dotTrailEmptyMask = "linear-gradient(transparent, transparent)";
 
 // Reveal a purple copy of the dot grid along the mouse or finger path and let
