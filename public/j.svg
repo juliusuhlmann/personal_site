@@ -1,10 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="J">
-  <rect width="64" height="64" rx="12" fill="#11110f" />
   <path
-    d="M20 13H47M41 13V39C41 47.5 36 52 28.5 52C22.5 52 18.5 49 16.5 44"
-    fill="none"
-    stroke="#d06fff"
-    stroke-width="9"
-    stroke-linejoin="round"
+    transform="translate(10.9 2) scale(0.2222)"
+    fill="#d06fff"
+    d="M78 0H190V205C190 250 155 270 95 270C40 270 5 240 0 174H53C56 210 70 222 95 222C125 222 140 205 140 175V45H78Z"
   />
 </svg>
