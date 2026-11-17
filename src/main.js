@@ -542,15 +542,19 @@ const initializeWritingDescriptionToggles = () => {
       toggle.type = "button";
       toggle.className = "writing-file-toggle";
       toggle.setAttribute("aria-controls", description.id);
-      toggle.setAttribute("aria-expanded", "false");
-      toggle.setAttribute("aria-label", "Show summary");
       toggle.innerHTML = chevron;
 
-      toggle.addEventListener("click", () => {
-        const expanded = !item.classList.contains("is-expanded");
+      const setExpanded = (expanded) => {
         item.classList.toggle("is-expanded", expanded);
         toggle.setAttribute("aria-expanded", String(expanded));
         toggle.setAttribute("aria-label", expanded ? "Hide summary" : "Show summary");
+      };
+
+      // The top card starts open; the rest start folded.
+      setExpanded(index === 0);
+
+      toggle.addEventListener("click", () => {
+        setExpanded(!item.classList.contains("is-expanded"));
 
         const background = document.querySelector("#site-background");
         if (background) {
