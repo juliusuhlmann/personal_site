@@ -1,6 +1,8 @@
 :root {
   --accent: #ffffff;
   --accent-rgb: 255, 255, 255;
+  /* Parchment from the paper card, reused for the background dots. */
+  --paper-rgb: 210, 194, 162;
   --accent-muted: #918c84;
   --font-mono:
     "Cascadia Mono", "Cascadia Mono Variable", "Cascadia Code",
@@ -8,8 +10,8 @@
     Consolas, "Lucida Console", monospace;
   --font-prose: "Spectral", Georgia, "Times New Roman", serif;
   --background-dot:
-    radial-gradient(circle, rgba(255, 255, 255, 0.13) 1px, transparent 1px);
-  /* Replaced at runtime with a randomly scattered tile of purple dots. */
+    radial-gradient(circle, rgba(var(--paper-rgb), 0.15) 1px, transparent 1px);
+  /* Replaced at runtime with a randomly scattered tile of parchment dots. */
   --background-dot-accent: none;
   --background-dot-accent-size: auto;
 
@@ -109,18 +111,21 @@ a:focus-visible {
 
 .intro::before {
   position: absolute;
-  top: -1rem;
-  bottom: -1rem;
-  left: -1.5rem;
+  top: -17rem;
+  bottom: -17rem;
+  left: -22rem;
   z-index: -1;
-  width: min(40rem, calc(100% + 3rem));
+  width: calc(min(46rem, 100%) + 44rem);
+  /* Soft parchment haze (the Read Writing button's color) centered on the
+     name. Fades out well inside the box. */
   background: radial-gradient(
-    ellipse at center,
-    rgba(17, 17, 15, 0.4),
-    rgba(17, 17, 15, 0)
+    ellipse 48% 47% at 50% 47%,
+    rgba(210, 194, 162, 0.075),
+    rgba(210, 194, 162, 0.033) 50%,
+    rgba(210, 194, 162, 0.011) 78%,
+    transparent
   );
   content: "";
-  filter: blur(0.9rem);
   pointer-events: none;
 }
 
@@ -255,7 +260,7 @@ a:focus-visible {
   inset: 0;
   background-image: radial-gradient(
     circle,
-    rgba(var(--accent-rgb), 0.85) 1px,
+    rgba(var(--paper-rgb), 0.85) 1px,
     transparent 1px
   );
   background-size: 20px 20px;
@@ -268,7 +273,7 @@ a:focus-visible {
   .background-dot-trail {
     background-image: radial-gradient(
       circle,
-      rgba(var(--accent-rgb), 1) 1px,
+      rgba(var(--paper-rgb), 1) 1px,
       transparent 1px
     );
   }
@@ -279,7 +284,7 @@ a:focus-visible {
   position: relative;
   width: 15ch;
   margin: 0;
-  color: #8f8a82;
+  color: #ffffff;
   font-size: 4.05rem;
   font-weight: 800;
   line-height: 1.08;
@@ -307,7 +312,7 @@ a:focus-visible {
 
 .intro-subtitle {
   margin: 0 0 1.25rem;
-  color: #a9a59e;
+  color: #c6c1b9;
   font-size: 1.12rem;
   font-weight: 500;
   line-height: 1.4;
@@ -316,7 +321,6 @@ a:focus-visible {
 .hero-underline {
   position: relative;
   display: inline-block;
-  color: var(--accent);
 }
 
 .hero-underline::after {
@@ -325,7 +329,7 @@ a:focus-visible {
   bottom: -0.48em;
   left: -0.06em;
   height: 0.52em;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 264 20' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath d='M3 12C12 12 15 5 23 5C33 5 36 14 46 14C54 14 58 5 66 5C74 5 77 14 85 14C94 14 98 6 106 6C114 6 117 13 125 13C133 13 136 6 144 6C153 6 156 13 165 13C175 13 178 6 188 6C197 6 200 14 209 14C217 14 220 4 228 4C237 4 240 13 249 13C254 13 256 7 261 7' fill='none' stroke='%23ffffff' stroke-width='5.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 264 20' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath d='M3 12C12 12 15 5 23 5C33 5 36 14 46 14C54 14 58 5 66 5C74 5 77 14 85 14C94 14 98 6 106 6C114 6 117 13 125 13C133 13 136 6 144 6C153 6 156 13 165 13C175 13 178 6 188 6C197 6 200 14 209 14C217 14 220 4 228 4C237 4 240 13 249 13C254 13 256 7 261 7' fill='none' stroke='%23ffffff' stroke-width='4.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
     center / 100% 100% no-repeat;
   content: "";
   pointer-events: none;
@@ -379,15 +383,54 @@ a:focus-visible {
     transform 160ms ease;
 }
 
+/* Primary action in the paper card's parchment, so the page's one warm
+   accent appears twice: here and on the thesis card. */
 .nav-links a[href="#writing"] {
+  --paper-fold: 0.62rem;
+
   gap: 0.48rem;
-  border-width: 1.5px;
-  border-color: #b5b0a8;
+  color: #1f1c18;
+  /* Serif from the paper card. */
+  font-family: var(--font-prose);
+  font-size: 1.08em;
+  font-weight: 600;
+  background: #d2c2a2;
+  border-color: #d2c2a2;
+  border-top-right-radius: 0;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  /* Dog-eared top-right corner, like the thesis card. */
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--paper-fold)) 0,
+    100% var(--paper-fold),
+    100% 100%,
+    0 100%
+  );
+}
+
+.nav-links a[href="#writing"]::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--paper-fold);
+  height: var(--paper-fold);
+  background: linear-gradient(
+    to bottom left,
+    transparent 50%,
+    #bba98a 50%,
+    #ac9878 100%
+  );
+  border-bottom-left-radius: 0.14rem;
+  filter: drop-shadow(-1px 1px 1px rgba(31, 28, 24, 0.25));
+  content: "";
+  pointer-events: none;
 }
 
 .nav-links a[href="#writing"]::after {
   content: "→";
-  color: #ffffff;
+  color: currentColor;
+  /* Mono arrow: the serif one is too long. */
+  font-family: var(--font-mono);
   font-size: 1.1em;
   font-weight: 400;
   line-height: 0.8;
@@ -404,8 +447,15 @@ a:focus-visible {
 
 .nav-links a[href="#writing"]:hover,
 .nav-links a[href="#writing"]:focus-visible {
-  border-color: #f0ece5;
-  color: #ffffff;
+  color: #1f1c18;
+  background: #e0cfae;
+  border-color: #e0cfae;
+}
+
+.nav-links a[href="#writing"]:focus-visible {
+  box-shadow:
+    inset 0 0 0 2px rgba(31, 28, 24, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
 .nav-links a[href="#writing"]:hover::after,
@@ -594,8 +644,8 @@ a:focus-visible {
   }
 
   .intro::before {
-    left: -1.25rem;
-    width: calc(100% + 2.5rem);
+    left: -12rem;
+    width: calc(100% + 24rem);
   }
 
   .site-brand {
@@ -631,7 +681,7 @@ a:focus-visible {
   }
 
   .hero-underline::after {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 264 20' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath d='M3 12C12 12 15 5 23 5C33 5 36 14 46 14C54 14 58 5 66 5C74 5 77 14 85 14C94 14 98 6 106 6C114 6 117 13 125 13C133 13 136 6 144 6C153 6 156 13 165 13C175 13 178 6 188 6C197 6 200 14 209 14C217 14 220 4 228 4C237 4 240 13 249 13C254 13 256 7 261 7' fill='none' stroke='%23ffffff' stroke-width='5.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 264 20' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath d='M3 12C12 12 15 5 23 5C33 5 36 14 46 14C54 14 58 5 66 5C74 5 77 14 85 14C94 14 98 6 106 6C114 6 117 13 125 13C133 13 136 6 144 6C153 6 156 13 165 13C175 13 178 6 188 6C197 6 200 14 209 14C217 14 220 4 228 4C237 4 240 13 249 13C254 13 256 7 261 7' fill='none' stroke='%23ffffff' stroke-width='4.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   }
 
   /* "Hey, I'm Julius" is ~9em wide; shrink it on very narrow phones. */
@@ -2382,8 +2432,8 @@ a:focus-visible {
   color: var(--paper-ink);
   background:
     radial-gradient(120% 90% at 100% 0%, rgba(255, 255, 255, 0.12), transparent 60%),
-    #cdc1aa;
-  border-color: #cdc1aa;
+    #d2c2a2;
+  border-color: #d2c2a2;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
   clip-path: polygon(
     0 0,
@@ -2405,8 +2455,8 @@ a:focus-visible {
   background: linear-gradient(
     to bottom left,
     transparent 50%,
-    #b7aa91 50%,
-    #a89a80 100%
+    #bba98a 50%,
+    #ac9878 100%
   );
   border-bottom-left-radius: 0.22rem;
   filter: drop-shadow(-1px 1px 1.5px rgba(31, 28, 24, 0.22));
@@ -2418,7 +2468,7 @@ a:focus-visible {
 .writing-file-link-paper:hover .writing-file-icon,
 .writing-file-link-paper:focus-visible .writing-file-icon {
   overflow: hidden;
-  background: #bdb098;
+  background: #c1af91;
   border-color: rgba(31, 28, 24, 0.12);
 }
 
@@ -2434,7 +2484,7 @@ a:focus-visible {
   aspect-ratio: 2 / 1;
   padding: 0;
   color: #2a2723;
-  background: #e0d6c3;
+  background: #f8f4ec;
   box-shadow:
     0 0 0 1px rgba(31, 28, 24, 0.08),
     0 0.55rem 1.1rem -0.3rem rgba(31, 28, 24, 0.4);
@@ -2477,8 +2527,8 @@ a:focus-visible {
   color: var(--paper-ink);
   background:
     radial-gradient(120% 90% at 100% 0%, rgba(255, 255, 255, 0.16), transparent 60%),
-    #d5c9b2;
-  border-color: #d5c9b2;
+    #dacaa9;
+  border-color: #dacaa9;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
@@ -2567,7 +2617,7 @@ a:focus-visible {
 }
 
 .writing-paper-download:focus-visible {
-  box-shadow: 0 0 0 2px #cdc1aa, 0 0 0 4px rgba(31, 28, 24, 0.8);
+  box-shadow: 0 0 0 2px #d2c2a2, 0 0 0 4px rgba(31, 28, 24, 0.8);
 }
 
 .writing-paper-download:hover svg,
