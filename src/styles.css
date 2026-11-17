@@ -193,6 +193,20 @@ a:focus-visible {
   display: block;
 }
 
+/* Spectral Light's U metrics, per 1000 units (1em): 797 wide, 660 up to
+   cap height and 10 below the baseline. The SVG sits on the baseline
+   like the glyph would; the right margin is the line's letter-spacing
+   (-0.015em) plus Spectral's U-h kerning (-0.018em). */
+.split-u svg {
+  display: inline-block;
+  width: 0.797em;
+  height: 0.67em;
+  margin-right: -0.033em;
+  vertical-align: -0.01em;
+  fill: currentColor;
+  overflow: visible;
+}
+
 .intro-dot {
   color: #e8e0d2;
 }

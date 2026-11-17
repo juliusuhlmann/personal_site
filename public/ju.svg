@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="41.1 -682.4 714.7 714.7" role="img" aria-label="JU">
+  <!-- Spectral Light U split into a mirrored J and a J, in font units
+       (baseline at y=0), at the U's own width. The bowl is cut 80 units at
+       the centre and the right half is the left half mirrored, so the mark
+       is symmetric (the font's U has a thinner right stem). Same path as
+       the hero's U. -->
+  <path
+    fill="#ffffff"
+    d="M358.5 7.8Q309.6 2.3 268.5 -17Q211 -44 178 -101Q145 -158 145 -249L145 -610L65 -640L65 -660L303 -660L303 -640L223 -610L223 -263Q223 -180 248.5 -131.5Q274 -83 318.5 -62Q337.2 -53.2 358.5 -48ZM438.5 7.8Q487.4 2.3 528.5 -17Q586 -44 619 -101Q652 -158 652 -249L652 -610L732 -640L732 -660L494 -660L494 -640L574 -610L574 -263Q574 -180 548.5 -131.5Q523 -83 478.5 -62Q459.8 -53.2 438.5 -48Z"
+  />
+</svg>
