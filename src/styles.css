@@ -207,6 +207,11 @@ a:focus-visible {
   overflow: visible;
 }
 
+/* The right J in the tagline's colour, a step down from the white. */
+.split-u .split-u-right {
+  fill: #c4beb4;
+}
+
 .intro-dot {
   color: #e8e0d2;
 }
