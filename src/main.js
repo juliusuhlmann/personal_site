@@ -45,7 +45,7 @@ const initializeBackgroundAccentDots = () => {
 
   const svg =
     `<svg xmlns="http://www.w3.org/2000/svg" width="${tileSize}" height="${tileSize}">` +
-    `<g fill="rgb(232, 224, 210)" fill-opacity="0.8">${circles.join("")}</g></svg>`;
+    `<g fill="rgb(232, 224, 210)" fill-opacity="0.9">${circles.join("")}</g></svg>`;
   const rootStyle = document.documentElement.style;
   rootStyle.setProperty(
     "--background-dot-accent",
