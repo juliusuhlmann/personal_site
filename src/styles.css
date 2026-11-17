@@ -186,7 +186,6 @@ a:focus-visible {
   line-height: 0.98;
   letter-spacing: -0.015em;
   text-align: left;
-  animation: hero-rise 800ms cubic-bezier(0.2, 0.7, 0.2, 1) 120ms both;
 }
 
 .intro h1 > span {
@@ -224,11 +223,6 @@ a:focus-visible {
   font-size: 0.98rem;
   line-height: 1.65;
   text-wrap: pretty;
-  animation: hero-rise 700ms cubic-bezier(0.2, 0.7, 0.2, 1) 300ms both;
-}
-
-.intro .nav-links {
-  animation: hero-rise 700ms cubic-bezier(0.2, 0.7, 0.2, 1) 420ms both;
 }
 
 .nav-links {
@@ -384,18 +378,6 @@ a:focus-visible {
 
 .timeline-note {
   color: #f0e8dc;
-}
-
-@keyframes hero-rise {
-  from {
-    opacity: 0;
-    transform: translateY(0.6rem);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 @media (max-width: 720px) {
@@ -2887,12 +2869,6 @@ a:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  .intro h1,
-  .intro-tagline,
-  .intro .nav-links {
-    animation: none;
   }
 
   .writing-file-link::after,

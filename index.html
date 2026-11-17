@@ -37,7 +37,18 @@
       a {
         color: inherit;
       }
+
+      /* Held until main.js has built the page and the fonts are in, so it
+         appears at once instead of in pieces. */
+      html.is-loading body {
+        visibility: hidden;
+      }
     </style>
+    <script>
+      // The fallback lifts the hold even if main.js or a font never arrives.
+      document.documentElement.classList.add("is-loading");
+      setTimeout(() => document.documentElement.classList.remove("is-loading"), 1500);
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

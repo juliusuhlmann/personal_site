@@ -579,3 +579,10 @@ window.addEventListener("load", () => {
   updateArticleScrollbar();
   centerAttentionScrolls();
 });
+
+// index.html holds the first paint (html.is-loading) so the page appears in
+// one go. The layout above has asked for the fonts it uses; once they're in,
+// and the parts built above are in place, show everything together.
+document.fonts.ready.then(() => {
+  document.documentElement.classList.remove("is-loading");
+});
