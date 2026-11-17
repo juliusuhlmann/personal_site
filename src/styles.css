@@ -2381,8 +2381,8 @@ a:focus-visible {
   color: var(--paper-ink);
   background:
     radial-gradient(120% 90% at 100% 0%, rgba(255, 255, 255, 0.12), transparent 60%),
-    #c9c2b5;
-  border-color: #c9c2b5;
+    #cdc1aa;
+  border-color: #cdc1aa;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
   clip-path: polygon(
     0 0,
@@ -2404,8 +2404,8 @@ a:focus-visible {
   background: linear-gradient(
     to bottom left,
     transparent 50%,
-    #b3ab9c 50%,
-    #a59d8e 100%
+    #b7aa91 50%,
+    #a89a80 100%
   );
   border-bottom-left-radius: 0.22rem;
   filter: drop-shadow(-1px 1px 1.5px rgba(31, 28, 24, 0.22));
@@ -2417,7 +2417,7 @@ a:focus-visible {
 .writing-file-link-paper:hover .writing-file-icon,
 .writing-file-link-paper:focus-visible .writing-file-icon {
   overflow: hidden;
-  background: #bab2a4;
+  background: #bdb098;
   border-color: rgba(31, 28, 24, 0.12);
 }
 
@@ -2433,7 +2433,7 @@ a:focus-visible {
   aspect-ratio: 2 / 1;
   padding: 0;
   color: #2a2723;
-  background: #dcd6cb;
+  background: #e0d6c3;
   box-shadow:
     0 0 0 1px rgba(31, 28, 24, 0.08),
     0 0.55rem 1.1rem -0.3rem rgba(31, 28, 24, 0.4);
@@ -2476,8 +2476,8 @@ a:focus-visible {
   color: var(--paper-ink);
   background:
     radial-gradient(120% 90% at 100% 0%, rgba(255, 255, 255, 0.16), transparent 60%),
-    #d1cbbf;
-  border-color: #d1cbbf;
+    #d5c9b2;
+  border-color: #d5c9b2;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
@@ -2566,7 +2566,7 @@ a:focus-visible {
 }
 
 .writing-paper-download:focus-visible {
-  box-shadow: 0 0 0 2px #c9c2b5, 0 0 0 4px rgba(31, 28, 24, 0.8);
+  box-shadow: 0 0 0 2px #cdc1aa, 0 0 0 4px rgba(31, 28, 24, 0.8);
 }
 
 .writing-paper-download:hover svg,
