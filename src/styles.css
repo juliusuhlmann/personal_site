@@ -2,7 +2,7 @@
   --accent: #ffffff;
   --accent-rgb: 255, 255, 255;
   /* Parchment from the paper card, reused for the background dots. */
-  --paper-rgb: 231, 221, 204;
+  --paper-rgb: 232, 224, 210;
   --accent-muted: #918c84;
   --font-mono:
     "Cascadia Mono", "Cascadia Mono Variable", "Cascadia Code",
@@ -121,9 +121,9 @@ a:focus-visible {
      name. Fades out well inside the box. */
   background: radial-gradient(
     ellipse 48% 47% at 50% 47%,
-    rgba(231, 221, 204, 0.075),
-    rgba(231, 221, 204, 0.033) 50%,
-    rgba(231, 221, 204, 0.011) 78%,
+    rgba(232, 224, 210, 0.075),
+    rgba(232, 224, 210, 0.033) 50%,
+    rgba(232, 224, 210, 0.011) 78%,
     transparent
   );
   content: "";
@@ -194,7 +194,7 @@ a:focus-visible {
 }
 
 .intro-dot {
-  color: #e7ddcc;
+  color: #e8e0d2;
 }
 
 .intro-tagline {
@@ -252,8 +252,8 @@ a:focus-visible {
   font-family: var(--font-prose);
   font-size: 1.08em;
   font-weight: 600;
-  background: #e7ddcc;
-  border-color: #e7ddcc;
+  background: #e8e0d2;
+  border-color: #e8e0d2;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
@@ -268,8 +268,8 @@ a:focus-visible {
 .nav-links .nav-download:hover,
 .nav-links .nav-download:focus-visible {
   color: #1f1c18;
-  background: #f0e8db;
-  border-color: #f0e8db;
+  background: #f1ebe0;
+  border-color: #f1ebe0;
 }
 
 .nav-links .nav-download:focus-visible {
@@ -2156,8 +2156,8 @@ a:focus-visible {
   color: var(--paper-ink);
   background:
     radial-gradient(120% 90% at 100% 0%, rgba(255, 255, 255, 0.12), transparent 60%),
-    #e7ddcc;
-  border-color: #e7ddcc;
+    #e8e0d2;
+  border-color: #e8e0d2;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
   clip-path: polygon(
     0 0,
@@ -2179,8 +2179,8 @@ a:focus-visible {
   background: linear-gradient(
     to bottom left,
     transparent 50%,
-    #d1c5b1 50%,
-    #c3b6a1 100%
+    #d1c7b6 50%,
+    #c3b8a5 100%
   );
   border-bottom-left-radius: 0.22rem;
   filter: drop-shadow(-1px 1px 1.5px rgba(31, 28, 24, 0.22));
@@ -2192,7 +2192,7 @@ a:focus-visible {
 .writing-file-link-paper:hover .writing-file-icon,
 .writing-file-link-paper:focus-visible .writing-file-icon {
   overflow: hidden;
-  background: #d8cdb9;
+  background: #d8cfbe;
   border-color: rgba(31, 28, 24, 0.12);
 }
 
@@ -2251,8 +2251,8 @@ a:focus-visible {
   color: var(--paper-ink);
   background:
     radial-gradient(120% 90% at 100% 0%, rgba(255, 255, 255, 0.16), transparent 60%),
-    #eee6d8;
-  border-color: #eee6d8;
+    #efe8dc;
+  border-color: #efe8dc;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
@@ -2343,7 +2343,7 @@ a:focus-visible {
 }
 
 .writing-paper-download:focus-visible {
-  box-shadow: 0 0 0 2px #e7ddcc, 0 0 0 4px rgba(31, 28, 24, 0.8);
+  box-shadow: 0 0 0 2px #e8e0d2, 0 0 0 4px rgba(31, 28, 24, 0.8);
 }
 
 .writing-paper-download:hover svg,
@@ -2384,8 +2384,8 @@ a:focus-visible {
 .writing-file-link-paper.writing-file-link-review:hover {
   background:
     radial-gradient(120% 90% at 100% 0%, rgba(255, 255, 255, 0.12), transparent 60%),
-    #e7ddcc;
-  border-color: #e7ddcc;
+    #e8e0d2;
+  border-color: #e8e0d2;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
