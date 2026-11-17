@@ -461,6 +461,7 @@ a:focus-visible {
 
   .nav-links .nav-contact {
     flex-shrink: 0;
+    gap: 0.3rem;
     white-space: nowrap;
   }
 
@@ -2181,7 +2182,7 @@ a:focus-visible {
 /* Paper cards: an inverted, printed-page card with a dog-eared corner and a
    photocopied crop of the paper's title page as the icon. */
 .writing-file-link-paper {
-  --paper-fold: 1.55rem;
+  --paper-fold: 1.75rem;
   --paper-ink: #1f1c18;
 
   color: var(--paper-ink);
@@ -2447,7 +2448,7 @@ a:focus-visible {
 
 @media (max-width: 480px) {
   .writing-file-link-paper {
-    --paper-fold: 1.25rem;
+    --paper-fold: 1.4rem;
   }
 
   .writing-paper-status {
