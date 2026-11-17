@@ -42,7 +42,7 @@ const initializeBackgroundAccentDots = () => {
 
   const svg =
     `<svg xmlns="http://www.w3.org/2000/svg" width="${tileSize}" height="${tileSize}">` +
-    `<g fill="rgb(208, 111, 255)" fill-opacity="0.6">${circles.join("")}</g></svg>`;
+    `<g fill="rgb(255, 255, 255)" fill-opacity="0.6">${circles.join("")}</g></svg>`;
   const rootStyle = document.documentElement.style;
   rootStyle.setProperty(
     "--background-dot-accent",
@@ -57,7 +57,7 @@ const touchTrailRadius = 56;
 const touchTrailFadeMs = 600;
 const dotTrailEmptyMask = "linear-gradient(transparent, transparent)";
 
-// Reveal a purple copy of the dot grid along the mouse or finger path and let
+// Reveal an accent-colored copy of the dot grid along the mouse or finger path and let
 // it fade. The copy shares the background's box, so only existing grid dots
 // light up.
 const initializeBackgroundDotTrail = () => {
@@ -199,44 +199,12 @@ const initializeBackgroundDotTrail = () => {
   setMask(dotTrailEmptyMask);
 };
 
-const updateEditorLineNumbers = () => {
-  document.querySelectorAll("[data-editor-line-numbers]").forEach((rail) => {
-    const panel = rail.closest(".about-panel");
-
-    if (!panel) {
-      return;
-    }
-
-    const railStyles = getComputedStyle(rail);
-    const lineHeight = Number.parseFloat(railStyles.lineHeight);
-    const topOffset = Number.parseFloat(railStyles.top);
-    const bottomOffset = Number.parseFloat(railStyles.bottom);
-    const railHeight = Math.max(0, panel.clientHeight - topOffset - bottomOffset);
-    const count = Math.max(1, Math.ceil(railHeight / lineHeight));
-    const currentCount = Number.parseInt(rail.dataset.lineCount || "0", 10);
-
-    if (currentCount === count) {
-      return;
-    }
-
-    rail.replaceChildren(
-      ...Array.from({ length: count }, (_, index) => {
-        const line = document.createElement("span");
-        line.textContent = String(index + 1).padStart(2, "0");
-        return line;
-      }),
-    );
-    rail.dataset.lineCount = String(count);
-  });
-};
-
 const updateBackgroundHeightOnLayoutResize = () => {
   if (window.innerWidth === backgroundWidth) {
     return;
   }
 
   backgroundWidth = window.innerWidth;
-  updateEditorLineNumbers();
   updateBackgroundHeight();
 };
 
@@ -450,59 +418,6 @@ const articleWindows = [
   },
 ];
 
-const initializeTimelineDisclosures = () => {
-  document
-    .querySelectorAll("[data-about-overlay] .timeline-item:not(.timeline-item-static)")
-    .forEach((item, index) => {
-      const details = item.querySelector(".timeline-details");
-
-      if (!details) {
-        return;
-      }
-
-      const detailsId = details.id || `timeline-details-${index + 1}`;
-      details.id = detailsId;
-      details.setAttribute("aria-hidden", "true");
-
-      item.classList.remove("timeline-item-open");
-      item.setAttribute("role", "button");
-      item.setAttribute("tabindex", "0");
-      item.setAttribute("aria-expanded", "false");
-      item.setAttribute("aria-controls", detailsId);
-
-      const setOpen = (isOpen) => {
-        item.classList.toggle("timeline-item-open", isOpen);
-        item.setAttribute("aria-expanded", String(isOpen));
-        details.setAttribute("aria-hidden", String(!isOpen));
-
-        window.setTimeout(() => {
-          updateEditorLineNumbers();
-        }, reduceMotion ? 0 : 240);
-      };
-
-      const toggleOpen = () => {
-        setOpen(!item.classList.contains("timeline-item-open"));
-      };
-
-      item.addEventListener("click", (event) => {
-        if (event.target.closest("a")) {
-          return;
-        }
-
-        toggleOpen();
-      });
-
-      item.addEventListener("keydown", (event) => {
-        if (event.key !== "Enter" && event.key !== " ") {
-          return;
-        }
-
-        event.preventDefault();
-        toggleOpen();
-      });
-    });
-};
-
 const centerAttentionScrolls = (root = document) => {
   root.querySelectorAll(".article-attention-scroll").forEach((scroller) => {
     scroller.scrollLeft = Math.max(
@@ -605,15 +520,12 @@ if (initialArticle) {
 initializeBackgroundAccentDots();
 initializeBackgroundDotTrail();
 initializeArticleScrollMorphs();
-initializeTimelineDisclosures();
-updateEditorLineNumbers();
 updateBackgroundHeight();
 window.addEventListener("resize", updateBackgroundHeightOnLayoutResize);
 window.addEventListener("resize", queueArticleScrollMorphUpdate);
 window.addEventListener("resize", queueArticleScrollbarUpdate);
 window.addEventListener("scroll", queueArticleScrollMorphUpdate, { passive: true });
 window.addEventListener("load", () => {
-  updateEditorLineNumbers();
   updateBackgroundHeight();
   updateArticleScrollMorphs();
   updateArticleScrollbar();

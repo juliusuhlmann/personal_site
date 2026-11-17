@@ -84,11 +84,21 @@
           <span>Hey, I'm <span class="name-accent">Julius</span></span>
         </h1>
         <p class="intro-subtitle">
-          Munich-based Data Scientist interested in <span class="hero-underline">LLM/ML Research</span>
+          <span class="hero-underline">Mathematics in Data Science M.Sc.</span> at TUM
         </p>
         <nav class="nav-links" aria-label="Primary">
           <a href="#writing" aria-label="Go to Julius Uhlmann writing">Read Writing</a>
-          <a href="#about" aria-label="Go to About Me">ABOUTME.md</a>
+          <a
+            href="/CV_Julius_Uhlmann.pdf"
+            download="CV_Julius_Uhlmann.pdf"
+            aria-label="Download Julius Uhlmann's CV as a PDF"
+            class="nav-download"
+          >
+            CV.pdf
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M8 2.5v7.25M4.75 6.75 8 10l3.25-3.25M3 13h10" />
+            </svg>
+          </a>
         </nav>
       </section>
       <a class="hero-scroll-cue" href="#writing" aria-label="Scroll to Writing">
@@ -175,25 +185,40 @@
               </span>
             </a>
           </li>
-          <li>
+          <li class="writing-paper-item">
             <a
-              class="writing-file-link writing-file-link-thesis"
+              class="writing-file-link writing-file-link-paper writing-file-link-thesis"
               href="https://doi.org/10.60524/opus-3084"
-              aria-label="Open article: Assessing RLVR's Efficacy in Solving Previously Intractable Problems with LLMs"
+              aria-label="Open thesis: Assessing RLVR's Efficacy in Solving Previously Intractable Problems with LLMs"
             >
               <span class="writing-file-icon" aria-hidden="true">
-                <svg viewBox="0 0 120.91 50.62" role="img" aria-hidden="true">
-                  <path style="fill: currentColor" fill-rule="evenodd" d="M95.6,0c13.98,0,25.31,11.33,25.31,25.31c0,13.98-11.33,25.31-25.31,25.31c-13.98,0-25.31-11.33-25.31-25.31C70.29,11.33,81.62,0,95.6,0z M100.55,16.13c1.13-1.15,2.97-1.16,4.11-0.01c1.14,1.14,1.14,3,0.01,4.15l-4.97,5.04l4.97,5.05c1.12,1.14,1.11,2.99-0.03,4.13c-1.14,1.14-2.98,1.14-4.1-0.01l-4.94-5.01l-4.95,5.02c-1.13,1.15-2.97,1.16-4.11,0.01c-1.14-1.14-1.14-3-0.01-4.15l4.97-5.04l-4.98-5.05c-1.12-1.14-1.11-2.99,0.03-4.13c1.14-1.14,2.98-1.14,4.1,0.01l4.94,5.01L100.55,16.13z" clip-rule="evenodd" />
-                  <path style="fill: #dcf8c6" fill-rule="evenodd" d="M25.31,0c13.98,0,25.31,11.33,25.31,25.31c0,13.98-11.33,25.31-25.31,25.31C11.33,50.62,0,39.29,0,25.31C0,11.33,11.33,0,25.31,0z M14.11,25.98c0.34-1.97,2.59-3.06,4.36-2c0.16,0.1,0.31,0.21,0.46,0.34l0.01,0.01c0.8,0.76,1.69,1.56,2.57,2.34l0.76,0.68l9-9.44C31.8,17.36,32.2,17,33,16.82c2.76-0.61,4.7,2.76,2.74,4.83L24.54,33.41c-1.06,1.13-2.94,1.23-4.08,0.15c-0.65-0.6-1.36-1.22-2.07-1.84c-1.24-1.08-2.5-2.18-3.53-3.26C14.23,27.85,13.97,26.83,14.11,25.98z" clip-rule="evenodd" />
-                </svg>
+                <span class="writing-paper-sheet">
+                  <span class="writing-paper-kind">Bachelor&rsquo;s Thesis</span>
+                  <span class="writing-paper-title">
+                    Assessing RLVR&rsquo;s Efficacy in Solving<br />
+                    Previously Intractable Problems with LLMs
+                  </span>
+                  <span class="writing-paper-author">Julius Uhlmann</span>
+                </span>
               </span>
               <span class="writing-file-copy">
-                <span class="writing-file-name">Assessing RLVR's Efficacy in Solving Previously Intractable Problems with LLMs</span>
-                <span class="writing-file-kicker">Jan 27, 2026</span>
+                <span class="writing-file-name">Assessing RLVR&rsquo;s Efficacy in Solving Previously Intractable Problems with LLMs</span>
+                <span class="writing-file-kicker">Jan 27, 2026 &middot; Bachelor's thesis</span>
                 <span class="writing-file-description">
                   My bachelor's thesis exploring whether RL actually enables LLMs to solve problems the base model could not solve.
                 </span>
               </span>
+            </a>
+            <a
+              class="writing-paper-download"
+              href="/papers/rlvr-thesis.pdf"
+              download="Uhlmann_2026_RLVR_Thesis.pdf"
+              aria-label="Download the thesis as a PDF"
+            >
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M8 2.5v7.25M4.75 6.75 8 10l3.25-3.25M3 13h10" />
+              </svg>
+              PDF
             </a>
           </li>
         </ul>
@@ -259,287 +284,6 @@
           </li>
         </ul>
       </div>
-    </section>
-    <section
-      class="about-overlay page"
-      id="about"
-      aria-label="About Me"
-      data-about-overlay
-    >
-      <header class="about-window-intro">
-        <h2>About Myself</h2>
-      </header>
-      <article class="about-panel">
-        <div class="panel-header">
-          <span class="panel-path">~/juliusuhlmann/ABOUTME.md</span>
-          <p class="about-file-meta" aria-label="About file details">
-            <span>read-only</span>
-            <span>40 lines</span>
-            <time datetime="2026-11-01">Nov 1, 2026</time>
-          </p>
-        </div>
-        <div
-          class="editor-line-numbers"
-          data-editor-line-numbers
-          aria-hidden="true"
-        ></div>
-        <section class="cv-section" aria-labelledby="cv-title">
-          <h3 id="cv-title" class="about-subtitle md-line">
-            <span class="md-marker">##</span>
-            <span>Experience</span>
-          </h3>
-          <ol class="timeline">
-            <li class="timeline-item timeline-item-static">
-              <span
-                class="timeline-dot timeline-logo timeline-logo-bmw"
-                aria-hidden="true"
-              ></span>
-              <div class="timeline-content">
-                <h4>
-                  AI Engineering Intern,
-                  <span class="timeline-title-company">BMW Group</span>
-                </h4>
-                <p class="timeline-meta">February 2026 - July 2026</p>
-                <ul class="timeline-details">
-                  <li>Built agentic automation pipelines deployed on Azure.</li>
-                  <li>Integrated AI tools, including Generative UI and MCP.</li>
-                </ul>
-              </div>
-            </li>
-            <li class="timeline-item timeline-item-static">
-              <span
-                class="timeline-dot timeline-logo timeline-logo-allianz"
-                aria-hidden="true"
-              ></span>
-              <div class="timeline-content">
-                <h4>
-                  Working Student Data Engineering,
-                  <span class="timeline-title-company">Allianz</span>
-                </h4>
-                <p class="timeline-meta">August 2025 - January 2026</p>
-                <ul class="timeline-details">
-                  <li>
-                    Implemented a data pipeline, from data loading to dbt
-                    transformations
-                  </li>
-                  <li>
-                    Developed Python-based data products for actuarial teams
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li class="timeline-item timeline-item-static">
-              <span
-                class="timeline-dot timeline-dot-small timeline-dot-white"
-                aria-hidden="true"
-              ></span>
-              <div class="timeline-content">
-                <h4>
-                  Data Engineering Intern,
-                  <span class="timeline-title-company">Allianz</span>
-                </h4>
-                <p class="timeline-meta">March 2025 - July 2025</p>
-                <ul class="timeline-details">
-                  <li>
-                    Developed a central Python module for Snowflake data
-                    pipeline, supporting eventual deployment to production
-                  </li>
-                  <li>
-                    Designed and implemented data quality monitoring framework
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li class="timeline-item timeline-item-static">
-              <span
-                class="timeline-dot timeline-logo timeline-logo-sz"
-                aria-hidden="true"
-              ></span>
-              <div class="timeline-content">
-                <h4>
-                  Lifetime Forecasting Project,
-                  <span class="timeline-title-company"
-                    >Süddeutsche Zeitung (Industry Project)</span
-                  >
-                </h4>
-                <p class="timeline-meta">March 2024 - June 2024</p>
-                <ul class="timeline-details">
-                  <li>
-                    Developed customer lifetime forecasting models
-                    (scikit-learn, TensorFlow)
-                  </li>
-                  <li>
-                    Applied statistical methods, tree-based approaches and basic
-                    neural networks
-                  </li>
-                  <li>
-                    Collaborated in a team of four; achieved an individual
-                    grade of 1.0
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li class="timeline-item timeline-item-static">
-              <span
-                class="timeline-dot timeline-logo timeline-logo-tha"
-                aria-hidden="true"
-              ></span>
-              <div class="timeline-content">
-                <h4>
-                  Research Assistant,
-                  <span class="timeline-title-company">
-                    Technical University of Applied Sciences Augsburg
-                  </span>
-                </h4>
-                <p class="timeline-meta">August 2023 - May 2024</p>
-                <ul class="timeline-details">
-                  <li>
-                    Built R pipelines quantifying physiological synchrony
-                    between VR participants
-                  </li>
-                  <li>
-                    Results published in
-                    <a
-                      href="https://doi.org/10.1177/10464964261481164"
-                      aria-label="Open Small Group Research publication DOI"
-                      ><em>Small Group Research</em> (2026)</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ol>
-        </section>
-        <section class="cv-section" aria-labelledby="education-title">
-          <h3 id="education-title" class="about-subtitle md-line">
-            <span class="md-marker">##</span>
-            <span>Education</span>
-          </h3>
-          <ol class="timeline">
-            <li class="timeline-item timeline-item-static">
-              <span
-                class="timeline-dot timeline-logo timeline-logo-tum"
-                aria-hidden="true"
-              ></span>
-              <div class="timeline-content">
-                <h4>
-                  Mathematics in Data Science M.Sc.,
-                  <span class="timeline-title-company">
-                    Technical University of Munich
-                  </span>
-                </h4>
-                <p class="timeline-meta">October 2026 - March 2029</p>
-              </div>
-            </li>
-            <li class="timeline-item timeline-item-static">
-              <span
-                class="timeline-dot timeline-logo timeline-logo-tha"
-                aria-hidden="true"
-              ></span>
-              <div class="timeline-content">
-                <h4>
-                  Data Science B.Sc.,
-                  <span class="timeline-title-company">
-                    Technical University of Applied Sciences Augsburg
-                  </span>
-                </h4>
-                <p class="timeline-meta">October 2022 - February 2026</p>
-                <ul class="timeline-details">
-                  <li>Final grade: 1.1</li>
-                  <li>
-                    Thesis: "<a
-                      href="https://doi.org/10.60524/opus-3084"
-                      aria-label="Open Julius Uhlmann thesis DOI"
-                      >Assessing RLVR's Efficacy in Solving Previously
-                      Intractable Problems with LLMs</a
-                    >", graded 1.0
-                  </li>
-                  <li>Tutor for Analysis I and II</li>
-                </ul>
-              </div>
-            </li>
-            <li class="timeline-item timeline-item-static">
-              <span
-                class="timeline-dot timeline-logo timeline-logo-ou"
-                aria-hidden="true"
-              ></span>
-              <div class="timeline-content">
-                <h4>
-                  Exchange Semester,
-                  <span class="timeline-title-company">
-                    University of Oklahoma
-                  </span>
-                </h4>
-                <p class="timeline-meta">August 2024 - December 2024</p>
-                <ul class="timeline-details">
-                  <li>Focused on C++ &amp; CS Fundamentals</li>
-                  <li>
-                    Unanimously elected by classmates to represent Public
-                    Speaking class in Josh Lee Speech Competition (JLSC)
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ol>
-        </section>
-        <section class="skills-section" aria-labelledby="skills-title">
-          <h3 id="skills-title" class="about-subtitle md-line">
-            <span class="md-marker">##</span>
-            <span>Skills &amp; Interests</span>
-          </h3>
-          <dl class="skills-list">
-            <div>
-              <dt>
-                <svg
-                  class="skills-icon"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <circle cx="12" cy="12" r="9"></circle>
-                  <path d="M3 12h18"></path>
-                  <path d="M12 3a13.5 13.5 0 0 1 0 18"></path>
-                  <path d="M12 3a13.5 13.5 0 0 0 0 18"></path>
-                </svg>
-                <span>Languages</span>
-              </dt>
-              <dd>German (native), English (C1)</dd>
-            </div>
-            <div>
-              <dt>
-                <svg
-                  class="skills-icon"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path d="m8 9 3 3-3 3"></path>
-                  <path d="M13 15h3"></path>
-                  <rect x="3" y="4" width="18" height="16" rx="2"></rect>
-                </svg>
-                <span>Technology</span>
-              </dt>
-              <dd>
-                Python, LangChain, PyTorch, R, C++, AWS, Snowflake, dbt
-              </dd>
-            </div>
-            <div>
-              <dt>
-                <svg
-                  class="skills-icon"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path d="m12 3 1.85 5.15L19 10l-5.15 1.85L12 17l-1.85-5.15L5 10l5.15-1.85L12 3z"></path>
-                  <path d="m19 15 .9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z"></path>
-                </svg>
-                <span>Interests</span>
-              </dt>
-              <dd>
-                LLM research, AI Safety, Effective altruism, Handbalancing
-              </dd>
-            </div>
-          </dl>
-        </section>
-      </article>
     </section>
     <section
       class="article-overlay"
