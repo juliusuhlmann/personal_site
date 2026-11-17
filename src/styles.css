@@ -2,7 +2,7 @@
   --accent: #ffffff;
   --accent-rgb: 255, 255, 255;
   /* Parchment from the paper card, reused for the background dots. */
-  --paper-rgb: 215, 199, 167;
+  --paper-rgb: 231, 221, 204;
   --accent-muted: #918c84;
   --font-mono:
     "Cascadia Mono", "Cascadia Mono Variable", "Cascadia Code",
@@ -10,7 +10,7 @@
     Consolas, "Lucida Console", monospace;
   --font-prose: "Spectral", Georgia, "Times New Roman", serif;
   --background-dot:
-    radial-gradient(circle, rgba(var(--paper-rgb), 0.15) 1px, transparent 1px);
+    radial-gradient(circle, rgba(var(--paper-rgb), 0.11) 1px, transparent 1px);
   /* Replaced at runtime with a randomly scattered tile of parchment dots. */
   --background-dot-accent: none;
   --background-dot-accent-size: auto;
@@ -121,9 +121,9 @@ a:focus-visible {
      name. Fades out well inside the box. */
   background: radial-gradient(
     ellipse 48% 47% at 50% 47%,
-    rgba(215, 199, 167, 0.075),
-    rgba(215, 199, 167, 0.033) 50%,
-    rgba(215, 199, 167, 0.011) 78%,
+    rgba(231, 221, 204, 0.075),
+    rgba(231, 221, 204, 0.033) 50%,
+    rgba(231, 221, 204, 0.011) 78%,
     transparent
   );
   content: "";
@@ -194,7 +194,7 @@ a:focus-visible {
 }
 
 .intro-dot {
-  color: #d7c7a7;
+  color: #e7ddcc;
 }
 
 .intro-tagline {
@@ -252,8 +252,8 @@ a:focus-visible {
   font-family: var(--font-prose);
   font-size: 1.08em;
   font-weight: 600;
-  background: #d7c7a7;
-  border-color: #d7c7a7;
+  background: #e7ddcc;
+  border-color: #e7ddcc;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
@@ -268,8 +268,8 @@ a:focus-visible {
 .nav-links .nav-download:hover,
 .nav-links .nav-download:focus-visible {
   color: #1f1c18;
-  background: #e5d4b3;
-  border-color: #e5d4b3;
+  background: #f0e8db;
+  border-color: #f0e8db;
 }
 
 .nav-links .nav-download:focus-visible {
@@ -299,6 +299,14 @@ a:focus-visible {
   width: 1.1rem;
   height: 1.1rem;
   transition: filter 160ms ease;
+}
+
+/* The LinkedIn glyph fills its whole viewBox (the others are padded), so at
+   the same box size it sinks below the baseline; shrink it to cap height. */
+.nav-contact img[src$="in_svg.svg"] {
+  width: 0.8rem;
+  height: 0.8rem;
+  margin: 0 0.1rem;
 }
 
 .nav-links .nav-contact:hover,
@@ -2145,8 +2153,8 @@ a:focus-visible {
   color: var(--paper-ink);
   background:
     radial-gradient(120% 90% at 100% 0%, rgba(255, 255, 255, 0.12), transparent 60%),
-    #d7c7a7;
-  border-color: #d7c7a7;
+    #e7ddcc;
+  border-color: #e7ddcc;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
   clip-path: polygon(
     0 0,
@@ -2168,8 +2176,8 @@ a:focus-visible {
   background: linear-gradient(
     to bottom left,
     transparent 50%,
-    #c0ae8f 50%,
-    #b19d7d 100%
+    #d1c5b1 50%,
+    #c3b6a1 100%
   );
   border-bottom-left-radius: 0.22rem;
   filter: drop-shadow(-1px 1px 1.5px rgba(31, 28, 24, 0.22));
@@ -2181,7 +2189,7 @@ a:focus-visible {
 .writing-file-link-paper:hover .writing-file-icon,
 .writing-file-link-paper:focus-visible .writing-file-icon {
   overflow: hidden;
-  background: #c6b496;
+  background: #d8cdb9;
   border-color: rgba(31, 28, 24, 0.12);
 }
 
@@ -2240,8 +2248,8 @@ a:focus-visible {
   color: var(--paper-ink);
   background:
     radial-gradient(120% 90% at 100% 0%, rgba(255, 255, 255, 0.16), transparent 60%),
-    #dfcfae;
-  border-color: #dfcfae;
+    #eee6d8;
+  border-color: #eee6d8;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
@@ -2332,7 +2340,7 @@ a:focus-visible {
 }
 
 .writing-paper-download:focus-visible {
-  box-shadow: 0 0 0 2px #d7c7a7, 0 0 0 4px rgba(31, 28, 24, 0.8);
+  box-shadow: 0 0 0 2px #e7ddcc, 0 0 0 4px rgba(31, 28, 24, 0.8);
 }
 
 .writing-paper-download:hover svg,
@@ -2373,8 +2381,8 @@ a:focus-visible {
 .writing-file-link-paper.writing-file-link-review:hover {
   background:
     radial-gradient(120% 90% at 100% 0%, rgba(255, 255, 255, 0.12), transparent 60%),
-    #d7c7a7;
-  border-color: #d7c7a7;
+    #e7ddcc;
+  border-color: #e7ddcc;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
@@ -3067,4 +3075,5 @@ a:focus-visible {
 }
 
 /* Experience entries are always visible and have no disclosure affordance. */
+
 
