@@ -181,7 +181,7 @@ a:focus-visible {
   margin: 0;
   color: #ffffff;
   font-family: var(--font-prose);
-  font-size: clamp(3.4rem, 6vw, 5.2rem);
+  font-size: clamp(3rem, 5vw, 4.4rem);
   font-weight: 300;
   line-height: 0.98;
   letter-spacing: -0.015em;
@@ -269,7 +269,7 @@ a:focus-visible {
   color: #1f1c18;
   /* Serif from the paper card. */
   font-family: var(--font-prose);
-  font-size: 1.08em;
+  font-size: 0.94em;
   font-weight: 600;
   background: #e8e0d2;
   border-color: #e8e0d2;
@@ -479,7 +479,7 @@ a:focus-visible {
   }
 
   .intro h1 {
-    font-size: min(3.6rem, calc((100vw - 2.5rem) / 4.4));
+    font-size: min(3.1rem, calc((100vw - 2.5rem) / 4.4));
   }
 
   .intro-tagline {
