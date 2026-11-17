@@ -528,10 +528,11 @@ a:focus-visible {
     transform: translateY(-1.8vh);
   }
 
+  /* Scale the 40-character line down so it always fits on one row;
+     the squiggle is sized in em, so it shrinks along with it. */
   .intro-subtitle {
-    font-size: 1.02rem;
-    /* Room for the squiggle when "at TUM" wraps below it. */
-    line-height: 1.95;
+    font-size: min(1.02rem, calc((100vw - 3rem) / 24.2));
+    white-space: nowrap;
   }
 
   .nav-links {
@@ -632,9 +633,10 @@ a:focus-visible {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 264 20' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath d='M3 12C12 12 15 5 23 5C33 5 36 14 46 14C54 14 58 5 66 5C74 5 77 14 85 14C94 14 98 6 106 6C114 6 117 13 125 13C133 13 136 6 144 6C153 6 156 13 165 13C175 13 178 6 188 6C197 6 200 14 209 14C217 14 220 4 228 4C237 4 240 13 249 13C254 13 256 7 261 7' fill='none' stroke='%23ffffff' stroke-width='5.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   }
 
+  /* "Hey, I'm Julius" is ~9em wide; shrink it on very narrow phones. */
   .intro h1,
   .intro h2 {
-    font-size: 2.35rem;
+    font-size: min(2.35rem, calc((100vw - 3rem) / 9.4));
   }
 
   .intro h1 > span,
