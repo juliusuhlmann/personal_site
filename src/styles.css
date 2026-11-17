@@ -301,12 +301,15 @@ a:focus-visible {
   transition: filter 160ms ease;
 }
 
-/* The LinkedIn glyph fills its whole viewBox (the others are padded), so at
-   the same box size it sinks below the baseline; shrink it to cap height. */
+/* The LinkedIn glyph fills its whole viewBox (the others are padded), so it
+   is sized to the label's cap height (0.8em in Cascadia Mono) and nudged up
+   a hair so it sits on the baseline, level with the capitals (checked by
+   eye under magnification). */
 .nav-contact img[src$="in_svg.svg"] {
-  width: 0.8rem;
-  height: 0.8rem;
+  width: 0.8em;
+  height: 0.8em;
   margin: 0 0.1rem;
+  transform: translateY(-0.02em);
 }
 
 .nav-links .nav-contact:hover,
