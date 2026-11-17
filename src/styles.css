@@ -2650,10 +2650,35 @@ a:focus-visible {
     animation: writing-description-reveal 200ms ease both;
   }
 
+  /* No room kept for the hover prompt (phones don't hover): the chevron
+     sits beside the last line instead, with the right edge kept clear. */
+  .has-writing-toggle .writing-file-link::after {
+    display: none;
+  }
+
+  .has-writing-toggle .writing-file-copy {
+    padding-bottom: 1.15rem;
+  }
+
+  .has-writing-toggle .writing-file-kicker,
+  .has-writing-toggle .writing-file-description {
+    padding-right: 2rem;
+  }
+
+  /* Paper cards only show their status or PDF pill once opened. */
+  .has-writing-toggle:not(.is-expanded) > .writing-paper-status,
+  .has-writing-toggle:not(.is-expanded) > .writing-paper-download {
+    display: none;
+  }
+
+  .writing-paper-item.is-expanded .writing-file-copy {
+    padding-bottom: 3.3rem;
+  }
+
   .writing-file-toggle {
     position: absolute;
     right: 0.45rem;
-    bottom: 0.3rem;
+    bottom: 0.45rem;
     z-index: 3;
     display: inline-grid;
     place-items: center;
