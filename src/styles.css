@@ -2,7 +2,7 @@
   --accent: #ffffff;
   --accent-rgb: 255, 255, 255;
   /* Parchment from the paper card, reused for the background dots. */
-  --paper-rgb: 210, 194, 162;
+  --paper-rgb: 215, 199, 167;
   --accent-muted: #918c84;
   --font-mono:
     "Cascadia Mono", "Cascadia Mono Variable", "Cascadia Code",
@@ -87,8 +87,10 @@ a:focus-visible {
 .home {
   position: relative;
   z-index: 1;
-  min-height: calc(100vh - 2rem);
-  min-height: max(31rem, calc(100svh - 2rem));
+  /* Shorter than the viewport so the first Writing card shows above the
+     fold; that replaces the scroll arrow. */
+  min-height: 62vh;
+  min-height: max(28rem, 62svh);
   display: grid;
   place-items: center;
   padding: 2rem;
@@ -120,50 +122,13 @@ a:focus-visible {
      name. Fades out well inside the box. */
   background: radial-gradient(
     ellipse 48% 47% at 50% 47%,
-    rgba(210, 194, 162, 0.075),
-    rgba(210, 194, 162, 0.033) 50%,
-    rgba(210, 194, 162, 0.011) 78%,
+    rgba(215, 199, 167, 0.075),
+    rgba(215, 199, 167, 0.033) 50%,
+    rgba(215, 199, 167, 0.011) 78%,
     transparent
   );
   content: "";
   pointer-events: none;
-}
-
-.hero-scroll-cue {
-  position: absolute;
-  bottom: clamp(0.55rem, 2vh, 1.15rem);
-  left: 50%;
-  z-index: 2;
-  display: grid;
-  place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  color: var(--accent-muted);
-  opacity: 0.94;
-  pointer-events: auto;
-  text-decoration: none;
-  transform: translateX(-50%);
-  transition:
-    color 160ms ease,
-    opacity 160ms ease,
-    transform 160ms ease;
-  animation: scroll-cue-float 1800ms ease-in-out 2800ms infinite;
-}
-
-.hero-scroll-cue span {
-  width: 1.3rem;
-  height: 1.3rem;
-  border-right: 3.5px solid currentColor;
-  border-bottom: 3.5px solid currentColor;
-  border-radius: 0 0 0.08rem 0;
-  transform: rotate(45deg);
-}
-
-.hero-scroll-cue:hover,
-.hero-scroll-cue:focus-visible {
-  color: #ffffff;
-  opacity: 1;
-  transform: translateX(-50%) translateY(0.18rem);
 }
 
 .site-brand {
@@ -279,77 +244,56 @@ a:focus-visible {
   }
 }
 
-.intro h1,
-.intro h2 {
-  position: relative;
-  width: 15ch;
+/* Title page: mono kicker, serif name (the thesis card's Spectral), mono
+   subtitle. Mono stays for interface text, serif for the content voice. */
+.intro-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 0 0 0.35rem;
+  color: #d7c7a7;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  animation: hero-rise 700ms cubic-bezier(0.2, 0.7, 0.2, 1) 120ms both;
+}
+
+/* Short hairline, like the Writing category labels. */
+.intro-kicker::after {
+  width: 2.6rem;
+  height: 1px;
+  background: currentColor;
+  content: "";
+  opacity: 0.45;
+}
+
+.intro h1 {
   margin: 0;
   color: #ffffff;
-  font-size: 4.05rem;
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: 0;
+  font-family: var(--font-prose);
+  font-size: clamp(3.6rem, 6.4vw, 5.6rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
   text-align: left;
-}
-
-.intro h1 > span,
-.intro h2 > span {
-  display: inline-block;
-  width: 15ch;
-  /* Vertical room so the name's glow isn't clipped by the typing mask. */
-  padding-block: 0.3em;
-  margin-block: -0.3em;
-  overflow: hidden;
   white-space: nowrap;
-  animation: type-name 1900ms steps(15, end) 220ms both;
-}
-
-.intro .name-accent {
-  color: var(--accent);
-  text-shadow: 0 0 24px rgba(var(--accent-rgb), 0.25);
-  vertical-align: baseline;
+  animation: hero-rise 800ms cubic-bezier(0.2, 0.7, 0.2, 1) 220ms both;
 }
 
 .intro-subtitle {
-  margin: 0 0 1.25rem;
-  color: #c6c1b9;
-  font-size: 1.12rem;
+  margin: 0.35rem 0 1.35rem;
+  color: #a8a39a;
+  font-size: 1rem;
   font-weight: 500;
   line-height: 1.4;
+  animation: hero-rise 700ms cubic-bezier(0.2, 0.7, 0.2, 1) 380ms both;
 }
 
-.hero-underline {
-  position: relative;
-  display: inline-block;
-}
-
-.hero-underline::after {
-  position: absolute;
-  right: -0.04em;
-  bottom: -0.48em;
-  left: -0.06em;
-  height: 0.52em;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 264 20' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath d='M3 12C12 12 15 5 23 5C33 5 36 14 46 14C54 14 58 5 66 5C74 5 77 14 85 14C94 14 98 6 106 6C114 6 117 13 125 13C133 13 136 6 144 6C153 6 156 13 165 13C175 13 178 6 188 6C197 6 200 14 209 14C217 14 220 4 228 4C237 4 240 13 249 13C254 13 256 7 261 7' fill='none' stroke='%23ffffff' stroke-width='4.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
-    center / 100% 100% no-repeat;
-  content: "";
-  pointer-events: none;
-  transform: rotate(-0.6deg);
-}
-
-.intro h1::after,
-.intro h2::after {
-  position: absolute;
-  top: 0.12em;
-  left: 0;
-  display: block;
-  width: 0.08em;
-  height: 0.78em;
-  background: var(--accent);
-  content: "";
-  animation:
-    cursor-position 1900ms steps(15, end) 220ms both,
-    cursor-blink 760ms steps(1, end) 220ms 3,
-    cursor-hide 1ms linear 2660ms both;
+.intro .nav-links {
+  animation: hero-rise 700ms cubic-bezier(0.2, 0.7, 0.2, 1) 500ms both;
 }
 
 .nav-links {
@@ -383,58 +327,17 @@ a:focus-visible {
     transform 160ms ease;
 }
 
-/* Primary action in the paper card's parchment, so the page's one warm
-   accent appears twice: here and on the thesis card. */
-.nav-links a[href="#writing"] {
-  --paper-fold: 0.62rem;
-
-  gap: 0.48rem;
+/* The CV download, the hero's one action, in the paper cards' parchment. */
+.nav-links .nav-download {
+  gap: 0.5rem;
   color: #1f1c18;
   /* Serif from the paper card. */
   font-family: var(--font-prose);
   font-size: 1.08em;
   font-weight: 600;
-  background: #d2c2a2;
-  border-color: #d2c2a2;
-  border-top-right-radius: 0;
+  background: #d7c7a7;
+  border-color: #d7c7a7;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
-  /* Dog-eared top-right corner, like the thesis card. */
-  clip-path: polygon(
-    0 0,
-    calc(100% - var(--paper-fold)) 0,
-    100% var(--paper-fold),
-    100% 100%,
-    0 100%
-  );
-}
-
-.nav-links a[href="#writing"]::before {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: var(--paper-fold);
-  height: var(--paper-fold);
-  background: linear-gradient(
-    to bottom left,
-    transparent 50%,
-    #bba98a 50%,
-    #ac9878 100%
-  );
-  border-bottom-left-radius: 0.14rem;
-  filter: drop-shadow(-1px 1px 1px rgba(31, 28, 24, 0.25));
-  content: "";
-  pointer-events: none;
-}
-
-.nav-links a[href="#writing"]::after {
-  content: "→";
-  color: currentColor;
-  /* Mono arrow: the serif one is too long. */
-  font-family: var(--font-mono);
-  font-size: 1.1em;
-  font-weight: 400;
-  line-height: 0.8;
-  transition: transform 160ms ease;
 }
 
 .nav-links a:hover,
@@ -445,35 +348,26 @@ a:focus-visible {
   transform: translateY(-1px);
 }
 
-.nav-links a[href="#writing"]:hover,
-.nav-links a[href="#writing"]:focus-visible {
+.nav-links .nav-download:hover,
+.nav-links .nav-download:focus-visible {
   color: #1f1c18;
-  background: #e0cfae;
-  border-color: #e0cfae;
+  background: #e5d4b3;
+  border-color: #e5d4b3;
 }
 
-.nav-links a[href="#writing"]:focus-visible {
+.nav-links .nav-download:focus-visible {
   box-shadow:
     inset 0 0 0 2px rgba(31, 28, 24, 0.75),
     inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
-.nav-links a[href="#writing"]:hover::after,
-.nav-links a[href="#writing"]:focus-visible::after {
-  transform: translateX(0.16rem);
-}
-
 /* Same download glyph as the paper card's PDF button. */
-.nav-links .nav-download {
-  gap: 0.44rem;
-}
-
 .nav-download svg {
-  width: 1em;
-  height: 1em;
+  width: 0.95em;
+  height: 0.95em;
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.7;
+  stroke-width: 1.9;
   stroke-linecap: round;
   stroke-linejoin: round;
   transition: transform 160ms ease;
@@ -519,68 +413,25 @@ a:focus-visible {
   color: #f0e8dc;
 }
 
-@keyframes type-name {
+@keyframes hero-rise {
   from {
-    width: 0;
-  }
-
-  to {
-    width: 15ch;
-  }
-}
-
-@keyframes cursor-position {
-  from {
-    left: 0;
-  }
-
-  to {
-    left: 15ch;
-  }
-}
-
-@keyframes cursor-blink {
-  0%,
-  48% {
-    opacity: 0.92;
-  }
-
-  50%,
-  100% {
     opacity: 0;
+    transform: translateY(0.6rem);
   }
-}
 
-@keyframes cursor-hide {
   to {
-    background: transparent;
-  }
-}
-
-@keyframes scroll-cue-float {
-  0%,
-  100% {
-    transform: translateX(-50%) translateY(0);
-  }
-
-  50% {
-    transform: translateX(-50%) translateY(0.28rem);
+    opacity: 1;
+    transform: none;
   }
 }
 
 @media (max-width: 720px) {
-  .intro h1,
-  .intro h2 {
-    font-size: 2.85rem;
-  }
-
   .intro {
     width: calc(100vw - 3rem);
     transform: translateY(-1.8vh);
   }
 
-  /* Scale the 40-character line down so it always fits on one row;
-     the squiggle is sized in em, so it shrinks along with it. */
+  /* Scale the 40-character line down so it always fits on one row. */
   .intro-subtitle {
     font-size: min(1.02rem, calc((100vw - 3rem) / 24.2));
     white-space: nowrap;
@@ -629,8 +480,8 @@ a:focus-visible {
   }
 
   .home {
-    min-height: 100svh;
-    min-height: max(27rem, 100svh);
+    min-height: 56vh;
+    min-height: max(25rem, 56svh);
     padding: 1.25rem;
   }
 
@@ -680,31 +531,20 @@ a:focus-visible {
     padding: 0.5rem 0.82rem;
   }
 
-  .hero-underline::after {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 264 20' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath d='M3 12C12 12 15 5 23 5C33 5 36 14 46 14C54 14 58 5 66 5C74 5 77 14 85 14C94 14 98 6 106 6C114 6 117 13 125 13C133 13 136 6 144 6C153 6 156 13 165 13C175 13 178 6 188 6C197 6 200 14 209 14C217 14 220 4 228 4C237 4 240 13 249 13C254 13 256 7 261 7' fill='none' stroke='%23ffffff' stroke-width='4.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  /* "Julius Uhlmann" in Spectral is ~6.95em wide; fit it on narrow phones. */
+  .intro h1 {
+    font-size: min(3.4rem, calc((100vw - 2.5rem) / 7.4));
   }
 
-  /* "Hey, I'm Julius" is ~9em wide; shrink it on very narrow phones. */
-  .intro h1,
-  .intro h2 {
-    font-size: min(2.35rem, calc((100vw - 3rem) / 9.4));
+  /* ~26em of mono text: keep it on one row, scaled down on the narrowest
+     phones, and drop the hairline so it fits. */
+  .intro-kicker {
+    font-size: min(0.74rem, calc((100vw - 2.5rem) / 27.5));
+    white-space: nowrap;
   }
 
-  .intro h1 > span,
-  .intro h2 > span {
-    margin-bottom: -0.08em;
-    padding-bottom: 0.08em;
-  }
-
-  .hero-scroll-cue {
-    bottom: 0.55rem;
-    width: 2.45rem;
-    height: 2.45rem;
-  }
-
-  .hero-scroll-cue span {
-    width: 1.15rem;
-    height: 1.15rem;
+  .intro-kicker::after {
+    display: none;
   }
 
   .page {
@@ -2432,8 +2272,8 @@ a:focus-visible {
   color: var(--paper-ink);
   background:
     radial-gradient(120% 90% at 100% 0%, rgba(255, 255, 255, 0.12), transparent 60%),
-    #d2c2a2;
-  border-color: #d2c2a2;
+    #d7c7a7;
+  border-color: #d7c7a7;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
   clip-path: polygon(
     0 0,
@@ -2455,8 +2295,8 @@ a:focus-visible {
   background: linear-gradient(
     to bottom left,
     transparent 50%,
-    #bba98a 50%,
-    #ac9878 100%
+    #c0ae8f 50%,
+    #b19d7d 100%
   );
   border-bottom-left-radius: 0.22rem;
   filter: drop-shadow(-1px 1px 1.5px rgba(31, 28, 24, 0.22));
@@ -2468,7 +2308,7 @@ a:focus-visible {
 .writing-file-link-paper:hover .writing-file-icon,
 .writing-file-link-paper:focus-visible .writing-file-icon {
   overflow: hidden;
-  background: #c1af91;
+  background: #c6b496;
   border-color: rgba(31, 28, 24, 0.12);
 }
 
@@ -2527,8 +2367,8 @@ a:focus-visible {
   color: var(--paper-ink);
   background:
     radial-gradient(120% 90% at 100% 0%, rgba(255, 255, 255, 0.16), transparent 60%),
-    #dacaa9;
-  border-color: #dacaa9;
+    #dfcfae;
+  border-color: #dfcfae;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
@@ -2617,7 +2457,7 @@ a:focus-visible {
 }
 
 .writing-paper-download:focus-visible {
-  box-shadow: 0 0 0 2px #d2c2a2, 0 0 0 4px rgba(31, 28, 24, 0.8);
+  box-shadow: 0 0 0 2px #d7c7a7, 0 0 0 4px rgba(31, 28, 24, 0.8);
 }
 
 .writing-paper-download:hover svg,
@@ -2625,9 +2465,77 @@ a:focus-visible {
   transform: translateY(0.08rem);
 }
 
+/* Self-dissuasion title page, after the PDF: the title between a heavy top
+   rule and a hairline, then the author in bold over the affiliation. */
+.writing-paper-sheet-dissuasion .writing-paper-title {
+  margin: 0 0 3.4cqi;
+  padding: 2.6cqi 1.6cqi;
+  border-top: 0.8cqi solid currentColor;
+  border-bottom: 0.25cqi solid currentColor;
+  font-size: 3.3cqi;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.22;
+}
+
+.writing-paper-sheet-dissuasion .writing-paper-title sup {
+  font-size: 0.62em;
+  line-height: 0;
+}
+
+.writing-paper-byline {
+  display: block;
+  font-size: 2.3cqi;
+  font-weight: 300;
+  line-height: 1.3;
+}
+
+.writing-paper-byline b {
+  font-weight: 800;
+}
+
+/* Under review: not a link yet, so the card stays still on hover. */
+.writing-file-link-paper.writing-file-link-review:hover {
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(255, 255, 255, 0.12), transparent 60%),
+    #d7c7a7;
+  border-color: #d7c7a7;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.writing-file-link-paper.writing-file-link-review:hover .writing-paper-sheet {
+  box-shadow:
+    0 0 0 1px rgba(31, 28, 24, 0.08),
+    0 0.55rem 1.1rem -0.3rem rgba(31, 28, 24, 0.4);
+  transform: rotate(-1.8deg);
+}
+
+/* Sits where the PDF button goes; dashed, since it can't be pressed yet. */
+.writing-paper-status {
+  position: absolute;
+  right: 1.3rem;
+  bottom: 0.82rem;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.34rem 0.66rem;
+  color: #4a443b;
+  border: 1px dashed rgba(31, 28, 24, 0.4);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
 @media (max-width: 480px) {
   .writing-file-link-paper {
     --paper-fold: 1.25rem;
+  }
+
+  .writing-paper-status {
+    right: 1rem;
+    bottom: 0.78rem;
   }
 
   .writing-paper-download {
@@ -2924,17 +2832,11 @@ a:focus-visible {
     scroll-behavior: auto;
   }
 
-  .intro h1 span,
-  .intro h2 span,
-  .intro h1::after,
-  .intro h2::after,
-  .hero-scroll-cue {
+  .intro-kicker,
+  .intro h1,
+  .intro-subtitle,
+  .intro .nav-links {
     animation: none;
-  }
-
-  .intro h1::after,
-  .intro h2::after {
-    content: none;
   }
 
   .writing-file-link::after,

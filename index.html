@@ -19,7 +19,7 @@
     <meta property="og:image" content="/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Hey, I'm Julius - Data Scientist drawn to LLM research" />
+    <meta property="og:image:alt" content="Julius Uhlmann - Data Science, LLM Research, AI Safety" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Julius Uhlmann" />
     <meta
@@ -27,7 +27,7 @@
       content="I'm a Data Scientist drawn to LLM research."
     />
     <meta name="twitter:image" content="/og-image.png" />
-    <meta name="twitter:image:alt" content="Hey, I'm Julius - Data Scientist drawn to LLM research" />
+    <meta name="twitter:image:alt" content="Julius Uhlmann - Data Science, LLM Research, AI Safety" />
     <style>
       body {
         background: #11110f;
@@ -70,6 +70,14 @@
         <img src="/contact/in_svg.svg" width="800" height="800" alt="" />
       </a>
       <a
+        href="https://github.com/juliusuhlmann"
+        aria-label="Julius Uhlmann on GitHub"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <img src="/contact/github_svg.svg" width="24" height="24" alt="" />
+      </a>
+      <a
         href="https://www.instagram.com/sw_julius/"
         aria-label="Julius Uhlmann on Instagram"
         target="_blank"
@@ -80,30 +88,25 @@
     </nav>
     <main id="home" class="home" aria-labelledby="site-title">
       <section class="intro">
-        <h1 id="site-title">
-          <span>Hey, I'm <span class="name-accent">Julius</span></span>
-        </h1>
-        <p class="intro-subtitle">
-          <span class="hero-underline">Mathematics in Data Science M.Sc.</span> at TUM
+        <p class="intro-kicker">
+          <span>Data Science &middot; LLM Research &middot; AI Safety</span>
         </p>
+        <h1 id="site-title">Julius Uhlmann</h1>
+        <p class="intro-subtitle">M.Sc. Mathematics in Data Science, TUM</p>
         <nav class="nav-links" aria-label="Primary">
-          <a href="#writing" aria-label="Go to Julius Uhlmann writing">Read Writing</a>
           <a
             href="/CV_Julius_Uhlmann.pdf"
             download="CV_Julius_Uhlmann.pdf"
             aria-label="Download Julius Uhlmann's CV as a PDF"
             class="nav-download"
           >
-            CV.pdf
+            Download CV
             <svg viewBox="0 0 16 16" aria-hidden="true">
               <path d="M8 2.5v7.25M4.75 6.75 8 10l3.25-3.25M3 13h10" />
             </svg>
           </a>
         </nav>
       </section>
-      <a class="hero-scroll-cue" href="#writing" aria-label="Scroll to Writing">
-        <span aria-hidden="true"></span>
-      </a>
     </main>
     <section class="canvas-section writing-section page" id="writing" aria-label="Writing">
       <div class="writing-library" aria-label="Writing articles">
@@ -116,6 +119,38 @@
         </h2>
         <h3 class="writing-category-title writing-category-title-llms">LLMs</h3>
         <ul class="writing-file-list">
+          <li class="writing-paper-item">
+            <!-- Not linked until Apart Research's judging and infohazard check
+                 are done; the team link is private. Swap the div for an <a>
+                 and the status pill for a PDF button once it is public. -->
+            <div
+              class="writing-file-link writing-file-link-paper writing-file-link-review"
+              role="group"
+              aria-label="Under review: From Self-Persuasion to Self-Dissuasion: Frontier LLMs Doubt the Side They Argue"
+            >
+              <span class="writing-file-icon" aria-hidden="true">
+                <!-- Mirrors the paper's title page, line breaks included. -->
+                <span class="writing-paper-sheet writing-paper-sheet-dissuasion">
+                  <span class="writing-paper-title">
+                    From Self-Persuasion to Self-Dissuasion: Frontier LLMs<br />
+                    Doubt the Side They Argue<sup>1</sup>
+                  </span>
+                  <span class="writing-paper-byline">
+                    <b>Julius Uhlmann</b><br />
+                    Munich AI Safety Student Initiative (MAISSI)
+                  </span>
+                </span>
+              </span>
+              <span class="writing-file-copy">
+                <span class="writing-file-name">From Self-Persuasion to Self-Dissuasion: Frontier LLMs Doubt the Side They Argue</span>
+                <span class="writing-file-kicker">Nov 2026 &middot; MAISSI &times; Apart Research</span>
+                <span class="writing-file-description">
+                  Frontier LLMs become less confident in positions they are assigned to argue, a reversal of self-persuasion not previously reported in language models.
+                </span>
+              </span>
+            </div>
+            <span class="writing-paper-status">Under review</span>
+          </li>
           <li>
             <a class="writing-file-link" href="#unaligning-qwen3-8-27b-with-reinforcement-learning" aria-label="Open article: Unaligning Qwen3.8-27B with Reinforcement Learning" data-article-open="unaligning-qwen3-8-27b-with-reinforcement-learning">
               <span class="writing-file-icon" aria-hidden="true">
