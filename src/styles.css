@@ -439,16 +439,28 @@ a:focus-visible {
     width: calc(100% + 24rem);
   }
 
+  /* CV and the three contacts share one row, so the button is just
+     "CV" and the download arrow, and the row's text and gaps shrink with
+     the screen so it still fits on narrow phones. */
   .nav-links {
-    gap: 0.7rem 1.05rem;
-    font-size: 0.94rem;
+    flex-wrap: nowrap;
+    gap: 0.7rem min(1.05rem, 3.2vw);
+    font-size: min(0.94rem, 3.7vw);
   }
 
-  /* CV on its own row, the three contacts under it. */
   .nav-links .nav-download {
     flex-shrink: 0;
-    margin-right: 100%;
+    gap: 0.4em;
     white-space: nowrap;
+  }
+
+  .nav-links .nav-contact {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .nav-download-verb {
+    display: none;
   }
 
   .nav-links .nav-download + .nav-contact {
