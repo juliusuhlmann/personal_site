@@ -87,9 +87,10 @@ a:focus-visible {
 .home {
   position: relative;
   z-index: 1;
-  /* A full title page: Writing starts below the fold. */
-  min-height: 100vh;
-  min-height: 100svh;
+  /* A title page that stops just short of the screen, so the LLMs label
+     and the top edge of the first card peek in above the fold. */
+  min-height: calc(100vh - 5rem);
+  min-height: calc(100svh - 5rem);
   display: grid;
   place-items: center;
   padding: 4rem 2rem;
@@ -1841,7 +1842,7 @@ a:focus-visible {
   margin: 2.8rem 0 1rem;
   color: #a8b8a0;
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   line-height: 1.2;
@@ -1851,7 +1852,7 @@ a:focus-visible {
 .writing-category-title::after {
   height: 1px;
   flex: 1;
-  background: rgba(168, 184, 160, 0.22);
+  background: rgba(168, 184, 160, 0.3);
   content: "";
 }
 
