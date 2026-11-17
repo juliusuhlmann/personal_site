@@ -2632,6 +2632,96 @@ a:focus-visible {
   }
 }
 
+/* Phone cards fold their description away behind a chevron button. */
+.writing-file-list > li {
+  position: relative;
+}
+
+.writing-file-toggle {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .has-writing-toggle:not(.is-expanded) .writing-file-description {
+    display: none;
+  }
+
+  .has-writing-toggle.is-expanded .writing-file-description {
+    animation: writing-description-reveal 200ms ease both;
+  }
+
+  .writing-file-toggle {
+    position: absolute;
+    right: 0.45rem;
+    bottom: 0.3rem;
+    z-index: 3;
+    display: inline-grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    color: #918c84;
+    background: transparent;
+    border: 0;
+    border-radius: 999px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      color 160ms ease,
+      background-color 160ms ease;
+  }
+
+  .writing-file-toggle svg {
+    width: 1.15rem;
+    height: 1.15rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 200ms ease;
+  }
+
+  .is-expanded > .writing-file-toggle svg {
+    transform: rotate(180deg);
+  }
+
+  .writing-file-toggle:active,
+  .writing-file-toggle:focus-visible {
+    color: #ede8df;
+    background: rgba(242, 240, 235, 0.08);
+    outline: none;
+  }
+
+  /* Paper cards: ink-colored chevron, with the pill shifted left of it. */
+  .writing-paper-item > .writing-file-toggle {
+    color: #4a443b;
+  }
+
+  .writing-paper-item > .writing-file-toggle:active,
+  .writing-paper-item > .writing-file-toggle:focus-visible {
+    color: #1f1c18;
+    background: rgba(31, 28, 24, 0.08);
+  }
+
+  .has-writing-toggle > .writing-paper-status,
+  .has-writing-toggle > .writing-paper-download {
+    right: 3.4rem;
+  }
+}
+
+@keyframes writing-description-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @media (min-width: 481px) and (max-width: 640px) {
   .writing-file-link {
     grid-template-columns: minmax(0, 1fr);

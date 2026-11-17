@@ -520,6 +520,51 @@ if (initialArticle) {
   showArticle(initialArticle, { updateHash: false });
 }
 
+// On phones the cards hide their description behind a chevron. The button
+// sits beside the card link (a button can't live inside an <a>), and CSS
+// only shows it, and only collapses the text, at phone widths.
+const initializeWritingDescriptionToggles = () => {
+  const chevron =
+    '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6.25 8 10.25l4-4" /></svg>';
+
+  document
+    .querySelectorAll(".writing-file-list > li")
+    .forEach((item, index) => {
+      const description = item.querySelector(".writing-file-description");
+
+      if (!description) {
+        return;
+      }
+
+      description.id ||= `writing-file-description-${index + 1}`;
+
+      const toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = "writing-file-toggle";
+      toggle.setAttribute("aria-controls", description.id);
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Show summary");
+      toggle.innerHTML = chevron;
+
+      toggle.addEventListener("click", () => {
+        const expanded = !item.classList.contains("is-expanded");
+        item.classList.toggle("is-expanded", expanded);
+        toggle.setAttribute("aria-expanded", String(expanded));
+        toggle.setAttribute("aria-label", expanded ? "Hide summary" : "Show summary");
+
+        const background = document.querySelector("#site-background");
+        if (background) {
+          background.style.height = "";
+        }
+        updateBackgroundHeight();
+      });
+
+      item.classList.add("has-writing-toggle");
+      item.append(toggle);
+    });
+};
+
+initializeWritingDescriptionToggles();
 initializeBackgroundAccentDots();
 initializeBackgroundDotTrail();
 initializeArticleScrollMorphs();
