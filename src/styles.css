@@ -2662,7 +2662,7 @@ a:focus-visible {
 
   .has-writing-toggle .writing-file-kicker,
   .has-writing-toggle .writing-file-description {
-    padding-right: 2rem;
+    padding-right: 2.5rem;
   }
 
   /* Paper cards only show their status or PDF pill once opened. */
@@ -2677,18 +2677,20 @@ a:focus-visible {
 
   .writing-file-toggle {
     position: absolute;
-    right: 0.45rem;
-    bottom: 0.45rem;
+    /* A generous, invisible tap area in the card's corner; the chevron
+       and its pressed circle stay small in the middle of it. */
+    right: 0;
+    bottom: 0;
     z-index: 3;
     display: inline-grid;
     place-items: center;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 3.5rem;
+    height: 3.5rem;
     padding: 0;
     color: #918c84;
     background: transparent;
     border: 0;
-    border-radius: 999px;
+    border-radius: 0 0 0.44rem 0;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     transition:
@@ -2696,7 +2698,21 @@ a:focus-visible {
       background-color 160ms ease;
   }
 
+  .writing-file-toggle::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: transparent;
+    border-radius: 999px;
+    content: "";
+    transform: translate(-50%, -50%);
+    transition: background-color 160ms ease;
+  }
+
   .writing-file-toggle svg {
+    position: relative;
     width: 1.15rem;
     height: 1.15rem;
     fill: none;
@@ -2714,8 +2730,12 @@ a:focus-visible {
   .writing-file-toggle:active,
   .writing-file-toggle:focus-visible {
     color: #ede8df;
-    background: rgba(242, 240, 235, 0.08);
     outline: none;
+  }
+
+  .writing-file-toggle:active::before,
+  .writing-file-toggle:focus-visible::before {
+    background: rgba(242, 240, 235, 0.08);
   }
 
   /* Paper cards: ink-colored chevron, with the pill shifted left of it. */
@@ -2726,12 +2746,16 @@ a:focus-visible {
   .writing-paper-item > .writing-file-toggle:active,
   .writing-paper-item > .writing-file-toggle:focus-visible {
     color: #1f1c18;
+  }
+
+  .writing-paper-item > .writing-file-toggle:active::before,
+  .writing-paper-item > .writing-file-toggle:focus-visible::before {
     background: rgba(31, 28, 24, 0.08);
   }
 
   .has-writing-toggle > .writing-paper-status,
   .has-writing-toggle > .writing-paper-download {
-    right: 3.4rem;
+    right: 3.5rem;
   }
 }
 
