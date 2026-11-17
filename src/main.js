@@ -1,3 +1,6 @@
+// Ship Cascadia Mono so phones (which lack it) match desktop.
+import "@fontsource-variable/cascadia-mono";
+
 const reduceMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)",
 ).matches;

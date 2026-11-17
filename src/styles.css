@@ -3,7 +3,8 @@
   --accent-rgb: 255, 255, 255;
   --accent-muted: #918c84;
   --font-mono:
-    "Cascadia Mono", "Cascadia Code", "SFMono-Regular", Menlo, Monaco,
+    "Cascadia Mono", "Cascadia Mono Variable", "Cascadia Code",
+    "SFMono-Regular", Menlo, Monaco,
     Consolas, "Lucida Console", monospace;
   --font-prose: "Spectral", Georgia, "Times New Roman", serif;
   --background-dot:
