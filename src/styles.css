@@ -182,7 +182,7 @@ a:focus-visible {
   margin: 0;
   color: #ffffff;
   font-family: var(--font-prose);
-  font-size: clamp(3rem, 5vw, 4.4rem);
+  font-size: clamp(2.7rem, 4.5vw, 4rem);
   font-weight: 300;
   line-height: 0.98;
   letter-spacing: -0.015em;
@@ -462,7 +462,7 @@ a:focus-visible {
   }
 
   .intro h1 {
-    font-size: min(3.1rem, calc((100vw - 2.5rem) / 4.4));
+    font-size: min(2.8rem, calc((100vw - 2.5rem) / 4.9));
   }
 
   .intro-tagline {
